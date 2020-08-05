@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box
+}
+
+body,div,h1,h2,h3,h4,h5,h6,html,li,ol,p,ul {
+  margin: 0;
+  padding: 0
+}
+
+.counter-wrapper {
+  display: flex;
+}
+
+.p-inline {
+  display: inline-block;
+  width: 45px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #82de3a;
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 35px;
+}
+
+.incdec-button {
+  position: relative;
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(130, 222, 58, 0.2);
+  border: 1px solid #82de3a;
+  box-sizing: border-box;
+}

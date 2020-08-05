@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Counter from "./components/counter";
+import CardMenu from "./components/card-menu";
+import LeftSidebar from "./components/left-sidebar";
+import TopHeader from "./components/top-header";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <>
+        <TopHeader />
+        <div className="main-container">
+          {/* <LeftSidebar /> */}
+        </div>
+      </>
+    );
+  }
 }
 
 export default App;
