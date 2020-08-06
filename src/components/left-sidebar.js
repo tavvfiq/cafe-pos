@@ -5,36 +5,20 @@ import add_icon from "../assets/img/add.webp";
 import history_icon from "../assets/img/history.webp";
 
 class LeftSidebar extends Component {
-  state = {
-    displayed: true,
-  };
-
-  toggleShow = () => {
-    this.setState({
-      displayed: !this.state.displayed,
-    });
-  };
-
   render() {
-    if (this.state.displayed) {
-      return (
-        <div className="left-sidebar-container">
-          <div className="left-sidebar-items">
-            {/* <button className="show-items"> */}
-            <img src={food_icon} alt="" />
-            {/* </button> */}
-          </div>
-          <div className="left-sidebar-items">
-            <img src={history_icon} alt="" />
-          </div>
-          <div className="left-sidebar-items">
-            <img src={add_icon} alt="" />
-          </div>
+    return (
+      <div className="left-sidebar-container">
+        <div className="left-sidebar-items">
+          <img src={food_icon} alt="" />
         </div>
-      );
-    } else {
-      return null;
-    }
+        <div className="left-sidebar-items">
+          <img src={history_icon} alt="" />
+        </div>
+        <div className="left-sidebar-items">
+          <img src={add_icon} alt="" />
+        </div>
+      </div>
+    );
   }
 }
 

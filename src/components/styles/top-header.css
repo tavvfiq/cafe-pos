@@ -21,7 +21,7 @@ ul {
 
 .left-header-container {
   display: flex;
-  min-width: 360px;
+  min-width: 320px;
   height:10vh;
   /* width:100%; */
 }

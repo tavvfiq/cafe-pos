@@ -7,9 +7,6 @@ import "./styles/top-header.css";
 class TopHeader extends Component {
   constructor(){
     super();
-    this.state = {
-      cartItemCounter: 0,
-    };
     this.onClickHandleMenu = this.onClickHandleMenu.bind(this);
     this.onClickHandleCart = this.onClickHandleCart.bind(this);
   }
@@ -44,7 +41,7 @@ class TopHeader extends Component {
               <div className="cart" onClick={this.onClickHandleCart}>
                 <img src={cart_icon} alt="" />
                 <span className="badge badge-pill badge-info">
-                  {this.state.cartItemCounter}
+                  {this.props.numOfOrders}
                 </span>
               </div>
             </div>

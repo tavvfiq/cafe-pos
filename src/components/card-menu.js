@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./styles/card-menu.css";
 import check from "../assets/img/check.webp";
-import espresso from "../assets/img/espresso.webp";
 
 class CardMenu extends Component {
   constructor(props) {
@@ -11,20 +10,27 @@ class CardMenu extends Component {
       name: props.name,
       price: props.price,
       image_path: props.image_path,
-      checked: false,
+      checked: props.checked,
     };
+    this.updateCard = this.updateCard.bind(this);
+    this.toggleChecked = this.toggleChecked.bind(this);
   }
 
-  toogleChecked = () => {
+  toggleChecked = () => {
     this.setState({
       checked: !this.state.checked,
-    });
+    },this.updateCard);
+    
   };
+
+  updateCard(){
+    this.props.handleCardChange(this.state);
+  }
 
   render() {
     if (this.state.checked) {
       return (
-        <div className="content-item">
+        <div key={this.state.id} className="content-item" onClick={this.toggleChecked}>
           <div className="content-image">
             <img src={this.state.image_path} alt="" />
             <div className="checked-item">
@@ -39,7 +45,7 @@ class CardMenu extends Component {
       );
     } else {
       return (
-        <div className="content-item">
+        <div key={this.state.id} className="content-item" onClick={this.toggleChecked}>
           <div className="content-image">
             <img src={this.state.image_path} alt="" />
           </div>

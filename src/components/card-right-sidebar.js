@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import espresso from "../assets/img/espresso.webp";
 import Counter from "./counter";
-import "./styles/card-sidebar.css"
+import "./styles/card-right-sidebar.css"
 
 class CardSidebar extends React.Component {
   constructor(props) {

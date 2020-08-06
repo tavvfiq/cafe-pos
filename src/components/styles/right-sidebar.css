@@ -26,10 +26,10 @@ ul {
   padding-right: 25px;
   display: flex;
   flex-direction: column;
-  width: 360px;
+  width: 100%;
   height: 90vh;
   top:10vh;
-  min-width: 360px;
+  min-width: 320px;
   max-width: 360px;
   position: fixed;
   overflow-y: auto;
