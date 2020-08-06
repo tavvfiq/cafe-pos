@@ -4,80 +4,13 @@ import CheckoutModal from "./checkout-modal";
 
 import espresso from "../assets/img/espresso.webp";
 
-const obj = {
-  numOfMenus: 9,
-  menus: [
-    {
-      id: 1,
-      name: "Chicken Katsu Dabu-dabu",
-      price: 15000,
-      image_path: espresso,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 2,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 2,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 2,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 2,
-    },
-    {
-      id: 1,
-      name: "espresso",
-      price: 15000,
-      image_path: espresso,
-      quantity: 2,
-    },
-  ],
-};
-
 class checkoutSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      total_price: props.total_price,
+      total_price: props.orderedMenus.reduce((total, menu) => {
+        return total + menu.price * menu.quantity;
+      }, 0),
     };
   }
 
@@ -98,7 +31,7 @@ class checkoutSidebar extends React.Component {
       <>
         <CheckoutModal
           ref={this.CheckoutModalRef}
-          menus={obj.menus}
+          menus={this.props.orderedMenus}
           invoice={10930}
         ></CheckoutModal>
         <div className="checkout-content">

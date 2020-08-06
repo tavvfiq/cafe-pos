@@ -7,8 +7,8 @@ import "./styles/top-header.css";
 class TopHeader extends Component {
   constructor(){
     super();
-    this.onClickHandleMenu = this.onClickHandleMenu.bind(this);
-    this.onClickHandleCart = this.onClickHandleCart.bind(this);
+    // this.onClickHandleMenu = this.onClickHandleMenu.bind(this);
+    // this.onClickHandleCart = this.onClickHandleCart.bind(this);
   }
 
   onClickHandleMenu = ()=>{

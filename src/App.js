@@ -12,19 +12,19 @@ const obj = {
     {
       id: 1,
       name: "Chicken Katsu Dabu-dabu",
-      price: 15000,
+      price: 60000,
       image_path:
         "https://dailycookingquest.com/img/2020/08/ayam-dabu-dabu-3.jpg",
-      quantity: 1,
+      quantity: 0,
       checked: false,
     },
     {
       id: 2,
       name: "Wiener Schnitzel",
-      price: 15000,
+      price: 69000,
       image_path:
         "https://www.thespruceeats.com/thmb/1Ntqkrw7h6LagewLYRvqflUli6A=/2848x2848/smart/filters:no_upscale()/wiener-schnitzel-recipe-1447089-Hero-5b587d6c46e0fb0071b0059d.jpg",
-      quantity: 2,
+      quantity: 0,
       checked: false,
     },
     {
@@ -32,7 +32,7 @@ const obj = {
       name: "espresso",
       price: 15000,
       image_path: espresso,
-      quantity: 2,
+      quantity: 0,
       checked: false,
     },
     {
@@ -40,7 +40,7 @@ const obj = {
       name: "espresso",
       price: 15000,
       image_path: espresso,
-      quantity: 1,
+      quantity: 0,
       checked: false,
     },
     {
@@ -48,7 +48,7 @@ const obj = {
       name: "espresso",
       price: 15000,
       image_path: espresso,
-      quantity: 2,
+      quantity: 0,
       checked: false,
     },
     {
@@ -56,7 +56,7 @@ const obj = {
       name: "espresso",
       price: 15000,
       image_path: espresso,
-      quantity: 1,
+      quantity: 0,
       checked: false,
     },
     {
@@ -64,7 +64,7 @@ const obj = {
       name: "espresso",
       price: 15000,
       image_path: espresso,
-      quantity: 1,
+      quantity: 0,
       checked: false,
     },
     {
@@ -72,7 +72,7 @@ const obj = {
       name: "espresso",
       price: 15000,
       image_path: espresso,
-      quantity: 2,
+      quantity: 0,
       checked: false,
     },
     {
@@ -80,14 +80,10 @@ const obj = {
       name: "espresso",
       price: 15000,
       image_path: espresso,
-      quantity: 2,
+      quantity: 0,
       checked: false,
     },
   ],
-};
-
-const objJ = {
-  numOfMenus: 1,
 };
 
 class App extends Component {
@@ -121,7 +117,15 @@ class App extends Component {
     });
   };
 
-  handleChangeNumOfOrders(state) {}
+  handleChangeNumOfOrders(state) {
+    const sumOfQuantity = state.orderedMenus.reduce((total, orderedMenu) => {
+      return total + orderedMenu.quantity;
+    }, 0);
+    this.setState({
+      numOfOrders: sumOfQuantity,
+      menus: state.orderedMenus
+    });
+  }
 
   handleMenusChange(state) {
     const menusChanged = state.menus;
@@ -131,6 +135,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log("App",this.state.menus[0].quantity);
     return (
       <>
         <header>
@@ -146,17 +151,16 @@ class App extends Component {
             numOfMenus={this.state.numOfMenus}
             menus={this.state.menus}
             handleMenusChange={this.handleMenusChange}
+            handleChangeNumOfOrders={this.handleChangeNumOfOrders}
           />
-          {this.state.rightSidebarDisplayed && (
+          {this.state.rightSidebarDisplayed &&
             <RightSidebar
-              orderedMenus={this.state.menus.filter((menu) => {
-                return menu.checked === true;
-              })}
+              orderedMenus={this.state.menus}
               handleChangeNumOfOrders={this.handleChangeNumOfOrders}
             />
-          )}
+          }
 
-          {this.state.leftSidebarDisplayed && <LeftSidebar />}
+          {this.state.leftSidebarDisplayed && <LeftSidebar/>}
         </div>
       </>
     );

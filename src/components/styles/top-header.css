@@ -57,6 +57,7 @@ ul {
   border-radius: 25px;
   text-align: center;
   position: absolute;
+  font-size: 10px;
   top:50%;
   left: 55%;
   background: #57cad5;
@@ -77,6 +78,7 @@ ul {
 .header-title h4{
   display: table-cell;
   vertical-align: middle;
+  font-weight: bold;
 }
 
 .right-header-container {

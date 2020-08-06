@@ -9,6 +9,16 @@
     margin: 5px 0px;
 }
 
+.header-text {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px 0px 10px 0px;
+}
+
+.header-text h3{
+    font-weight: bold;
+}
+
 .order-content h4{
     font-size:16px;
 }

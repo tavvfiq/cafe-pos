@@ -8,10 +8,16 @@ class CheckoutModal extends React.Component {
     this.state = {
       show: false,
       menus: props.menus,
-      invoice:props.invoice
+      invoice: props.invoice,
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.menus !== this.props.menus) {
+      this.setState({ menus: this.props.menus });
+    }
   }
 
   handleClose() {
@@ -23,11 +29,15 @@ class CheckoutModal extends React.Component {
 
   renderOrderDetails(order) {
     return (
-      <div className="order-content">
+      <div key={this.props.menus} className="order-content">
         <h4>{`${order.quantity} ${order.name}`}</h4>
-        <h4>{order.price ==="" ? "" : `Rp. ${
-          order.price * (order.quantity === "" ? 1 : order.quantity)
-        }`}</h4>
+        <h4>
+          {order.price === ""
+            ? ""
+            : `Rp. ${
+                order.price * (order.quantity === "" ? 1 : order.quantity)
+              }`}
+        </h4>
       </div>
     );
   }
@@ -36,7 +46,9 @@ class CheckoutModal extends React.Component {
     const ppn = this.state.menus.reduce((total, menu) => {
       return total + menu.price * menu.quantity * 0.1;
     }, 0);
-    const totalPrice = ppn + this.state.menus.reduce((total, menu) => {
+    const totalPrice =
+      ppn +
+      this.state.menus.reduce((total, menu) => {
         return total + menu.price * menu.quantity;
       }, 0);
     return (
@@ -50,7 +62,10 @@ class CheckoutModal extends React.Component {
           centered
         >
           <Modal.Body>
-            <h3> Checkout</h3>
+            <div className="header-text">
+              <h3> Checkout</h3>
+              <h3>{`#${this.state.invoice}`}</h3>
+            </div>
             {this.state.menus.map((menu) => {
               return (
                 <div className="order-content-container">
@@ -59,12 +74,12 @@ class CheckoutModal extends React.Component {
               );
             })}
             {this.renderOrderDetails({
-              name: "Ppn 10%",
+              name: "Ppn 10%:",
               quantity: "",
-              price: ppn ,
+              price: ppn,
             })}
             {this.renderOrderDetails({
-              name: "Total",
+              name: "Total:",
               quantity: "",
               price: totalPrice,
             })}

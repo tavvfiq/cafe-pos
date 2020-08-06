@@ -10,6 +10,7 @@ class CardMenu extends Component {
       name: props.name,
       price: props.price,
       image_path: props.image_path,
+      quantity:props.quantity,
       checked: props.checked,
     };
     this.updateCard = this.updateCard.bind(this);
@@ -18,6 +19,7 @@ class CardMenu extends Component {
 
   toggleChecked = () => {
     this.setState({
+      quantity:0,
       checked: !this.state.checked,
     },this.updateCard);
     
