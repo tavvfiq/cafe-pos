@@ -13,21 +13,29 @@ body,div,h1,h2,h3,h4,h5,h6,html,li,ol,p,ul {
 
 .p-inline {
   display: inline-block;
-  width: 45px;
-  height: 40px;
+  width: 9vw;
+  height: 4vh;
+  max-width: 35px;
+  max-height: 30px;
   background: #ffffff;
   border: 1px solid #82de3a;
   box-sizing: border-box;
   vertical-align: middle;
+  line-height:25px;
   text-align: center;
-  line-height: 35px;
+  align-self: center;
 }
 
 .incdec-button {
   position: relative;
   align-self: center;
-  width: 40px;
-  height: 40px;
+  /* vertical-align: middle; */
+  text-align: center;
+  line-height:2vh;
+  max-width: 30px;
+  max-height:30px;
+  width: 8vw;
+  height: 4vh;
   background: rgba(130, 222, 58, 0.2);
   border: 1px solid #82de3a;
   box-sizing: border-box;

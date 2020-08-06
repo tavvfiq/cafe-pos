@@ -9,22 +9,32 @@ class LeftSidebar extends Component {
     displayed: true,
   };
 
+  toggleShow = () => {
+    this.setState({
+      displayed: !this.state.displayed,
+    });
+  };
+
   render() {
-    return (
-      <div className="left-sidebar-container">
-        <div className="left-sidebar-items">
-          {/* <button className="show-items"> */}
-          <img src={food_icon} alt="" />
-          {/* </button> */}
+    if (this.state.displayed) {
+      return (
+        <div className="left-sidebar-container">
+          <div className="left-sidebar-items">
+            {/* <button className="show-items"> */}
+            <img src={food_icon} alt="" />
+            {/* </button> */}
+          </div>
+          <div className="left-sidebar-items">
+            <img src={history_icon} alt="" />
+          </div>
+          <div className="left-sidebar-items">
+            <img src={add_icon} alt="" />
+          </div>
         </div>
-        <div className="left-sidebar-items">
-          <img src={history_icon} alt="" />
-        </div>
-        <div className="left-sidebar-items">
-          <img src={add_icon} alt="" />
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }
 
