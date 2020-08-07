@@ -7,7 +7,7 @@ class Menus extends React.Component {
     super(props);
     this.state = {
       numOfMenus: props.numOfMenus,
-      menus: props.menus,
+      menus: [...props.menus],
     };
     this.handleCardChange = this.handleCardChange.bind(this);
     this.handleMenusChange = this.handleMenusChange.bind(this);
@@ -30,7 +30,7 @@ class Menus extends React.Component {
           this.state.menus
         ),
       },
-      this.handleMenusChange, this.handleChangeNumOfOrders
+      this.handleMenusChange
     );
   }
 
@@ -41,6 +41,9 @@ class Menus extends React.Component {
   }
 
   handleChangeNumOfOrders(){
+    console.log(this.state.menus.filter((menu)=>{
+      return menu.checked===true;
+    }));
     this.props.handleChangeNumOfOrders(this.state.menus.filter((menu)=>{
       return menu.checked===true;
     }));

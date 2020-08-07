@@ -3,6 +3,11 @@
     flex-direction: column;
 }
 
+.modal-header {
+    display: flex;
+    flex-direction: column;
+}
+
 .order-content{
     display: flex;
     justify-content: space-between;
@@ -11,6 +16,7 @@
 
 .header-text {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     margin: 2px 0px 10px 0px;
 }
@@ -23,9 +29,19 @@
     font-size:16px;
 }
 
+.cashier-name{
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
 @media all and (min-width:992px){
     .order-content h4{
         font-size:24px;
+    }
+
+    .cashier-name{
+        font-size: 20px;
     }
 }
 
@@ -33,10 +49,18 @@
     .order-content h4{
         font-size:20px;
     }
+
+    .cashier-name{
+        font-size: 18px;
+    }
 }
 
 @media all and (min-width:567px){
     .order-content h4{
         font-size:18px;
+    }
+
+    .cashier-name{
+        font-size: 14px;
     }
 }

@@ -9,6 +9,7 @@ class CheckoutModal extends React.Component {
       show: false,
       menus: props.menus,
       invoice: props.invoice,
+      cashier: "Taufiq Widi",
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
@@ -29,7 +30,7 @@ class CheckoutModal extends React.Component {
 
   renderOrderDetails(order) {
     return (
-      <div key={this.props.menus} className="order-content">
+      <div className="order-content">
         <h4>{`${order.quantity} ${order.name}`}</h4>
         <h4>
           {order.price === ""
@@ -61,11 +62,14 @@ class CheckoutModal extends React.Component {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <Modal.Body>
+          <Modal.Header className="modal-header">
             <div className="header-text">
               <h3> Checkout</h3>
               <h3>{`#${this.state.invoice}`}</h3>
             </div>
+            <p className="cashier-name">Cashier: {this.state.cashier}</p>
+          </Modal.Header>
+          <Modal.Body>
             {this.state.menus.map((menu) => {
               return (
                 <div className="order-content-container">
@@ -90,10 +94,10 @@ class CheckoutModal extends React.Component {
             })}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+            <Button variant="danger" onClick={this.handleClose}>
               Send Email
             </Button>
-            <Button variant="primary">Print</Button>
+            <Button variant="primary" onClick={this.handleClose}>Print</Button>
           </Modal.Footer>
         </Modal>
       </>

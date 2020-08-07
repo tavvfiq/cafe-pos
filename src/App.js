@@ -4,7 +4,10 @@ import LeftSidebar from "./components/left-sidebar";
 import RightSidebar from "./components/right-sidebar";
 import TopHeader from "./components/top-header";
 import Menus from "./components/menu";
+import SearchModal from "./components/search-modal";
+import AddItemModal from "./components/additem-modal";
 import espresso from "./assets/img/espresso.webp";
+import Axios from "axios";
 
 const obj = {
   numOfMenus: 9,
@@ -92,9 +95,9 @@ class App extends Component {
     this.state = {
       leftSidebarDisplayed: false,
       rightSidebarDisplayed: false,
-      numOfmenus: obj.numOfMenus,
+      numOfmenus: 0,
       numOfOrders: 0,
-      menus: obj.menus,
+      menus: [],
     };
 
     this.handleClickLeftSidebar = this.handleClickLeftSidebar.bind(this);
@@ -118,30 +121,75 @@ class App extends Component {
   };
 
   handleChangeNumOfOrders(state) {
-    const sumOfQuantity = state.orderedMenus.reduce((total, orderedMenu) => {
+    const sumOfQuantity = state.menus.reduce((total, orderedMenu) => {
       return total + orderedMenu.quantity;
     }, 0);
     this.setState({
       numOfOrders: sumOfQuantity,
-      menus: state.orderedMenus
+      menus: state.menus,
     });
   }
 
   handleMenusChange(state) {
     const menusChanged = state.menus;
     this.setState({
-      menus: menusChanged,
+      menus: [...menusChanged],
     });
   }
 
+  searchModalRef = (props) => {
+    if (props === null) {
+      return;
+    }
+    const { handleShow } = props;
+    this.showSearchModal = handleShow;
+  };
+
+  addItemModalRef = (props) => {
+    if (props === null) {
+      return;
+    }
+    const { handleShow } = props;
+    this.showAddItemModal = handleShow;
+  };
+
+  componentDidMount(){
+    this.updateMenu();
+  }
+
+  updateMenu = () => {
+    const URLString = "http://localhost:8000/product/";
+    Axios.get(URLString)
+      .then((res) => {
+        console.log(res.data.data);
+        this.setState({
+          numOfMenus: res.data.data.length,
+          menus: [
+            ...res.data.data.map((menu) => {
+              return { ...menu, checked: false, quantity:0};
+            }),
+          ],
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  onClickSearch = () => {
+    this.showSearchModal();
+  };
+
+  onClickAddItem = () => {
+    this.showAddItemModal();
+  };
+
   render() {
-    // console.log("App",this.state.menus[0].quantity);
     return (
       <>
         <header>
           <TopHeader
             ifClickedMenu={this.handleClickLeftSidebar}
             ifClickedCart={this.handleClickRightSidebar}
+            onClickSearch={this.onClickSearch}
             numOfOrders={this.state.numOfOrders}
           />
         </header>
@@ -153,15 +201,24 @@ class App extends Component {
             handleMenusChange={this.handleMenusChange}
             handleChangeNumOfOrders={this.handleChangeNumOfOrders}
           />
-          {this.state.rightSidebarDisplayed &&
-            <RightSidebar
-              orderedMenus={this.state.menus}
-              handleChangeNumOfOrders={this.handleChangeNumOfOrders}
-            />
-          }
+          {/* {this.state.rightSidebarDisplayed && ( */}
+          <RightSidebar
+            displayed={this.state.rightSidebarDisplayed}
+            menus={this.state.menus}
+            handleChangeNumOfOrders={this.handleChangeNumOfOrders}
+            handleMenusChange={this.handleMenusChange}
+          />
+          {/* )} */}
 
-          {this.state.leftSidebarDisplayed && <LeftSidebar/>}
+          {/* {this.state.leftSidebarDisplayed &&  */}
+          <LeftSidebar
+            displayed={this.state.leftSidebarDisplayed}
+            onClickAddItem={this.onClickAddItem}
+          />
+          {/* } */}
         </div>
+        <SearchModal ref={this.searchModalRef} />
+        <AddItemModal ref={this.addItemModalRef} />
       </>
     );
   }

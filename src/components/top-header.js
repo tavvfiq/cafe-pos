@@ -5,19 +5,41 @@ import cart_icon from "../assets/img/cart.webp";
 import "./styles/top-header.css";
 
 class TopHeader extends Component {
-  constructor(){
-    super();
-    // this.onClickHandleMenu = this.onClickHandleMenu.bind(this);
-    // this.onClickHandleCart = this.onClickHandleCart.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      numOfOrders: props.numOfOrders,
+    };
+    this.onClickHandleMenu = this.onClickHandleMenu.bind(this);
+    this.onClickHandleCart = this.onClickHandleCart.bind(this);
+    this.onClickHandleSearch = this.onClickHandleSearch.bind(this);
   }
 
-  onClickHandleMenu = ()=>{
+  onClickHandleMenu() {
     this.props.ifClickedMenu();
   }
 
-  onClickHandleCart = ()=>{
+  onClickHandleCart() {
     this.props.ifClickedCart();
   }
+
+  onClickHandleSearch() {
+    this.props.onClickSearch();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // console.log(nextProps);
+    if (nextProps.numOfOrders !== prevState.numOfOrders) {
+      return { numOfOrders: nextProps.numOfOrders };
+    } else return null;
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.numOfOrders !== this.props.numOfOrders) {
+  //     //Perform some operation here
+  //     this.setState({ numOfOrders: this.props.numOfOrders });
+  //   }
+  // }
 
   render() {
     return (
@@ -25,23 +47,19 @@ class TopHeader extends Component {
         <div className="row no-gutters">
           <div className="col-12 col-xs-12 col-sm-12">
             <div className="left-header-container">
-              <div
-                className="menu"
-                onClick={
-                  this.onClickHandleMenu}
-              >
+              <div className="menu" onClick={this.onClickHandleMenu}>
                 <img src={menu_icon} alt="" />
               </div>
               <div className="header-title">
-                <h4>Food Items</h4>
+                <h4>Menus</h4>
               </div>
-              <div className="search">
+              <div className="search" onClick={this.onClickHandleSearch}>
                 <img src={search_icon} alt="" />
               </div>
               <div className="cart" onClick={this.onClickHandleCart}>
                 <img src={cart_icon} alt="" />
                 <span className="badge badge-pill badge-info">
-                  {this.props.numOfOrders}
+                  {this.state.numOfOrders}
                 </span>
               </div>
             </div>

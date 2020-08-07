@@ -6,11 +6,11 @@ class CardMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id:props.id,
+      id: props.id,
       name: props.name,
       price: props.price,
       image_path: props.image_path,
-      quantity:props.quantity,
+      quantity: props.quantity,
       checked: props.checked,
     };
     this.updateCard = this.updateCard.bind(this);
@@ -18,21 +18,33 @@ class CardMenu extends Component {
   }
 
   toggleChecked = () => {
-    this.setState({
-      quantity:0,
-      checked: !this.state.checked,
-    },this.updateCard);
-    
+    this.setState(
+      {
+        quantity: 0,
+        checked: !this.state.checked,
+      },
+      this.updateCard
+    );
   };
 
-  updateCard(){
+  componentDidUpdate(prevProps) {
+    if (prevProps.checked !== this.props.checked) {
+      this.setState({ checked: this.props.checked });
+    }
+  }
+
+  updateCard() {
     this.props.handleCardChange(this.state);
   }
 
   render() {
     if (this.state.checked) {
       return (
-        <div key={this.state.id} className="content-item" onClick={this.toggleChecked}>
+        <div
+          key={this.state.id}
+          className="content-item"
+          onClick={this.toggleChecked}
+        >
           <div className="content-image">
             <img src={this.state.image_path} alt="" />
             <div className="checked-item">
@@ -47,7 +59,11 @@ class CardMenu extends Component {
       );
     } else {
       return (
-        <div key={this.state.id} className="content-item" onClick={this.toggleChecked}>
+        <div
+          key={this.state.id}
+          className="content-item"
+          onClick={this.toggleChecked}
+        >
           <div className="content-image">
             <img src={this.state.image_path} alt="" />
           </div>
