@@ -19,8 +19,45 @@ ul {
   padding: 0;
 }
 
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes slide-out {
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+  }
+}
+
 .right-sidebar-container {
-  background: #fff;
+  background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border: 1px solid #cecece;
   padding-left: 25px;
   padding-right: 25px;
@@ -28,38 +65,126 @@ ul {
   flex-direction: column;
   width: 100%;
   height: 90vh;
-  top:10vh;
+  top: 10vh;
   min-width: 320px;
   max-width: 360px;
   position: fixed;
   overflow-y: auto;
   z-index: 10;
+  transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  animation: slide-out 0.5s forwards;
+  -webkit-animation: slide-out 0.5s forwards;
+}
+
+.right-sidebar-container-show {
+  background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  border: 1px solid #cecece;
+  padding-left: 25px;
+  padding-right: 25px;
+  display: flex;
+  flex-direction: column;
+  transform: translate(0);
+  width: 100%;
+  height: 90vh;
+  top: 10vh;
+  min-width: 320px;
+  max-width: 360px;
+  position: fixed;
+  overflow-y: auto;
+  z-index: 10;
+  transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
 }
 
 .right-sidebar-content {
-    text-align: center;
-    margin-top: 50px
+  text-align: center;
+  margin-top: 50px;
 }
 
 .right-sidebar-content h4 {
-    font-size: 30px
+  font-size: 30px;
 }
 
 .right-sidebar-content p {
-    padding: 0 10px;
-    font-size: 20px;
-    color: #cecece
+  padding: 0 10px;
+  font-size: 20px;
+  color: #cecece;
 }
 
 .right-sidebar-content img {
-    height: 40%;
-    width: 40%;
-    object-fit: contain
+  height: 40%;
+  width: 40%;
+  object-fit: contain;
+}
+
+.checkout-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-text {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20%;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-btn {
+  margin: 10px 0px;
+}
+
+.cancel-btn {
+  margin-bottom: 10px;
 }
 
 @media all and (min-width: 361px) {
+  @keyframes slide-in {
+    0% {
+      -webkit-transform: translateX(100%);
+    }
+    100% {
+      -webkit-transform: translateX(0%);
+    }
+  }
+  
+  @-webkit-keyframes slide-in {
+    0% {
+      -webkit-transform: translateX(100%);
+    }
+    100% {
+      -webkit-transform: translateX(0%);
+    }
+  }
+  
+  @keyframes slide-out {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  @-webkit-keyframes slide-out {
+    0% {
+      -webkit-transform: translateX(0%);
+    }
+    100% {
+      -webkit-transform: translateX(100%);
+    }
+  }
+  
   .right-sidebar-container {
-    background: #fff;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     border: 1px solid #cecece;
     padding-left: 25px;
     padding-right: 25px;
@@ -71,7 +196,32 @@ ul {
     max-width: 360px;
     position: fixed;
     overflow-y: auto;
-    top:10vh;
+    top: 10vh;
+    transform: translateX(300%);
+    -webkit-transform: translateX(300%);
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+    left: calc(100% - 360px);
+    z-index: 10;
+  }
+
+  .right-sidebar-container-show {
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    border: 1px solid #cecece;
+    padding-left: 25px;
+    padding-right: 25px;
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    height: 90vh;
+    min-width: 360px;
+    max-width: 360px;
+    position: fixed;
+    overflow-y: auto;
+    top: 10vh;
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
     left: calc(100% - 360px);
     z-index: 10;
   }

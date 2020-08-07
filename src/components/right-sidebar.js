@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import CardSidebar from "./card-right-sidebar";
-import CheckoutSidebar from "./checkout-right-sidebar";
 import "./styles/right-sidebar.css";
 import empty_cart from "../assets/img/empty_cart.webp";
 import { update } from "ramda";
+import CheckoutModal from "./checkout-modal";
+import { Transition, CSSTransition } from "react-transition-group";
 
 class RightSidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orderedMenus: props.orderedMenus,
+      menus: [...props.menus],
     };
 
     this.handleChangeNumOfOrders = this.handleChangeNumOfOrders.bind(this);
@@ -32,29 +33,41 @@ class RightSidebar extends React.Component {
   }
 
   handleChangeNumOfOrders(state) {
-    const changedNumOfOrder = this.state.orderedMenus.findIndex(
+    const changedNumOfOrder = this.state.menus.findIndex(
       (orderedMenu) => {
         return orderedMenu.id === state.id;
       }
     );
     this.setState(
       {
-        orderedMenus: update(
+        menus: update(
           changedNumOfOrder,
           {
-            ...this.state.orderedMenus[changedNumOfOrder],
+            ...this.state.menus[changedNumOfOrder],
             quantity: state.quantity,
           },
-          this.state.orderedMenus
+          this.state.menus
         ),
       },
       this.updateNumOfOrders
     );
   }
 
+  CheckoutModalRef = (props) => {
+    if (props === null) {
+      return;
+    }
+    const { handleShow } = props;
+    this.showModal = handleShow;
+  };
+
+  onClickCheckout = () => {
+    this.showModal();
+  };
+
   componentDidUpdate(prevProps) {
-    if (prevProps.orderedMenus !== this.props.orderedMenus) {
-      this.setState({ orderedMenus: this.props.orderedMenus });
+    if (prevProps.menus !== this.props.menus) {
+      this.setState({ menus: this.props.menus });
     }
   }
 
@@ -62,31 +75,84 @@ class RightSidebar extends React.Component {
     this.props.handleChangeNumOfOrders(this.state);
   }
 
+  unCheckedAllMenus = () => {
+    this.setState({
+      menus: [
+        ...this.state.menus.map((menu) => {
+          return { ...menu, checked: false, quantity:0 };
+        }),
+      ],
+    },this.handleMenusChange);
+  }
+
+  handleMenusChange = ()=>{
+    this.props.handleMenusChange(this.state);
+  }
+
   render() {
-    // console.log("right", this.state.orderedMenus[0].quantity);
-    let orderedMenus = this.state.orderedMenus.filter((menu) => {
+    let orderedMenus = this.state.menus.filter((menu) => {
       return menu.checked === true;
     });
+    let content = <></>;
     if (orderedMenus.length !== 0) {
-      return (
-        <div className="right-sidebar-container">
+      content = (
+        <>
           {orderedMenus.map((menu) => {
             return this.renderCardSidebar(menu);
           })}
-          <CheckoutSidebar orderedMenus={orderedMenus} />
-        </div>
+          <div className="checkout-content">
+            <div className="checkout-text">
+              <h5>
+                Total: <br />
+                *belum termasuk ppn
+              </h5>
+              <h5>
+                {orderedMenus.reduce((total, menu) => {
+                  return total + menu.price * menu.quantity;
+                }, 0)}
+              </h5>
+            </div>
+            <div className="btn-container">
+              <button
+                className="btn btn-primary checkout-btn"
+                onClick={this.onClickCheckout}
+              >
+                Checkout
+              </button>
+              <button className="btn btn-danger cancel-btn" onClick={this.unCheckedAllMenus}>Cancel</button>
+            </div>
+          </div>
+        </>
       );
     } else {
-      return (
-        <div className="right-sidebar-container">
+      content = (
+        <>
           <div className="right-sidebar-content">
             <img src={empty_cart} alt="" />
             <h4>Your cart is empty</h4>
             <p>Please add some items from the menu</p>
           </div>
-        </div>
+        </>
       );
     }
+    return (
+      <>
+        <CheckoutModal
+          ref={this.CheckoutModalRef}
+          menus={orderedMenus}
+          invoice={10930}
+        ></CheckoutModal>
+        <div
+          className={
+            this.props.displayed
+              ? "right-sidebar-container-show"
+              : "right-sidebar-container"
+          }
+        >
+          {content}
+        </div>
+      </>
+    );
   }
 }
 

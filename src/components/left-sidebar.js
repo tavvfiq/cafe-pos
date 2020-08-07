@@ -5,24 +5,29 @@ import add_icon from "../assets/img/add.webp";
 import history_icon from "../assets/img/history.webp";
 
 class LeftSidebar extends Component {
+  constructor(){
+    super();
+    this.onClickHandeAddItem = this.onClickHandeAddItem.bind(this);
+  }
+
+  onClickHandeAddItem(){
+    this.props.onClickAddItem();
+  }
+
   render() {
-    // if (this.props.displayed) {
-      return (
-        <div className="left-sidebar-container">
-          <div className="left-sidebar-items">
-            <img src={food_icon} alt="" />
-          </div>
-          <div className="left-sidebar-items">
-            <img src={history_icon} alt="" />
-          </div>
-          <div className="left-sidebar-items">
-            <img src={add_icon} alt="" />
-          </div>
+    return (
+      <div className={this.props.displayed ? "left-sidebar-container-show" : "left-sidebar-container"}>
+        <div className="left-sidebar-items">
+          <img src={food_icon} alt="" />
         </div>
-      );
-    // } else {
-    //   return null;
-    // }
+        <div className="left-sidebar-items">
+          <img src={history_icon} alt="" />
+        </div>
+        <div className="left-sidebar-items" onClick={this.onClickHandeAddItem}>
+          <img src={add_icon} alt="" />
+        </div>
+      </div>
+    );
   }
 }
 

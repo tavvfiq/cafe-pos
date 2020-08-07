@@ -1,43 +1,110 @@
 * {
-    box-sizing: border-box
+  box-sizing: border-box;
 }
 
-body,div,h1,h2,h3,h4,h5,h6,html,li,ol,p,ul {
-    margin: 0;
-    padding: 0
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+li,
+ol,
+p,
+ul {
+  margin: 0;
+  padding: 0;
 }
 
-.left-sidebar-items img{
-    height: 35%;
-    width: 35.35%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    object-fit: contain;
-    transition: all .5s
-}
-
-.left-sidebar-container {
+@keyframes left-slide-in {
+    0% {
+      transform: translateX(-80px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+  
+  @-webkit-keyframes left-slide-in {
+    0% {
+      -webkit-transform: translateX(-80px);
+    }
+    100% {
+      -webkit-transform: translateX(0px);
+    }
+  }
+  
+  @keyframes left-slide-out {
+    from {
+      transform: translateX(0px);
+    }
+    to {
+      transform: translateX(-80px);
+    }
+  }
+  
+  @-webkit-keyframes left-slide-out {
+    0% {
+      -webkit-transform: translateX(0px);
+    }
+    100% {
+      -webkit-transform: translateX(-80px);
+    }
+  }
+  
+  .left-sidebar-container {
     width: 80px;
     height: 100%;
     background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     display: flex;
-    left:0;
-    top:10vh;
+    left: 0;
+    top: 10vh;
+    min-width:80px;
+    max-width:80px;
     flex-direction: column;
     position: fixed;
-    z-index:10;
+    z-index: 10;
+    transform: translateX(0px);
+    -webkit-transform: translateX(0px);
+    animation: left-slide-out 0.5s forwards;
+    -webkit-animation: left-slide-out 0.5s forwards;
+  }
+  
+  .left-sidebar-container-show {
+    width: 80px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    display: flex;
+    left: 0;
+    top: 10vh;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10;
+    transform: translateX(-80px);
+    -webkit-transform: translateX(-80px);
+    animation: left-slide-in 0.5s forwards;
+    -webkit-animation: left-slide-in 0.5s forwards;
+  }
+
+.left-sidebar-items img {
+  height: 35%;
+  width: 35.35%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  object-fit: contain;
+  transition: all 0.5s;
 }
 
 .left-sidebar-items {
-    height: 12%;
-    position: relative
-}
-
-@media all and (min-width:768px){
-
+  height: 12%;
+  position: relative;
 }
