@@ -43,7 +43,7 @@ class CardMenu extends Component {
       return (
         <div
           key={this.state.id}
-          className="content-item"
+          className="col-6 col-xs-4 col-sm-4 col-md-3 col-lg-3 content-item"
           onClick={this.toggleChecked}
         >
           <div className="content-image">
@@ -62,11 +62,14 @@ class CardMenu extends Component {
       return (
         <div
           key={this.state.id}
-          className="content-item"
+          className="col-6 col-xs-4 col-sm-4 col-md-3 col-lg-3 content-item"
           onClick={this.toggleChecked}
         >
           <div className="content-image">
             <img src={this.state.image_path} alt="" />
+            <div className="checked-item-exit">
+              <img src={check} alt="" />
+            </div>
           </div>
           <div className="content-text">
             <h5>{this.state.name}</h5>

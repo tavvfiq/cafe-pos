@@ -38,11 +38,6 @@ class Menus extends React.Component {
   }
 
   handleChangeNumOfOrders = () => {
-    console.log(
-      this.state.menus.filter((menu) => {
-        return menu.checked === true;
-      })
-    );
     this.props.handleChangeNumOfOrders(
       this.state.menus.filter((menu) => {
         return menu.checked === true;
@@ -71,18 +66,14 @@ class Menus extends React.Component {
   }
 
   render() {
-    const unFilteredMenus = this.state.menus.filter((menu)=>{
-      return menu.filtered===false;
-    })
+    const unFilteredMenus = this.state.menus.filter((menu) => {
+      return menu.filtered === false;
+    });
     return (
       <Fragment key={this.props.menus}>
         <div className="row no-gutters">
           {unFilteredMenus.map((unFilteredMenu) => {
-            return (
-              <div className="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                {this.renderCardMenu(unFilteredMenu)}
-              </div>
-            );
+            return this.renderCardMenu(unFilteredMenu);
           })}
         </div>
       </Fragment>

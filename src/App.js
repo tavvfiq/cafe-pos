@@ -136,11 +136,11 @@ class App extends Component {
     Axios.get("http://localhost:8001/product/")
       .then((res) => {
         let { menus } = this.state;
-        const menusLength = this.state.menus.length;
+        const menusLength = menus.length;
         const responseData = res.data.data;
         let newMenus = [];
         if (menusLength !== 0) {
-          newMenus = responseData;
+          newMenus = [...responseData];
           for (let i = 0; i < responseData.length; i++) {
             const idx = menus.findIndex((menu) => {
               return responseData[i].id === menu.id;
@@ -149,7 +149,7 @@ class App extends Component {
               newMenus = update(
                 i,
                 {
-                  ...responseData[i],
+                  ...newMenus[i],
                   quantity: menus[idx].quantity,
                   checked: menus[idx].checked,
                   filtered: false,
@@ -157,15 +157,16 @@ class App extends Component {
                 newMenus
               );
             } else {
-              newMenus = [
-                ...newMenus,
+              newMenus = update(
+                i,
                 {
-                  ...responseData[i],
+                  ...newMenus[i],
                   quantity: 0,
                   checked: false,
                   filtered: false,
                 },
-              ];
+                newMenus
+              );
             }
           }
         } else {

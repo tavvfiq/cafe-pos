@@ -87,6 +87,7 @@ class RightSidebar extends React.Component {
   }
 
   render() {
+    const invoice = Math.round((Math.random()*100000));
     let orderedMenus = this.state.menus.filter((menu) => {
       return menu.checked === true;
     });
@@ -103,10 +104,9 @@ class RightSidebar extends React.Component {
                 Total: <br />
                 *belum termasuk ppn
               </h5>
-              <h5>
-                {orderedMenus.reduce((total, menu) => {
+              <h5>{`Rp. ${orderedMenus.reduce((total, menu) => {
                   return total + menu.price * menu.quantity;
-                }, 0)}
+                }, 0)}`}
               </h5>
             </div>
             <div className="btn-container">
@@ -137,7 +137,8 @@ class RightSidebar extends React.Component {
         <CheckoutModal
           ref={this.CheckoutModalRef}
           menus={orderedMenus}
-          invoice={10930}
+          invoice={invoice}
+          onClickCheckout={this.unCheckedAllMenus}
         ></CheckoutModal>
         <div
           className={

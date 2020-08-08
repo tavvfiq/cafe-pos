@@ -26,7 +26,7 @@ class AddItemModal extends React.Component {
   };
 
   addItem = () => {
-    const URLString = "http://localhost:8000/product/";
+    const URLString = "http://localhost:8001/product/";
     const category = this.currCatId;
     const data = {
       name: this.currName,
@@ -85,7 +85,7 @@ class AddItemModal extends React.Component {
           <Modal.Body>
             <div className="form-wrapper">
               <div className="form-group">
-                <label for="menuName">Name</label>
+                <label htmlFor="menuName">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -95,7 +95,7 @@ class AddItemModal extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="imagePath">Image</label>
+                <label htmlFor="imagePath">Image</label>
                 <input
                   type="text"
                   className="form-control"
@@ -105,7 +105,7 @@ class AddItemModal extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="menuPrice">Price</label>
+                <label htmlFor="menuPrice">Price</label>
                 <input
                   type="text"
                   className="form-control"
@@ -115,7 +115,7 @@ class AddItemModal extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="menuPrice">Price</label>
+                <label htmlFor="menuPrice">Price</label>
                 <select
                   className="form-control"
                   id="menuPrice"
