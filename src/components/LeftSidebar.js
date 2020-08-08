@@ -3,7 +3,7 @@ import "./styles/left-sidebar.css";
 import food_icon from "../assets/img/foods.webp";
 import add_icon from "../assets/img/add.webp";
 import history_icon from "../assets/img/history.webp";
-import AddItemModal from "./additem-modal";
+import AddItemModal from "./AddItemModal";
 
 class LeftSidebar extends Component {
   constructor() {
@@ -33,7 +33,7 @@ class LeftSidebar extends Component {
   render() {
     return (
       <>
-        <AddItemModal updateMenu={this.props.updateMenu} ref={this.addItemModalRef} />
+        {this.props.updateMenu !== undefined ? <AddItemModal updateMenu={this.props.updateMenu} ref={this.addItemModalRef} /> : null}
         <div
           className={
             this.props.displayed

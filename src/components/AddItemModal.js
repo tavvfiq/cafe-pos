@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
-import ToastMessage from "./toast-message";
+import ToastMessage from "./ToastMessage";
 
 import "./styles/additem-modal.css";
 
@@ -33,7 +33,7 @@ class AddItemModal extends React.Component {
       image_path: this.currImgPath,
       price: this.currPrice,
       category_id:
-        category === "Main Course" ? 1 : category === "Dessert" ? 2 : 3,
+        category === "Main Course" ? 1 : category === "Dessert" ? 2 : category === "Beverage" ? 3 : 4,
     };
     Axios.post(URLString, data)
       .then((res) => {
@@ -124,6 +124,7 @@ class AddItemModal extends React.Component {
                   <option>Main Course</option>
                   <option>Dessert</option>
                   <option>Beverage</option>
+                  <option>Snack</option>
                 </select>
               </div>
             </div>

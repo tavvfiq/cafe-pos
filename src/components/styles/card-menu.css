@@ -44,6 +44,7 @@ ul {
   padding: 10px auto;
   margin: 20px auto auto auto;
   position: relative;
+  animation: fadein 0.5s;;
 }
 
 .content-image {

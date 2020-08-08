@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CardSidebar from "./card-right-sidebar";
+import CardSidebar from "./CardRightSidebar";
 import "./styles/right-sidebar.css";
 import empty_cart from "../assets/img/empty_cart.webp";
 import { update } from "ramda";
-import CheckoutModal from "./checkout-modal";
+import CheckoutModal from "./ChechoutModal";
 import { Transition, CSSTransition } from "react-transition-group";
 
 class RightSidebar extends React.Component {

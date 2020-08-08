@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./Home.css";
-import LeftSidebar from "../components/left-sidebar";
-import RightSidebar from "../components/right-sidebar";
-import TopHeader from "../components/top-header";
-import Menus from "../components/menu";
+import LeftSidebar from "../components/LeftSidebar";
+import RightSidebar from "../components/RightSidebar";
+import TopHeader from "../components/TopHeader";
+import Menus from "../components/Menus";
 import espresso from "../assets/img/espresso.webp";
 import Axios from "axios";
 import { update } from "ramda";

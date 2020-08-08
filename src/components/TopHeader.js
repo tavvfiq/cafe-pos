@@ -3,7 +3,7 @@ import menu_icon from "../assets/img/menu.webp";
 import search_icon from "../assets/img/search.webp";
 import cart_icon from "../assets/img/cart.webp";
 import "./styles/top-header.css";
-import SearchModal from "./search-modal";
+import SearchModal from "./SearchModal";
 
 class TopHeader extends Component {
   constructor(props) {

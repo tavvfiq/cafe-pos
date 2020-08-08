@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import CardMenu from "./card-menu";
+import CardMenu from "./CardMenu";
 import { update } from "ramda";
 
 class Menus extends React.Component {
@@ -72,9 +72,22 @@ class Menus extends React.Component {
     return (
       <Fragment key={this.props.menus}>
         <div className="row no-gutters">
-          {unFilteredMenus.map((unFilteredMenu) => {
-            return this.renderCardMenu(unFilteredMenu);
-          })}
+          {unFilteredMenus.length !== 0 ? (
+            unFilteredMenus.map((unFilteredMenu) => {
+              return this.renderCardMenu(unFilteredMenu);
+            })
+          ) : (
+            <h3
+              style={{
+                width: "100%",
+                height: "100%",
+                lineHeight: "500px",
+                textAlign: "center",
+              }}
+            >
+              Server seems offline:(
+            </h3>
+          )}
         </div>
       </Fragment>
     );

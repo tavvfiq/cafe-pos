@@ -102,7 +102,7 @@ class SearchModal extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+            <Button variant="danger" onClick={this.handleClose}>
               Cancel
             </Button>
             <Button variant="primary" onClick={this.fetchData}>

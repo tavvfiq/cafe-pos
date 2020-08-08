@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Counter from "./counter";
+import Counter from "./Counter";
 import "./styles/card-right-sidebar.css";
 
 class CardSidebar extends React.Component {
