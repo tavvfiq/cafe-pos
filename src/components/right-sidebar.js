@@ -12,9 +12,6 @@ class RightSidebar extends React.Component {
     this.state = {
       menus: [...props.menus],
     };
-
-    this.handleChangeNumOfOrders = this.handleChangeNumOfOrders.bind(this);
-    this.updateNumOfOrders = this.updateNumOfOrders.bind(this);
   }
 
   renderCardSidebar(property) {
@@ -32,7 +29,7 @@ class RightSidebar extends React.Component {
     );
   }
 
-  handleChangeNumOfOrders(state) {
+  handleChangeNumOfOrders = (state) => {
     const changedNumOfOrder = this.state.menus.findIndex(
       (orderedMenu) => {
         return orderedMenu.id === state.id;
@@ -71,7 +68,7 @@ class RightSidebar extends React.Component {
     }
   }
 
-  updateNumOfOrders() {
+  updateNumOfOrders = ()=> {
     this.props.handleChangeNumOfOrders(this.state);
   }
 

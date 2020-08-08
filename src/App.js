@@ -4,10 +4,9 @@ import LeftSidebar from "./components/left-sidebar";
 import RightSidebar from "./components/right-sidebar";
 import TopHeader from "./components/top-header";
 import Menus from "./components/menu";
-import SearchModal from "./components/search-modal";
-import AddItemModal from "./components/additem-modal";
 import espresso from "./assets/img/espresso.webp";
 import Axios from "axios";
+import { update } from "ramda";
 
 const obj = {
   numOfMenus: 9,
@@ -96,14 +95,10 @@ class App extends Component {
       leftSidebarDisplayed: false,
       rightSidebarDisplayed: false,
       numOfmenus: 0,
-      numOfOrders: 0,
       menus: [],
     };
 
-    this.handleClickLeftSidebar = this.handleClickLeftSidebar.bind(this);
-    this.handleClickRightSidebar = this.handleClickRightSidebar.bind(this);
-    this.handleChangeNumOfOrders = this.handleChangeNumOfOrders.bind(this);
-    this.handleMenusChange = this.handleMenusChange.bind(this);
+    this.lastMenus = [];
   }
 
   handleClickLeftSidebar = () => {
@@ -120,69 +115,123 @@ class App extends Component {
     });
   };
 
-  handleChangeNumOfOrders(state) {
-    const sumOfQuantity = state.menus.reduce((total, orderedMenu) => {
-      return total + orderedMenu.quantity;
-    }, 0);
+  handleChangeNumOfOrders = (state) => {
     this.setState({
-      numOfOrders: sumOfQuantity,
-      menus: state.menus,
+      menus: [...state.menus],
     });
-  }
+  };
 
-  handleMenusChange(state) {
+  handleMenusChange = (state) => {
     const menusChanged = state.menus;
     this.setState({
       menus: [...menusChanged],
     });
-  }
-
-  searchModalRef = (props) => {
-    if (props === null) {
-      return;
-    }
-    const { handleShow } = props;
-    this.showSearchModal = handleShow;
   };
 
-  addItemModalRef = (props) => {
-    if (props === null) {
-      return;
-    }
-    const { handleShow } = props;
-    this.showAddItemModal = handleShow;
-  };
-
-  componentDidMount(){
+  componentDidMount() {
     this.updateMenu();
   }
 
-  updateMenu = () => {
-    const URLString = "http://localhost:8000/product/";
-    Axios.get(URLString)
+  fetchAllMenuFromDB = () => {
+    Axios.get("http://localhost:8001/product/")
       .then((res) => {
-        console.log(res.data.data);
+        let { menus } = this.state;
+        const menusLength = this.state.menus.length;
+        const responseData = res.data.data;
+        let newMenus = [];
+        if (menusLength !== 0) {
+          newMenus = responseData;
+          for (let i = 0; i < responseData.length; i++) {
+            const idx = menus.findIndex((menu) => {
+              return responseData[i].id === menu.id;
+            });
+            if (idx >= 0) {
+              newMenus = update(
+                i,
+                {
+                  ...responseData[i],
+                  quantity: menus[idx].quantity,
+                  checked: menus[idx].checked,
+                  filtered: false,
+                },
+                newMenus
+              );
+            } else {
+              newMenus = [
+                ...newMenus,
+                {
+                  ...responseData[i],
+                  quantity: 0,
+                  checked: false,
+                  filtered: false,
+                },
+              ];
+            }
+          }
+        } else {
+          newMenus = [
+            ...res.data.data.map((menu) => {
+              return {
+                ...menu,
+                checked: false,
+                quantity: 0,
+                filtered: false,
+              };
+            }),
+          ];
+        }
+        console.log(newMenus);
         this.setState({
           numOfMenus: res.data.data.length,
-          menus: [
-            ...res.data.data.map((menu) => {
-              return { ...menu, checked: false, quantity:0};
-            }),
-          ],
+          menus: [...newMenus],
         });
       })
       .catch((err) => console.log(err));
   };
 
-  onClickSearch = () => {
-    this.showSearchModal();
+  updateMenu = (props) => {
+    const filteredMenus = props;
+    let { menus } = this.state;
+    let unFileteredMenus = filteredMenus;
+    if (props === undefined) {
+      this.fetchAllMenuFromDB();
+    } else {
+      for (let i = 0; i < menus.length; i++) {
+        const idx = filteredMenus.findIndex((filteredMenu) => {
+          return menus[i].id === filteredMenu.id;
+        });
+        if (idx >= 0) {
+          unFileteredMenus = update(
+            idx,
+            {
+              ...unFileteredMenus[idx],
+              quantity: menus[i].quantity,
+              checked: menus[i].checked,
+              filtered: false,
+            },
+            unFileteredMenus
+          );
+        } else {
+          unFileteredMenus = [
+            ...unFileteredMenus,
+            { ...menus[i], filtered: true },
+          ];
+        }
+      }
+      this.setState({
+        menus: [...unFileteredMenus],
+      });
+    }
   };
 
-  onClickAddItem = () => {
-    this.showAddItemModal();
+  foodIconOnClick = () => {
+    this.updateMenu();
   };
 
   render() {
+    const numOfOrders = this.state.menus.reduce((total, orderedMenu) => {
+      return total + orderedMenu.quantity;
+    }, 0);
     return (
       <>
         <header>
@@ -190,7 +239,8 @@ class App extends Component {
             ifClickedMenu={this.handleClickLeftSidebar}
             ifClickedCart={this.handleClickRightSidebar}
             onClickSearch={this.onClickSearch}
-            numOfOrders={this.state.numOfOrders}
+            handleFilteredMenu={this.updateMenu}
+            numOfOrders={numOfOrders}
           />
         </header>
 
@@ -213,12 +263,11 @@ class App extends Component {
           {/* {this.state.leftSidebarDisplayed &&  */}
           <LeftSidebar
             displayed={this.state.leftSidebarDisplayed}
-            onClickAddItem={this.onClickAddItem}
+            foodIconOnClick={this.foodIconOnClick}
+            updateMenu={this.updateMenu}
           />
           {/* } */}
         </div>
-        <SearchModal ref={this.searchModalRef} />
-        <AddItemModal ref={this.addItemModalRef} />
       </>
     );
   }

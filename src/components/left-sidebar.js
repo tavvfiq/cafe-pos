@@ -3,30 +3,58 @@ import "./styles/left-sidebar.css";
 import food_icon from "../assets/img/foods.webp";
 import add_icon from "../assets/img/add.webp";
 import history_icon from "../assets/img/history.webp";
+import AddItemModal from "./additem-modal";
 
 class LeftSidebar extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.onClickHandeAddItem = this.onClickHandeAddItem.bind(this);
   }
 
-  onClickHandeAddItem(){
+  onClickHandeAddItem = () => {
     this.props.onClickAddItem();
-  }
+  };
+
+  onClickFoodIcon = () => {
+    this.props.foodIconOnClick();
+  };
+
+  onClickAddItem = () => {
+    this.showAddItemModal();
+  };
+
+  addItemModalRef = (props) => {
+    if (props === null) {
+      return;
+    }
+    const { handleShow } = props;
+    this.showAddItemModal = handleShow;
+  };
 
   render() {
     return (
-      <div className={this.props.displayed ? "left-sidebar-container-show" : "left-sidebar-container"}>
-        <div className="left-sidebar-items">
-          <img src={food_icon} alt="" />
+      <>
+        <AddItemModal updateMenu={this.props.updateMenu} ref={this.addItemModalRef} />
+        <div
+          className={
+            this.props.displayed
+              ? "left-sidebar-container-show"
+              : "left-sidebar-container"
+          }
+        >
+          <div className="left-sidebar-items" onClick={this.onClickFoodIcon}>
+            <img src={food_icon} alt="" />
+          </div>
+          <div className="left-sidebar-items">
+            <img src={history_icon} alt="" />
+          </div>
+          <div
+            className="left-sidebar-items"
+            onClick={this.onClickAddItem}
+          >
+            <img src={add_icon} alt="" />
+          </div>
         </div>
-        <div className="left-sidebar-items">
-          <img src={history_icon} alt="" />
-        </div>
-        <div className="left-sidebar-items" onClick={this.onClickHandeAddItem}>
-          <img src={add_icon} alt="" />
-        </div>
-      </div>
+      </>
     );
   }
 }

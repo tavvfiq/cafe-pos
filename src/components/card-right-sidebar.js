@@ -12,13 +12,11 @@ class CardSidebar extends React.Component {
       image_path: props.image_path,
       quantity: props.quantity,
       checked: props.checked,
+      filtered: props.filtered
     };
-
-    this.handleNumOfOrderChanged = this.handleNumOfOrderChanged.bind(this);
-    this.updateNumOfOrders = this.updateNumOfOrders.bind(this);
   }
 
-  handleNumOfOrderChanged(state) {
+  handleNumOfOrderChanged = (state) => {
     this.setState(
       {
         quantity: state.value,
@@ -27,7 +25,7 @@ class CardSidebar extends React.Component {
     );
   }
 
-  updateNumOfOrders() {
+  updateNumOfOrders = () => {
     this.props.handleChangeNumOfOrders(this.state);
   }
 

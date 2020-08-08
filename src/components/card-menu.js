@@ -12,6 +12,7 @@ class CardMenu extends Component {
       image_path: props.image_path,
       quantity: props.quantity,
       checked: props.checked,
+      filtered: props.filtered
     };
     this.updateCard = this.updateCard.bind(this);
     this.toggleChecked = this.toggleChecked.bind(this);

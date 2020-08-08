@@ -3,6 +3,7 @@ import menu_icon from "../assets/img/menu.webp";
 import search_icon from "../assets/img/search.webp";
 import cart_icon from "../assets/img/cart.webp";
 import "./styles/top-header.css";
+import SearchModal from "./search-modal";
 
 class TopHeader extends Component {
   constructor(props) {
@@ -10,21 +11,26 @@ class TopHeader extends Component {
     this.state = {
       numOfOrders: props.numOfOrders,
     };
-    this.onClickHandleMenu = this.onClickHandleMenu.bind(this);
-    this.onClickHandleCart = this.onClickHandleCart.bind(this);
-    this.onClickHandleSearch = this.onClickHandleSearch.bind(this);
   }
 
-  onClickHandleMenu() {
+  searchModalRef = (props) => {
+    if (props === null) {
+      return;
+    }
+    const { handleShow } = props;
+    this.showSearchModal = handleShow;
+  };
+
+  onClickHandleMenu = () => {
     this.props.ifClickedMenu();
   }
 
-  onClickHandleCart() {
+  onClickHandleCart = () => {
     this.props.ifClickedCart();
   }
 
-  onClickHandleSearch() {
-    this.props.onClickSearch();
+  onClickHandleSearch = () => {
+    this.showSearchModal();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -44,6 +50,7 @@ class TopHeader extends Component {
   render() {
     return (
       <>
+      <SearchModal ref={this.searchModalRef} handleFilteredMenu={this.props.handleFilteredMenu} />
         <div className="row no-gutters">
           <div className="col-12 col-xs-12 col-sm-12">
             <div className="left-header-container">

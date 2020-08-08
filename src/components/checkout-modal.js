@@ -11,8 +11,6 @@ class CheckoutModal extends React.Component {
       invoice: props.invoice,
       cashier: "Taufiq Widi",
     };
-    this.handleClose = this.handleClose.bind(this);
-    this.handleShow = this.handleShow.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -21,12 +19,12 @@ class CheckoutModal extends React.Component {
     }
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false });
-  }
-  handleShow() {
+  };
+  handleShow = () => {
     this.setState({ show: true });
-  }
+  };
 
   renderOrderDetails(order) {
     return (
@@ -97,7 +95,9 @@ class CheckoutModal extends React.Component {
             <Button variant="danger" onClick={this.handleClose}>
               Send Email
             </Button>
-            <Button variant="primary" onClick={this.handleClose}>Print</Button>
+            <Button variant="primary" onClick={this.handleClose}>
+              Print
+            </Button>
           </Modal.Footer>
         </Modal>
       </>

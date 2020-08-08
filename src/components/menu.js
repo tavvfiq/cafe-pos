@@ -9,12 +9,9 @@ class Menus extends React.Component {
       numOfMenus: props.numOfMenus,
       menus: [...props.menus],
     };
-    this.handleCardChange = this.handleCardChange.bind(this);
-    this.handleMenusChange = this.handleMenusChange.bind(this);
-    this.handleChangeNumOfOrders = this.handleChangeNumOfOrders.bind(this);
   }
 
-  handleCardChange(state) {
+  handleCardChange = (state) => {
     const updatedCardMenu = this.state.menus.findIndex((menu) => {
       return menu.id === state.id;
     });
@@ -32,7 +29,7 @@ class Menus extends React.Component {
       },
       this.handleMenusChange
     );
-  }
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps.menus !== this.props.menus) {
@@ -40,42 +37,50 @@ class Menus extends React.Component {
     }
   }
 
-  handleChangeNumOfOrders(){
-    console.log(this.state.menus.filter((menu)=>{
-      return menu.checked===true;
-    }));
-    this.props.handleChangeNumOfOrders(this.state.menus.filter((menu)=>{
-      return menu.checked===true;
-    }));
-  }
+  handleChangeNumOfOrders = () => {
+    console.log(
+      this.state.menus.filter((menu) => {
+        return menu.checked === true;
+      })
+    );
+    this.props.handleChangeNumOfOrders(
+      this.state.menus.filter((menu) => {
+        return menu.checked === true;
+      })
+    );
+  };
 
-  handleMenusChange() {
+  handleMenusChange = () => {
     this.props.handleMenusChange(this.state);
-  }
+  };
 
   renderCardMenu(menu) {
     return (
       <CardMenu
         handleCardChange={this.handleCardChange}
-        key={menu}
+        key={menu.id}
         id={menu.id}
         name={menu.name}
         price={menu.price}
         image_path={menu.image_path}
         quantity={menu.quantity}
         checked={menu.checked}
+        filtered={menu.filtered}
       />
     );
   }
 
   render() {
+    const unFilteredMenus = this.state.menus.filter((menu)=>{
+      return menu.filtered===false;
+    })
     return (
       <Fragment key={this.props.menus}>
         <div className="row no-gutters">
-          {this.state.menus.map((menu) => {
+          {unFilteredMenus.map((unFilteredMenu) => {
             return (
               <div className="col-6 col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                {this.renderCardMenu(menu)}
+                {this.renderCardMenu(unFilteredMenu)}
               </div>
             );
           })}

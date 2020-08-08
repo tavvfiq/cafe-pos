@@ -1,7 +1,8 @@
 import {React, Component} from "react";
 import { Modal, Button, Toast} from "react-bootstrap";
+import ReactDOM from 'react-dom'; 
 
-function MessageToast(props){
+const ToastMessage = (props)=>{
     return (<Toast>
       <Toast.Header>
           <h1>{props.head}</h1>
@@ -10,4 +11,4 @@ function MessageToast(props){
     </Toast>);
 }
 
-export default MessageToast;
+export default ToastMessage;

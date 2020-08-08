@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import Axios from "axios";
 
 import "./styles/search-modal.css";
 
@@ -8,9 +9,11 @@ class SearchModal extends React.Component {
     super(props);
     this.state = {
       show: false,
-      menus: props.menus,
-      invoice: props.invoice,
     };
+
+    this.nameInput = "";
+    this.sortBy = "";
+    this.sortOrder = "";
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
   }
@@ -21,6 +24,34 @@ class SearchModal extends React.Component {
   handleShow() {
     this.setState({ show: true });
   }
+
+  handleFilteredMenu = (props) => {
+    this.props.handleFilteredMenu(props);
+  };
+
+  fetchData = () => {
+    const URLString = `http://localhost:8001/product/filter?name=${this.nameInput}&by=${this.sortBy.replace(" ","_")}&order=${this.sortOrder}`;
+    Axios.get(URLString)
+      .then((res) => {
+        this.handleFilteredMenu(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      this.handleClose();
+  };
+
+  handleNameInput = (e) => {
+    this.nameInput = e.target.value;
+  };
+
+  handleSortByInput = (e) => {
+    this.sortBy = e.target.value;
+  };
+
+  handleSortOrderInput = (e) => {
+    this.sortOrder = e.target.value;
+  };
 
   render() {
     return (
@@ -39,12 +70,17 @@ class SearchModal extends React.Component {
                 type="text"
                 className="form-control"
                 placeholder="search menu...."
+                onChange={this.handleNameInput}
               />
             </div>
             <div className="sort-container">
               <div className="sort-wrapper">
                 <p>Sort by:</p>
-                <select className="form-control" id="by">
+                <select
+                  className="form-control"
+                  id="by"
+                  onChange={this.handleSortByInput}
+                >
                   <option>name</option>
                   <option>price</option>
                   <option>category</option>
@@ -54,9 +90,13 @@ class SearchModal extends React.Component {
               </div>
               <div className="sort-wrapper">
                 <p>Order:</p>
-                <select className="form-control" id="order">
-                  <option>ascending</option>
-                  <option>descending</option>
+                <select
+                  className="form-control"
+                  id="order"
+                  onChange={this.handleSortOrderInput}
+                >
+                  <option>ASC</option>
+                  <option>DESC</option>
                 </select>
               </div>
             </div>
@@ -65,7 +105,9 @@ class SearchModal extends React.Component {
             <Button variant="secondary" onClick={this.handleClose}>
               Cancel
             </Button>
-            <Button variant="primary">Search</Button>
+            <Button variant="primary" onClick={this.fetchData}>
+              Search
+            </Button>
           </Modal.Footer>
         </Modal>
       </>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Modal, Button, Toast } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
+import ToastMessage from "./toast-message";
 
 import "./styles/additem-modal.css";
 
@@ -9,27 +10,62 @@ class AddItemModal extends React.Component {
     super(props);
     this.state = {
       show: false,
-      menus: props.menus,
-      invoice: props.invoice,
     };
-    this.handleClose = this.handleClose.bind(this);
-    this.handleShow = this.handleShow.bind(this);
+    this.currName = "";
+    this.currPrice = 0;
+    this.currImgPath = "";
+    this.currPrice = 0;
+    this.currCatId = 0;
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false });
-  }
-  handleShow() {
+  };
+  handleShow = () => {
     this.setState({ show: true });
-  }
+  };
 
   addItem = () => {
     const URLString = "http://localhost:8000/product/";
-    Axios.get(URLString)
+    const category = this.currCatId;
+    const data = {
+      name: this.currName,
+      image_path: this.currImgPath,
+      price: this.currPrice,
+      category_id:
+        category === "Main Course" ? 1 : category === "Dessert" ? 2 : 3,
+    };
+    Axios.post(URLString, data)
       .then((res) => {
         console.log(res.data);
+        this.updateMenuHandle();
       })
       .catch((err) => console.log(err));
+      this.handleClose();
+  };
+
+  updateMenuHandle = ()=>{
+    this.props.updateMenu();
+  }
+
+  handleNameInput = (e) => {
+    this.currName = e.target.value;
+    // console.log(this.currName);
+  };
+
+  handleImgPathInput = (e) => {
+    this.currImgPath = e.target.value;
+    // console.log(this.currImgPath);
+  };
+
+  handlePriceInput = (e) => {
+    this.currPrice = e.target.value;
+    // console.log(this.currPrice);
+  };
+
+  handleCatIdInput = (e) => {
+    this.currCatId = e.target.key;
+    // console.log(this.currCatId);
   };
 
   render() {
@@ -55,6 +91,7 @@ class AddItemModal extends React.Component {
                   className="form-control"
                   id="menuName"
                   placeholder="enter menu name"
+                  onChange={this.handleNameInput}
                 />
               </div>
               <div className="form-group">
@@ -64,6 +101,7 @@ class AddItemModal extends React.Component {
                   className="form-control"
                   id="imagePath"
                   placeholder="enter image path"
+                  onChange={this.handleImgPathInput}
                 />
               </div>
               <div className="form-group">
@@ -73,11 +111,16 @@ class AddItemModal extends React.Component {
                   className="form-control"
                   id="menuPrice"
                   placeholder="enter menu price"
+                  onChange={this.handlePriceInput}
                 />
               </div>
               <div className="form-group">
                 <label for="menuPrice">Price</label>
-                <select className="form-control" id="menuPrice">
+                <select
+                  className="form-control"
+                  id="menuPrice"
+                  onChange={this.handleCatIdInput}
+                >
                   <option>Main Course</option>
                   <option>Dessert</option>
                   <option>Beverage</option>
