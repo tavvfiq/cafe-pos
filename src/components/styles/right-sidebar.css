@@ -57,15 +57,15 @@ ul {
 
 .right-sidebar-container {
   background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border: 1px solid #cecece;
   padding-left: 25px;
   padding-right: 25px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 90vh;
-  top: 10vh;
+  height: 90.3vh;
+  top: 9.7vh;
   min-width: 320px;
   max-width: 360px;
   position: fixed;
@@ -79,7 +79,7 @@ ul {
 
 .right-sidebar-container-show {
   background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   border: 1px solid #cecece;
   padding-left: 25px;
   padding-right: 25px;
@@ -87,8 +87,8 @@ ul {
   flex-direction: column;
   transform: translate(0);
   width: 100%;
-  height: 90vh;
-  top: 10vh;
+  height: 90.3vh;
+  top: 9.7vh;
   min-width: 320px;
   max-width: 360px;
   position: fixed;
@@ -124,6 +124,8 @@ ul {
 .checkout-content {
   display: flex;
   flex-direction: column;
+  height:100%;
+  justify-content: flex-end;
 }
 
 .checkout-text {
@@ -154,7 +156,7 @@ ul {
       -webkit-transform: translateX(0%);
     }
   }
-  
+
   @-webkit-keyframes slide-in {
     0% {
       -webkit-transform: translateX(100%);
@@ -163,7 +165,7 @@ ul {
       -webkit-transform: translateX(0%);
     }
   }
-  
+
   @keyframes slide-out {
     0% {
       transform: translateX(0%);
@@ -172,7 +174,7 @@ ul {
       transform: translateX(100%);
     }
   }
-  
+
   @-webkit-keyframes slide-out {
     0% {
       -webkit-transform: translateX(0%);
@@ -181,7 +183,7 @@ ul {
       -webkit-transform: translateX(100%);
     }
   }
-  
+
   .right-sidebar-container {
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
@@ -191,12 +193,12 @@ ul {
     display: flex;
     flex-direction: column;
     width: 360px;
-    height: 90vh;
+    height: 90.3vh;
     min-width: 360px;
     max-width: 360px;
     position: fixed;
     overflow-y: auto;
-    top: 10vh;
+    top: 9.7vh;
     transform: translateX(300%);
     -webkit-transform: translateX(300%);
     animation: slide-out 0.5s forwards;
@@ -214,12 +216,12 @@ ul {
     display: flex;
     flex-direction: column;
     width: 360px;
-    height: 90vh;
+    height: 90.3vh;
     min-width: 360px;
     max-width: 360px;
     position: fixed;
     overflow-y: auto;
-    top: 10vh;
+    top: 9.7vh;
     animation: slide-in 0.5s forwards;
     -webkit-animation: slide-in 0.5s forwards;
     left: calc(100% - 360px);
