@@ -1,3 +1,3 @@
-## Cafe Skuy App
+## keCafe Skuy! App
 
 ini readme
