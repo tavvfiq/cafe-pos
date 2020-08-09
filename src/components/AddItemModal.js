@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
-import ToastMessage from "./ToastMessage";
 
 import "./styles/AddItemModal.css";
 

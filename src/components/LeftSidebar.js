@@ -7,10 +7,6 @@ import AddItemModal from "./AddItemModal";
 import { Link } from "react-router-dom";
 
 class LeftSidebar extends Component {
-  constructor() {
-    super();
-  }
-
   onClickHandeAddItem = () => {
     this.props.onClickAddItem();
   };

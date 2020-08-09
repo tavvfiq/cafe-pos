@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CardSidebar from "./CardRightSidebar";
 import "./styles/RightSidebar.css";
 import empty_cart from "../assets/img/empty_cart.webp";
