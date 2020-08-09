@@ -21,7 +21,8 @@
     "react-show": "^3.0.4",
     "react-transition-group": "^4.4.1",
     "reactstrap": "^8.5.1",
-    "rfs": "^9.0.3"
+    "rfs": "^9.0.3",
+    "serve": "^11.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
