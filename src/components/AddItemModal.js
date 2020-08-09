@@ -121,7 +121,7 @@ class AddItemModal extends React.Component {
                   id="menuPrice"
                   onChange={this.handleCatIdInput}
                 >
-                  <option>Main Course</option>
+                  <option selected="selected">Main Course</option>
                   <option>Dessert</option>
                   <option>Beverage</option>
                   <option>Snack</option>

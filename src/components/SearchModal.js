@@ -12,8 +12,8 @@ class SearchModal extends React.Component {
     };
 
     this.nameInput = "";
-    this.sortBy = "";
-    this.sortOrder = "";
+    this.sortBy = "name";
+    this.sortOrder = "ascending";
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
   }
@@ -81,7 +81,7 @@ class SearchModal extends React.Component {
                   id="by"
                   onChange={this.handleSortByInput}
                 >
-                  <option>name</option>
+                  <option selected="selected">name</option>
                   <option>price</option>
                   <option>category</option>
                   <option>added at</option>
@@ -95,7 +95,7 @@ class SearchModal extends React.Component {
                   id="order"
                   onChange={this.handleSortOrderInput}
                 >
-                  <option>ascending</option>
+                  <option selected="selected">ascending</option>
                   <option>descending</option>
                 </select>
               </div>
