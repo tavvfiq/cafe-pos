@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
 
-import "./styles/search-modal.css";
+import "./styles/SearchModal.css";
 
 class SearchModal extends React.Component {
   constructor(props) {

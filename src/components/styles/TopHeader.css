@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+li,
+ol,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.left-header-container {
+  display: flex;
+  min-width: 320px;
+  height:10vh;
+  /* width:100%; */
+}
+.menu {
+  width: 20%;
+  max-width: 81.59px;
+}
+
+.menu img,.search img, .cart img {
+  height: 35%;
+  width: 35.35%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  object-fit: contain;
+  transition: all .5s
+}
+
+.search {
+  width:20%;
+  max-width: 81.59px;
+}
+
+.cart {
+  width: 20%;
+  max-width: 81.59px;
+}
+
+.badge-info {
+  border-radius: 25px;
+  text-align: center;
+  position: absolute;
+  font-size: 10px;
+  top:50%;
+  left: 55%;
+  background: #57cad5;
+}
+
+.header-title,.menu,.search,.cart {
+  height: 100%;
+  position: relative
+}
+
+.header-title {
+  width: 40%;
+  position: relative;
+  display: table;
+  text-align: center;
+}
+
+.header-title h4{
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.right-header-container {
+  border-left: 1px solid #e5e5e5;
+  height: 100%;
+}
+
+@media all and (min-width: 1440px){
+  .header-title{
+    width: calc(100% - (3 * 81.59px));
+  }
+}
+
+@media all and (min-width:1200px){
+  .header-title{
+    width: calc(100% - (3 * 81.59px));
+  }
+}
+
+@media all and (min-width:992px){
+  .header-title{
+    width: calc(100% - (3 * 81.59px));
+  }
+
+}
+
+@media all and (min-width:768px){
+  .header-title{
+    width: calc(100% - (3 * 81.59px));
+  }
+}
+
+@media all and (min-width:576px){
+  .header-title{
+    width: calc(100% - (3 * 81.59px));
+  }
+}

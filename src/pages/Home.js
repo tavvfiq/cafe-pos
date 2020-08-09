@@ -236,8 +236,8 @@ class Home extends Component {
       <>
         <header>
           <TopHeader
-            ifClickedMenu={this.handleClickLeftSidebar}
-            ifClickedCart={this.handleClickRightSidebar}
+            onClickMenu={this.handleClickLeftSidebar}
+            onClickCart={this.handleClickRightSidebar}
             onClickSearch={this.onClickSearch}
             handleFilteredMenu={this.updateMenu}
             numOfOrders={numOfOrders}
@@ -263,7 +263,6 @@ class Home extends Component {
           {/* {this.state.leftSidebarDisplayed &&  */}
           <LeftSidebar
             displayed={this.state.leftSidebarDisplayed}
-            foodIconOnClick={this.foodIconOnClick}
             updateMenu={this.updateMenu}
           />
           {/* } */}

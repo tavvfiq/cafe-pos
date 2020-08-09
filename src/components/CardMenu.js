@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./styles/card-menu.css";
+import "./styles/CardMenu.css";
 import check from "../assets/img/check.webp";
 
 class CardMenu extends Component {

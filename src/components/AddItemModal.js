@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
 import ToastMessage from "./ToastMessage";
 
-import "./styles/additem-modal.css";
+import "./styles/AddItemModal.css";
 
 class AddItemModal extends React.Component {
   constructor(props) {

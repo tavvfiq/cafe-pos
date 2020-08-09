@@ -25,12 +25,12 @@ ul {
   height:10vh;
   /* width:100%; */
 }
-.menu {
+.menus {
   width: 15%;
   max-width: 81.59px;
 }
 
-.menu img,.search img, .cart img {
+.menus img{
   height: 35%;
   width: 35.35%;
   position: absolute;
@@ -43,16 +43,6 @@ ul {
   transition: all .5s
 }
 
-.search {
-  width:15%;
-  max-width: 81.59px;
-}
-
-.cart {
-  width: 15%;
-  max-width: 81.59px;
-}
-
 .badge-info {
   border-radius: 25px;
   text-align: center;
@@ -63,13 +53,13 @@ ul {
   background: #57cad5;
 }
 
-.header-title,.menu,.search,.cart {
+.header-title,.menus{
   height: 100%;
   position: relative
 }
 
 .header-title {
-  width: 55%;
+  width:70%;
   position: relative;
   display: table;
   text-align: center;
@@ -88,31 +78,31 @@ ul {
 
 @media all and (min-width: 1440px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (1 * 81.59px));
   }
 }
 
 @media all and (min-width:1200px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (1 * 81.59px));
   }
 }
 
 @media all and (min-width:992px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (1 * 81.59px));
   }
 
 }
 
 @media all and (min-width:768px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (1 * 81.59px));
   }
 }
 
 @media all and (min-width:576px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (1 * 81.59px));
   }
 }

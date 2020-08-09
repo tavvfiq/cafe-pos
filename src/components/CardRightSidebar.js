@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Counter from "./Counter";
-import "./styles/card-right-sidebar.css";
+import "./styles/CardRightSidebar.css";
 
 class CardSidebar extends React.Component {
   constructor(props) {

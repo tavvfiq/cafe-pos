@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import "./styles/checkout-modal.css";
+import "./styles/CheckoutModal.css";
 import Axios from "axios";
 
 class CheckoutModal extends React.Component {
