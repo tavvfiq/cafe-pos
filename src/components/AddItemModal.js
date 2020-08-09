@@ -114,7 +114,7 @@ class AddItemModal extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="menuPrice">Price</label>
+                <label htmlFor="menuPrice">Category</label>
                 <select
                   className="form-control"
                   id="menuPrice"
