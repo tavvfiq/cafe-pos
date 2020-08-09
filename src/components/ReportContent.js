@@ -22,21 +22,21 @@ class ReportContent extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-6 col-md-4">
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-4">
             <div className="card card1">
               <h4>Today's Income</h4>
               <h2>Rp. 1.000.000</h2>
               <h4>+2% Yesterday</h4>
             </div>
           </div>
-          <div className="col-sm-6 col-md-4">
+          <div className="col-xs-6 col-sm-6 col-md-6 col-lg-4">
             <div className="card card2">
               <h4>Orders</h4>
               <h2>3.270</h2>
               <h4>+5% Last Week</h4>
             </div>
           </div>
-          <div className="col-sm-12 col-md-4">
+          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4">
             <div className="card card3">
               <h4>This Year’s Income</h4>
               <h2>Rp. 100.000.000.000</h2>
@@ -45,7 +45,7 @@ class ReportContent extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-12 col-md-12">
+          <div className="col-12 col-xs-12 col-sm-12 col-md-12">
             <div className="chart-container">
               <div className="row">
                 <div className="col-md-12">
@@ -157,7 +157,7 @@ class ReportContent extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-xs-12 col-sm-12">
+          <div className="col-12 col-xs-12 col-sm-12 col-md-12">
             <div className="recent-order-container">
               <div className="row">
                 <div className="col-md-12">
@@ -190,7 +190,7 @@ class ReportContent extends React.Component {
                               <th>
                                 {el.product_order
                                   .map((product) => {
-                                    return product.product_name;
+                                    return [product.product_quantity, product.product_name].join(" ");
                                   })
                                   .join(", ")}
                               </th>
