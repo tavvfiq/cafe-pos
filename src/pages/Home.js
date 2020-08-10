@@ -158,6 +158,7 @@ class Home extends Component {
             onClickMenu={this.handleClickLeftSidebar}
             onClickCart={this.handleClickRightSidebar}
             onClickSearch={this.onClickSearch}
+            onClickTitle={this.updateMenu}
             handleFilteredMenu={this.updateMenu}
             numOfOrders={numOfOrders}
           />

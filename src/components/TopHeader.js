@@ -33,6 +33,10 @@ class TopHeader extends Component {
     this.showSearchModal();
   }
 
+  onClickHandleTitle = ()=>{
+    this.props.onClickTitle();
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log(nextProps);
     if (nextProps.numOfOrders !== prevState.numOfOrders) {
@@ -57,7 +61,7 @@ class TopHeader extends Component {
               <div className="menu" onClick={this.onClickHandleMenu}>
                 <img src={menu_icon} alt="" />
               </div>
-              <div className="header-title">
+              <div className="header-title" onClick={this.onClickHandleTitle}>
                 <h4>Menus</h4>
               </div>
               <div className="search" onClick={this.onClickHandleSearch}>
