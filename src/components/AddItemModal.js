@@ -26,7 +26,7 @@ class AddItemModal extends React.Component {
 
   addItem = () => {
     const URLString = `${process.env.REACT_APP_BACKEND_API}/product/`;
-    const category = this.currCatId;
+    const category = this.currCat;
     const data = {
       name: this.currName,
       image_path: this.currImgPath,
