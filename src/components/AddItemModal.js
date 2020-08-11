@@ -25,7 +25,7 @@ class AddItemModal extends React.Component {
   };
 
   addItem = () => {
-    const URLString = `${process.env.REACT_APP_BACKEND_API}/product/`;
+    const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/`;
     const category = this.currCat;
     const data = {
       name: this.currName,

@@ -53,7 +53,7 @@ class Home extends Component {
   }
 
   fetchAllMenuFromDB = () => {
-    Axios.get(`${process.env.REACT_APP_BACKEND_API}/product`)
+    Axios.get(`${process.env.REACT_APP_BACKEND_API}/menu`)
       .then((res) => {
         let { menus } = this.state;
         const menusLength = menus.length;
