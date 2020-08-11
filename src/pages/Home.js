@@ -6,6 +6,7 @@ import TopHeader from "../components/TopHeader";
 import Menus from "../components/Menus";
 import Axios from "axios";
 import { update } from "ramda";
+// import {process} from "dotenv";
 
 class Home extends Component {
   constructor() {
@@ -52,7 +53,7 @@ class Home extends Component {
   }
 
   fetchAllMenuFromDB = () => {
-    Axios.get("http://localhost:8001/product/")
+    Axios.get(`${process.env.REACT_APP_BACKEND_API}/product`)
       .then((res) => {
         let { menus } = this.state;
         const menusLength = menus.length;

@@ -30,7 +30,7 @@ class SearchModal extends React.Component {
   };
 
   fetchData = () => {
-    const URLString = `http://localhost:8001/product/filter?name=${this.nameInput}&by=${this.sortBy.replace(" ","_")}&order=${this.sortOrder.replace("ending","").toUpperCase()}`;
+    const URLString = `${process.env.REACT_APP_BACKEND_API}/product/filter?name=${this.nameInput}&by=${this.sortBy.replace(" ","_")}&order=${this.sortOrder.replace("ending","").toUpperCase()}`;
     Axios.get(URLString)
       .then((res) => {
         this.handleFilteredMenu(res.data.data);

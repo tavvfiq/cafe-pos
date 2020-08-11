@@ -14,7 +14,7 @@ class AddItemModal extends React.Component {
     this.currPrice = 0;
     this.currImgPath = "";
     this.currPrice = 0;
-    this.currCatId = 0;
+    this.currCat = "Main Course";
   }
 
   handleClose = () => {
@@ -25,7 +25,7 @@ class AddItemModal extends React.Component {
   };
 
   addItem = () => {
-    const URLString = "http://localhost:8001/product/";
+    const URLString = `${process.env.REACT_APP_BACKEND_API}/product/`;
     const category = this.currCatId;
     const data = {
       name: this.currName,
@@ -49,22 +49,18 @@ class AddItemModal extends React.Component {
 
   handleNameInput = (e) => {
     this.currName = e.target.value;
-    // console.log(this.currName);
   };
 
   handleImgPathInput = (e) => {
     this.currImgPath = e.target.value;
-    // console.log(this.currImgPath);
   };
 
   handlePriceInput = (e) => {
     this.currPrice = e.target.value;
-    // console.log(this.currPrice);
   };
 
   handleCatIdInput = (e) => {
-    this.currCatId = e.target.key;
-    // console.log(this.currCatId);
+    this.currCat = e.target.key;
   };
 
   render() {

@@ -19,7 +19,7 @@ class Report extends React.Component {
   }
 
   fetchReportContent = () => {
-    Axios.get("http://localhost:8001/history/")
+    Axios.get(`${process.env.REACT_APP_BACKEND_API}/history`)
       .then((res) => {
         this.setState({
           ordersReport: [...res.data.data],
