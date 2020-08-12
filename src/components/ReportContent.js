@@ -188,9 +188,9 @@ class ReportContent extends React.Component {
                               <th>{el.cashier}</th>
                               <th>{moment(el.order_date).format('YYYY-MM-DD HH:mm:ss')}</th>
                               <th>
-                                {el.product_order
-                                  .map((product) => {
-                                    return [product.product_quantity, product.product_name].join(" ");
+                                {el.menu_order
+                                  .map((menu) => {
+                                    return [menu.menu_quantity, menu.menu_name].join(" ");
                                   })
                                   .join(", ")}
                               </th>

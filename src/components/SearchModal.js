@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 import "./styles/SearchModal.css";
 
@@ -30,7 +31,11 @@ class SearchModal extends React.Component {
   };
 
   fetchData = () => {
-    const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/filter?name=${this.nameInput}&by=${this.sortBy.replace(" ","_")}&order=${this.sortOrder.replace("ending","").toUpperCase()}`;
+    const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/filter?name=${
+      this.nameInput
+    }&by=${this.sortBy.replace(" ", "_")}&order=${this.sortOrder
+      .replace("ending", "")
+      .toUpperCase()}`;
     Axios.get(URLString)
       .then((res) => {
         this.handleFilteredMenu(res.data.data);
@@ -38,7 +43,7 @@ class SearchModal extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-      this.handleClose();
+    this.handleClose();
   };
 
   handleNameInput = (e) => {
@@ -81,7 +86,7 @@ class SearchModal extends React.Component {
                   id="by"
                   onChange={this.handleSortByInput}
                 >
-                  <option selected="selected">name</option>
+                  <option defaultValue>name</option>
                   <option>price</option>
                   <option>category</option>
                   <option>added at</option>
@@ -95,7 +100,7 @@ class SearchModal extends React.Component {
                   id="order"
                   onChange={this.handleSortOrderInput}
                 >
-                  <option selected="selected">ascending</option>
+                  <option defaultValue>ascending</option>
                   <option>descending</option>
                 </select>
               </div>
@@ -105,7 +110,12 @@ class SearchModal extends React.Component {
             <Button variant="danger" onClick={this.handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={this.fetchData}>
+            <Button
+              component={Link}
+              to={`/?name=${this.nameInput}&by=${this.sortBy}&order=${this.sortOrder}`}
+              variant="primary"
+              onClick={this.fetchData}
+            >
               Search
             </Button>
           </Modal.Footer>

@@ -12,7 +12,7 @@ class AddItemModal extends React.Component {
     };
     this.currName = "";
     this.currPrice = 0;
-    this.currImgPath = "";
+    this.currImg = {};
     this.currPrice = 0;
     this.currCat = "Main Course";
   }
@@ -25,34 +25,51 @@ class AddItemModal extends React.Component {
   };
 
   addItem = () => {
-    const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/`;
-    const category = this.currCat;
-    const data = {
-      name: this.currName,
-      image_path: this.currImgPath,
-      price: this.currPrice,
-      category_id:
-        category === "Main Course" ? 1 : category === "Dessert" ? 2 : category === "Beverage" ? 3 : 4,
+    let formData = new FormData();
+
+    formData.append("name", this.currName);
+    formData.append("image", this.currImg);
+    formData.append("price", this.currPrice);
+    formData.append(
+      "category_id",
+      this.currCat === "Main Course"
+        ? 1
+        : this.currCat === "Dessert"
+        ? 2
+        : this.currCat === "Beverage"
+        ? 3
+        : 4
+    );
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        "x-access-token":
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhdnZmaXEiLCJsZXZlbF9pZCI6NCwiaWF0IjoxNTk3MjM3NDAyLCJleHAiOjE1OTczMjM4MDJ9.cOLO2mvbIfEdq0bxnKHoCX52uNS_uQh8E6raDgPlrJs",
+      },
     };
-    Axios.post(URLString, data)
+
+    const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/`;
+    Axios.post(URLString, formData, config)
       .then((res) => {
         console.log(res.data);
         this.updateMenuHandle();
       })
       .catch((err) => console.log(err));
-      this.handleClose();
+    this.handleClose();
   };
 
-  updateMenuHandle = ()=>{
+  updateMenuHandle = () => {
     this.props.updateMenu();
-  }
+  };
 
   handleNameInput = (e) => {
     this.currName = e.target.value;
   };
 
   handleImgPathInput = (e) => {
-    this.currImgPath = e.target.value;
+    const file = e.target.files[0];
+    this.currImg = file;
   };
 
   handlePriceInput = (e) => {
@@ -85,17 +102,17 @@ class AddItemModal extends React.Component {
                   type="text"
                   className="form-control"
                   id="menuName"
-                  placeholder="enter menu name"
+                  placeholder="menu name..."
                   onChange={this.handleNameInput}
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="imagePath">Image</label>
                 <input
-                  type="text"
-                  className="form-control"
+                  type="file"
+                  className="form-control input-file"
                   id="imagePath"
-                  placeholder="enter image path"
+                  placeholder="image"
                   onChange={this.handleImgPathInput}
                 />
               </div>
@@ -105,7 +122,7 @@ class AddItemModal extends React.Component {
                   type="text"
                   className="form-control"
                   id="menuPrice"
-                  placeholder="enter menu price"
+                  placeholder="menu price..."
                   onChange={this.handlePriceInput}
                 />
               </div>
@@ -116,7 +133,7 @@ class AddItemModal extends React.Component {
                   id="menuPrice"
                   onChange={this.handleCatIdInput}
                 >
-                  <option selected="selected">Main Course</option>
+                  <option defaultValue>Main Course</option>
                   <option>Dessert</option>
                   <option>Beverage</option>
                   <option>Snack</option>

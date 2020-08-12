@@ -4,6 +4,7 @@ import search_icon from "../assets/img/search.webp";
 import cart_icon from "../assets/img/cart.webp";
 import "./styles/TopHeader.css";
 import SearchModal from "./SearchModal";
+import {Link} from "react-router-dom";
 
 class TopHeader extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class TopHeader extends Component {
         <div className="row no-gutters">
           <div className="col-12 col-xs-12 col-sm-12">
             <div className="left-header-container">
-              <div className="menu" onClick={this.onClickHandleMenu}>
+              <div component={Link} to={"/"} className="menu" onClick={this.onClickHandleMenu}>
                 <img src={menu_icon} alt="" />
               </div>
               <div className="header-title" onClick={this.onClickHandleTitle}>
