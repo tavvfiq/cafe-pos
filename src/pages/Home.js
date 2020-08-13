@@ -53,7 +53,12 @@ class Home extends Component {
   }
 
   fetchAllMenuFromDB = () => {
-    Axios.get(`${process.env.REACT_APP_BACKEND_API}/menu`)
+    const config = {
+      header: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+    Axios.get(`${process.env.REACT_APP_BACKEND_API}/menu`, config)
       .then((res) => {
         let { menus } = this.state;
         const menusLength = menus.length;
