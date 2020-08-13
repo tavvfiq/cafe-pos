@@ -38,7 +38,7 @@ class CheckoutModal extends React.Component {
       })],
       amount:this.totalPrice
     }
-    Axios.post("http://localhost:8001/addtransaction",data).then((res)=>{
+    Axios.post(`${process.env.REACT_APP_BACKEND_API}/addtransaction`,data).then((res)=>{
       console.log(res);
       this.props.onClickCheckout();
       this.handleClose();
