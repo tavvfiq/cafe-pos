@@ -1,0 +1,41 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  padding: 150px 10px 0px 10px;
+  position: relative;
+  background-color: aqua;
+  height: 100%;
+  min-height:640px;
+}
+
+.register-container h3 {
+  font-weight: bold;
+  text-align: center;
+  margin: 0px 0px 30px 0px;
+}
+
+.form-style {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  min-width: 320px;
+  max-width: 360px;
+  width: 100%;
+  position: relative;
+  vertical-align: middle;
+}
+
+.form-label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-style {
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+.button-style {
+  border-radius: 10px;
+  border-width: 1px;
+}
