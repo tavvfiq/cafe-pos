@@ -9,7 +9,7 @@
   width: 100%;
   min-width: 320px;
   min-height:332px;
-  bottom:calc(20vh + 0.1*20vh);
+  bottom:calc(75px + 0.3*20vh);
   /* background: #fff; */
   /* min-height:640px; */
   z-index: 10;

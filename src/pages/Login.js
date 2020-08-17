@@ -4,6 +4,7 @@ import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
 import Axios from "axios";
 import food_bg from "../assets/img/food-bg.jpg";
+import { useHistory } from "react-router-dom";
 
 export const Login = (props) => {
   const [show, setShow] = useState(false);
@@ -15,6 +16,8 @@ export const Login = (props) => {
     bind: bindPassword,
     reset: resetPassword,
   } = useInput("");
+
+  let history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -36,6 +39,10 @@ export const Login = (props) => {
           console.log(res.data);
           if (res.data.isSuccess) {
             setStatus("login Success!");
+            resetEmail();
+            resetPassword();
+            let path = "/";
+            history.push(path);
           } else {
             setStatus("email not found!");
           }
@@ -46,8 +53,6 @@ export const Login = (props) => {
           setStatus("login failed!");
           setShow(true);
         });
-      resetEmail();
-      resetPassword();
     }
   };
   return (
@@ -81,12 +86,21 @@ export const Login = (props) => {
           >
             Log In
           </Button>
-          <Button className="button-style" variant="warning">
+          <Button
+            className="button-style"
+            variant="warning"
+            onClick={() => {
+              let path = "/register";
+              history.push(path);
+            }}
+          >
             Doesnt have an account? Register!
           </Button>
         </form>
         <Toast
-          onClose={() => setShow(false)}
+          onClose={() => {
+            setShow(false);
+          }}
           show={show}
           animation={true}
           delay={3000}
