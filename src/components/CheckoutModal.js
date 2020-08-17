@@ -31,14 +31,14 @@ class CheckoutModal extends React.Component {
     const data = {
       invoice: this.props.invoice,
       cashier: this.state.cashier,
-      order_product:[...this.state.menus.filter((menu)=>{
+      order_menu:[...this.state.menus.filter((menu)=>{
         return menu.checked === true;
       }).map((menu)=>{
-        return {product_id: menu.id, quantity:menu.quantity}
+        return {menu_id: menu.id, quantity:menu.quantity}
       })],
       amount:this.totalPrice
     }
-    Axios.post("http://localhost:8001/addtransaction",data).then((res)=>{
+    Axios.post(`${process.env.REACT_APP_BACKEND_API}/addtransaction`,data).then((res)=>{
       console.log(res);
       this.props.onClickCheckout();
       this.handleClose();
