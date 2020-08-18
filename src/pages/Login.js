@@ -97,25 +97,22 @@ export const Login = (props) => {
             Doesnt have an account? Register!
           </Button>
         </form>
-        <Toast
-          onClose={() => {
-            setShow(false);
-          }}
-          show={show}
-          animation={true}
-          delay={3000}
-          className="toast"
-          autohide
-        >
-          <Toast.Body>{status}</Toast.Body>
-        </Toast>
       </div>
       <div className="box">
         <img src={food_bg} alt="" />
-        <h1>
-          take your food <br /> journey to the next level{" "}
-        </h1>
       </div>
+      <Toast
+        onClose={() => {
+          setShow(false);
+        }}
+        show={show}
+        animation={true}
+        delay={3000}
+        className="toast"
+        autohide
+      >
+        <Toast.Body>{status}</Toast.Body>
+      </Toast>
     </>
   );
 };
