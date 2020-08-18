@@ -41,7 +41,7 @@ export const Login = (props) => {
             setStatus("login Success!");
             resetEmail();
             resetPassword();
-            let path = "/";
+            const path = "/";
             history.push(path);
           } else {
             setStatus("email not found!");

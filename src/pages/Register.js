@@ -50,12 +50,12 @@ export const Register = (props) => {
           console.log(res);
           if (res.data.isSuccess) {
             setStatus(res.data.data);
-            let path = "/";
-            history.push(path);
             resetFirstName();
             resetLastName();
             resetEmail();
             resetPassword();
+            const path = "/";
+            history.push(path);
           } else {
             setStatus(res.data.data);
           }
