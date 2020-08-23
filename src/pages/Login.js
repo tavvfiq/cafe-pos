@@ -94,7 +94,7 @@ export const Login = (props) => {
               history.push(path);
             }}
           >
-            Doesnt have an account? Register!
+            Doesn't have an account? Register!
           </Button>
         </form>
       </div>
