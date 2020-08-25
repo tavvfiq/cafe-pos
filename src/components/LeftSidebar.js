@@ -6,65 +6,114 @@ import history_icon from "../assets/img/history.webp";
 import AddItemModal from "./AddItemModal";
 import { Link } from "react-router-dom";
 
-class LeftSidebar extends Component {
-  onClickHandeAddItem = () => {
-    this.props.onClickAddItem();
-  };
+const LeftSidebar = (props) => {
+  let showAddItemModal;
 
-  onClickFoodIcon = () => {
-    this.props.foodIconOnClick();
-  };
-
-  onClickAddItem = () => {
+  const onClickAddItem = () => {
     try {
-      this.showAddItemModal();
+      showAddItemModal();
     } catch (err) {
       console.log(err);
     }
   };
 
-  addItemModalRef = (props) => {
+  const addItemModalRef = (props) => {
     if (props === null) {
       return;
     }
     const { handleShow } = props;
-    this.showAddItemModal = handleShow;
+    showAddItemModal = handleShow;
   };
-
-  render() {
-    return (
-      <>
-        {this.props.updateMenu !== undefined ? (
-          <AddItemModal
-            updateMenu={this.props.updateMenu}
-            ref={this.addItemModalRef}
-          />
-        ) : null}
-        <div
-          className={
-            this.props.displayed
-              ? "left-sidebar-container-show"
-              : "left-sidebar-container"
-          }
-        >
-          <div className="left-sidebar-items">
-            <Link to="/">
-              <img src={food_icon} alt="" />
-            </Link>
-          </div>
-
-          <div className="left-sidebar-items">
-            <Link to="/report">
-              <img src={history_icon} alt="" />
-            </Link>
-          </div>
-          <div className="left-sidebar-items" onClick={this.onClickAddItem}>
-            <img src={add_icon} alt="" />
-          </div>
+  return (
+    <>
+      {props.updateMenu !== undefined ? (
+        <AddItemModal updateMenu={props.updateMenu} ref={addItemModalRef} />
+      ) : null}
+      <div
+        className={
+          props.displayed
+            ? "left-sidebar-container-show"
+            : "left-sidebar-container"
+        }
+      >
+        <div className="left-sidebar-items">
+          <Link to="/">
+            <img src={food_icon} alt="" />
+          </Link>
         </div>
-      </>
-    );
-  }
-}
+
+        <div className="left-sidebar-items">
+          <Link to="/report">
+            <img src={history_icon} alt="" />
+          </Link>
+        </div>
+        <div className="left-sidebar-items" onClick={onClickAddItem}>
+          <img src={add_icon} alt="" />
+        </div>
+      </div>
+    </>
+  );
+};
+
+// class LeftSidebar extends Component {
+//   onClickHandeAddItem = () => {
+//     this.props.onClickAddItem();
+//   };
+
+//   onClickFoodIcon = () => {
+//     this.props.foodIconOnClick();
+//   };
+
+//   onClickAddItem = () => {
+//     try {
+//       this.showAddItemModal();
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+
+//   addItemModalRef = (props) => {
+//     if (props === null) {
+//       return;
+//     }
+//     const { handleShow } = props;
+//     this.showAddItemModal = handleShow;
+//   };
+
+//   render() {
+//     return (
+//       <>
+//         {this.props.updateMenu !== undefined ? (
+//           <AddItemModal
+//             updateMenu={this.props.updateMenu}
+//             ref={this.addItemModalRef}
+//           />
+//         ) : null}
+//         <div
+//           className={
+//             this.props.displayed
+//               ? "left-sidebar-container-show"
+//               : "left-sidebar-container"
+//           }
+//         >
+//           <div className="left-sidebar-items">
+//             <Link to="/">
+//               <img src={food_icon} alt="" />
+//             </Link>
+//           </div>
+
+//           <div className="left-sidebar-items">
+//             <Link to="/report">
+//               <img src={history_icon} alt="" />
+//             </Link>
+//           </div>
+//           <div className="left-sidebar-items" onClick={this.onClickAddItem}>
+//             <img src={add_icon} alt="" />
+//           </div>
+//         </div>
+//       </>
+//     );
+//   }
+// }
 
 export default LeftSidebar;

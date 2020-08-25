@@ -5,7 +5,6 @@ import RightSidebar from "../components/RightSidebar";
 import TopHeader from "../components/TopHeader";
 import Menus from "../components/Menus";
 import Axios from "axios";
-import { update } from "ramda";
 import { connect } from "react-redux";
 import { fetchMenus } from "../redux/actions/menu";
 // import {process} from "dotenv";
@@ -25,7 +24,7 @@ const Home = (props) => {
 
   useEffect(() => {
     fetchAllMenuFromDB();
-  },[]);
+  }, []);
 
   const handleClickLeftSidebar = () => {
     setDisplayLeftsidebar(!leftSidebarDisplayed);
@@ -38,6 +37,10 @@ const Home = (props) => {
   const handleChangeNumOfOrders = (state) => {
     setNumOfOrder(0);
   };
+
+  const updateMenu = () =>{
+    fetchAllMenuFromDB();
+  }
   return (
     <>
       <header>
@@ -57,6 +60,10 @@ const Home = (props) => {
             handleChangeNumOfOrders={handleChangeNumOfOrders}
           />
         )}
+        <LeftSidebar
+          displayed={leftSidebarDisplayed}
+          updateMenu={updateMenu}
+        />
       </div>
     </>
   );
@@ -205,8 +212,8 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchMenus: menus => dispatch(fetchMenus(menus))
+    fetchMenus: (menus) => dispatch(fetchMenus(menus)),
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
