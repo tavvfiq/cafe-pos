@@ -5,8 +5,10 @@ import "./Register.css";
 import Axios from "axios";
 import food_bg from "../assets/img/food-bg.jpg";
 import { useHistory } from "react-router-dom";
+import {connect} from "react-redux";
+import {loggedIn} from "../redux/actions/auth";
 
-export const Login = (props) => {
+const Login = (props) => {
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState("");
 
@@ -29,18 +31,18 @@ export const Login = (props) => {
       setStatus("please fill the empty field(s)!");
       setShow(true);
     } else {
-      console.log(data);
       Axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/login`, data, {
         headers: {
           "content-type": "application/json",
         },
       })
         .then((res) => {
-          console.log(res.data);
           if (res.data.isSuccess) {
+            const token = res.data.data.token;
             setStatus("login Success!");
             resetEmail();
             resetPassword();
+            props.loggedIn(token);
             const path = "/";
             history.push(path);
           } else {
@@ -123,3 +125,11 @@ export const Login = (props) => {
     </>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loggedIn: (token) => dispatch(loggedIn(token)),
+  };
+};
+
+export default connect(null,mapDispatchToProps)(Login);

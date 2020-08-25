@@ -12,7 +12,6 @@ import { fetchMenus } from "../redux/actions/menu";
 const Home = (props) => {
   const [leftSidebarDisplayed, setDisplayLeftsidebar] = useState(false);
   const [rightSidebarDisplayed, setDisplayRightsidebar] = useState(false);
-  const [numOfOrder, setNumOfOrder] = useState(0);
 
   const fetchAllMenuFromDB = () => {
     Axios.get(`${process.env.REACT_APP_BACKEND_API}/menu`)
@@ -34,20 +33,17 @@ const Home = (props) => {
     setDisplayRightsidebar(!rightSidebarDisplayed);
   };
 
-  const handleChangeNumOfOrders = (state) => {
-    setNumOfOrder(0);
-  };
-
-  const updateMenu = () =>{
+  const updateMenu = () => {
     fetchAllMenuFromDB();
-  }
+  };
   return (
     <>
       <header>
         <TopHeader
           onClickMenu={handleClickLeftSidebar}
           onClickCart={handleClickRightSidebar}
-          numOfOrders={numOfOrder}
+          onClickTitle={updateMenu}
+          menus={props.menus}
         />
       </header>
 
@@ -57,13 +53,13 @@ const Home = (props) => {
         ) : (
           <Menus
             menus={props.menus}
-            handleChangeNumOfOrders={handleChangeNumOfOrders}
           />
         )}
-        <LeftSidebar
-          displayed={leftSidebarDisplayed}
-          updateMenu={updateMenu}
+        <RightSidebar
+          displayed={rightSidebarDisplayed}
+          menus={props.menus}
         />
+        <LeftSidebar displayed={leftSidebarDisplayed} updateMenu={updateMenu} />
       </div>
     </>
   );

@@ -3,7 +3,6 @@ import * as actions from "../actions/actionTypes";
 import { produce } from "immer";
 import { update } from "ramda";
 
-
 export default function menuReducer(state = [], action) {
   switch (action.type) {
     case actions.MENU_FETCHED:
@@ -56,20 +55,28 @@ export default function menuReducer(state = [], action) {
           return action.payload.id === draftMenu.id;
         });
         draftMenus[idx].checked = !draftMenus[idx].checked;
+        draftMenus[idx].quantity = 0;
       });
     case actions.MENU_FILTERED:
       return produce(state, (draftMenus) => {
         const filteredMenus = action.payload.filteredMenus;
-        for (let i = 0; i < filteredMenus.length; i++) {
-          const idx = draftMenus.findIndex((draftMenu) => {
-            return draftMenu.id === filteredMenus[i].id;
+        for (let i = 0; i < draftMenus.length; i++) {
+          const idx = filteredMenus.findIndex((filteredMenu) => {
+            return filteredMenu.id === draftMenus[i].id;
           });
           if (idx >= 0) {
-            draftMenus[idx].filtered = false;
+            draftMenus[i].filtered = false;
           } else {
-            draftMenus[idx].filtered = true;
+            draftMenus[i].filtered = true;
           }
         }
+      });
+    case actions.MENU_CHANGE_QUANTITY:
+      return produce(state, (draftMenus) => {
+        const idx = draftMenus.findIndex((draftMenu) => {
+          return action.payload.id === draftMenu.id;
+        });
+        draftMenus[idx].quantity = action.payload.quantity;
       });
     default:
       return state;

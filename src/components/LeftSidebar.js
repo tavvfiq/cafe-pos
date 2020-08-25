@@ -26,9 +26,9 @@ const LeftSidebar = (props) => {
   };
   return (
     <>
-      {props.updateMenu !== undefined ? (
+      {/* {props.updateMenu !== undefined ? ( */}
         <AddItemModal updateMenu={props.updateMenu} ref={addItemModalRef} />
-      ) : null}
+      {/* ) : null} */}
       <div
         className={
           props.displayed
@@ -54,66 +54,5 @@ const LeftSidebar = (props) => {
     </>
   );
 };
-
-// class LeftSidebar extends Component {
-//   onClickHandeAddItem = () => {
-//     this.props.onClickAddItem();
-//   };
-
-//   onClickFoodIcon = () => {
-//     this.props.foodIconOnClick();
-//   };
-
-//   onClickAddItem = () => {
-//     try {
-//       this.showAddItemModal();
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   addItemModalRef = (props) => {
-//     if (props === null) {
-//       return;
-//     }
-//     const { handleShow } = props;
-//     this.showAddItemModal = handleShow;
-//   };
-
-//   render() {
-//     return (
-//       <>
-//         {this.props.updateMenu !== undefined ? (
-//           <AddItemModal
-//             updateMenu={this.props.updateMenu}
-//             ref={this.addItemModalRef}
-//           />
-//         ) : null}
-//         <div
-//           className={
-//             this.props.displayed
-//               ? "left-sidebar-container-show"
-//               : "left-sidebar-container"
-//           }
-//         >
-//           <div className="left-sidebar-items">
-//             <Link to="/">
-//               <img src={food_icon} alt="" />
-//             </Link>
-//           </div>
-
-//           <div className="left-sidebar-items">
-//             <Link to="/report">
-//               <img src={history_icon} alt="" />
-//             </Link>
-//           </div>
-//           <div className="left-sidebar-items" onClick={this.onClickAddItem}>
-//             <img src={add_icon} alt="" />
-//           </div>
-//         </div>
-//       </>
-//     );
-//   }
-// }
 
 export default LeftSidebar;

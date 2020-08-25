@@ -2,6 +2,8 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { filterMenus } from "../redux/actions/menu";
 
 import "./styles/SearchModal.css";
 
@@ -15,19 +17,13 @@ class SearchModal extends React.Component {
     this.nameInput = "";
     this.sortBy = "name";
     this.sortOrder = "ascending";
-    this.handleClose = this.handleClose.bind(this);
-    this.handleShow = this.handleShow.bind(this);
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false });
-  }
-  handleShow() {
+  };
+  handleShow = () => {
     this.setState({ show: true });
-  }
-
-  handleFilteredMenu = (props) => {
-    this.props.handleFilteredMenu(props);
   };
 
   fetchData = () => {
@@ -38,7 +34,8 @@ class SearchModal extends React.Component {
       .toUpperCase()}`;
     Axios.get(URLString)
       .then((res) => {
-        this.handleFilteredMenu(res.data.data);
+        console.log(res.data.data);
+        this.props.filterMenus(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -125,4 +122,12 @@ class SearchModal extends React.Component {
   }
 }
 
-export default SearchModal;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    filterMenus: (filteredMenus) => dispatch(filterMenus(filteredMenus)),
+  };
+};
+
+export default connect(null, mapDispatchToProps, null, { forwardRef: true })(
+  SearchModal
+);

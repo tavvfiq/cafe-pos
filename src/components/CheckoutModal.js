@@ -27,25 +27,46 @@ class CheckoutModal extends React.Component {
     this.setState({ show: true });
   };
 
-  sendTransaction = ()=>{
+  sendTransaction = () => {
     const data = {
       invoice: this.props.invoice,
       cashier: this.state.cashier,
-      order_menu:[...this.state.menus.filter((menu)=>{
-        return menu.checked === true;
-      }).map((menu)=>{
-        return {menu_id: menu.id, quantity:menu.quantity}
-      })],
-      amount:this.totalPrice
+      order_menu: [
+        ...this.state.menus
+          .filter((menu) => {
+            return menu.checked === true;
+          })
+          .map((menu) => {
+            return { menu_id: menu.id, quantity: menu.quantity };
+          }),
+      ],
+      amount: this.totalPrice,
+    };
+
+    const token = sessionStorage.getItem("user_token");
+    if (token === null) {
+      token = "";
     }
-    Axios.post(`${process.env.REACT_APP_BACKEND_API}/addtransaction`,data).then((res)=>{
-      console.log(res);
-      this.props.onClickCheckout();
-      this.handleClose();
-    }).catch((err)=>{
-      console.log(err);
-    })
-  }
+
+    const config = {
+      headers: {
+        "x-access-token": "Bearer "+token,
+      },
+    };
+    Axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/addtransaction`,
+      data,
+      config
+    )
+      .then((res) => {
+        console.log(res);
+        this.props.onClickCheckout();
+        this.handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   renderOrderDetails(order) {
     return (

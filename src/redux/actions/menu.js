@@ -53,3 +53,13 @@ export const checkMenu = (id) => {
     },
   };
 };
+
+export const changeMenuQuantity = (id, quantity) => {
+  return {
+    type: actions.MENU_CHANGE_QUANTITY,
+    payload: {
+      id,
+      quantity,
+    },
+  };
+};

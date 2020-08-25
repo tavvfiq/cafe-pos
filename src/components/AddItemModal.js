@@ -41,11 +41,16 @@ class AddItemModal extends React.Component {
         : 4
     );
 
+    const token = sessionStorage.getItem("user_token");
+    if(token===null){
+      token = "";
+    }
+
     const config = {
       headers: {
         "content-type": "multipart/form-data",
         "x-access-token":
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhdnZmaXEiLCJsZXZlbF9pZCI6NCwiaWF0IjoxNTk3MjM3NDAyLCJleHAiOjE1OTczMjM4MDJ9.cOLO2mvbIfEdq0bxnKHoCX52uNS_uQh8E6raDgPlrJs",
+          "Bearer "+token,
       },
     };
 
