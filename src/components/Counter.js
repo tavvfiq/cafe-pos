@@ -17,7 +17,7 @@ class Counter extends React.Component {
   };
 
   decValue = () => {
-    if (this.state.value <0) {
+    if (this.state.value <=0) {
       this.setState({
         value: 0,
       },this.handleNumOfOrderChanged);

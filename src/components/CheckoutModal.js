@@ -114,10 +114,10 @@ class CheckoutModal extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="danger" onClick={this.handleClose}>
-              Cancel
+              Send Email
             </Button>
             <Button variant="primary" onClick={this.sendTransaction}>
-              Okay
+              Print
             </Button>
           </Modal.Footer>
         </Modal>

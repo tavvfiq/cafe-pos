@@ -59,7 +59,7 @@ class CardSidebar extends React.Component {
               handleNumOfOrderChanged={this.handleNumOfOrderChanged}
             />
             <div className="text">
-              <h5>{`Rp. ${this.state.price}`}</h5>
+              <h5>{`Rp. ${this.state.price*this.state.quantity}`}</h5>
             </div>
           </div>
         </div>

@@ -72,10 +72,16 @@
   z-index: -1;
 }
 
-.box img{
+.box video{
   height:100%;
   width:100%;
   object-fit: cover;
+}
+
+.overlay {
+  height:100%;
+  width:100%;
+  background-color: rgba(0,0,0,0.7);
 }
 
 .box h1 {

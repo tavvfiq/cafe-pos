@@ -64,7 +64,7 @@ export const Login = (props) => {
             Email:
             <input
               className="input-style"
-              type="text"
+              type="email"
               {...bindEmail}
               placeholder="johndoe@example.com"
             />
@@ -99,7 +99,14 @@ export const Login = (props) => {
         </form>
       </div>
       <div className="box">
-        <img src={food_bg} alt="" />
+        {/* <img src={food_bg} alt="" /> */}
+        <video className="box" loop autoPlay muted>
+          <source
+            src="https://cdn.videvo.net/videvo_files/video/free/2018-08/small_watermarked/180825_08_garden_preview.webm"
+            type="video/webm"
+          />
+        </video>
+        <div className="overlay"></div>
       </div>
       <Toast
         onClose={() => {
