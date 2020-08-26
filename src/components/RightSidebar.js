@@ -8,16 +8,16 @@ import CheckoutModal from "./CheckoutModal";
 
 const RightSidebar = (props) => {
   let showModal;
-  const renderCardSidebar = (props) => {
+  const renderCardSidebar = (menu) => {
     return (
       <CardSidebar
-        key={props.id}
-        id={props.id}
-        name={props.name}
-        price={props.price}
-        image_path={props.image_path}
-        quantity={props.quantity}
-        checked={props.checked}
+        key={menu.id}
+        id={menu.id}
+        name={menu.name}
+        price={menu.price}
+        image_path={menu.image_path}
+        quantity={menu.quantity}
+        checked={menu.checked}
       />
     );
   };
