@@ -69,7 +69,7 @@ const TopHeader = (props) => {
               <img src={menu_icon} alt="" />
             </div>
             <div className="header-title" onClick={onClickHandleTitle}>
-              <h4>Menus</h4>
+              <h4>Menu</h4>
             </div>
             <div className="search" onClick={onClickSearch}>
               <img src={search_icon} alt="" />

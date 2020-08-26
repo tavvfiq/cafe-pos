@@ -46,7 +46,8 @@ const Login = (props) => {
             const path = "/";
             history.push(path);
           } else {
-            setStatus("email not found!");
+            console.log(res);
+            setStatus(res.data.data.msg);
           }
           setShow(true);
         })

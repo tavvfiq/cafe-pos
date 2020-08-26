@@ -54,7 +54,7 @@ export const Register = (props) => {
             resetLastName();
             resetEmail();
             resetPassword();
-            const path = "/";
+            const path = "/login";
             history.push(path);
           } else {
             setStatus(res.data.data);
