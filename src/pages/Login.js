@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useInput } from "../hooks/inputHook";
 import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
 import Axios from "axios";
 import food_bg from "../assets/img/food-bg.jpg";
 import { useHistory } from "react-router-dom";
-import {connect} from "react-redux";
-import {loggedIn} from "../redux/actions/auth";
+import { connect } from "react-redux";
+import { loggedIn } from "../redux/actions/auth";
+import { Redirect } from "react-router-dom";
 
 const Login = (props) => {
   const [show, setShow] = useState(false);
@@ -31,35 +32,12 @@ const Login = (props) => {
       setStatus("please fill the empty field(s)!");
       setShow(true);
     } else {
-      Axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/login`, data, {
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-        .then((res) => {
-          if (res.data.isSuccess) {
-            const token = res.data.data.token;
-            setStatus("login Success!");
-            resetEmail();
-            resetPassword();
-            props.loggedIn(token);
-            const path = "/";
-            history.push(path);
-          } else {
-            console.log(res);
-            setStatus(res.data.data.msg);
-          }
-          setShow(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setStatus("login failed!");
-          setShow(true);
-        });
+      props.loggedIn(data);
     }
   };
   return (
     <>
+      {/* {props.authState.isLoggedIn ? <Redirect to="/" /> : ""} */}
       <div className="register-container">
         <h3>Log In</h3>
         <form className="form-style" onSubmit={handleSubmit}>
@@ -129,8 +107,14 @@ const Login = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loggedIn: (token) => dispatch(loggedIn(token)),
+    loggedIn: (data) => dispatch(loggedIn(data)),
   };
 };
 
-export default connect(null,mapDispatchToProps)(Login);
+const mapStateToProps = function (state) {
+  return {
+    authState: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

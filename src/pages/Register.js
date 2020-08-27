@@ -5,8 +5,10 @@ import "./Register.css";
 import Axios from "axios";
 import food_bg from "../assets/img/food-bg.jpg";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { register } from "../redux/actions/auth";
 
-export const Register = (props) => {
+const Register = (props) => {
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState("");
   const {
@@ -30,7 +32,7 @@ export const Register = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const body = {
+    const data = {
       first_name: firstName,
       last_name: lastName,
       email,
@@ -45,26 +47,7 @@ export const Register = (props) => {
       setStatus("please fill the empty field(s)!");
       setShow(true);
     } else {
-      Axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/register`, body)
-        .then((res) => {
-          console.log(res);
-          if (res.data.isSuccess) {
-            setStatus(res.data.data);
-            resetFirstName();
-            resetLastName();
-            resetEmail();
-            resetPassword();
-            const path = "/login";
-            history.push(path);
-          } else {
-            setStatus(res.data.data);
-          }
-          setShow(true);
-        })
-        .catch((err) => {
-          setStatus("Register failed!");
-          setShow(true);
-        });
+      props.register(data);
     }
   };
   return (
@@ -154,3 +137,17 @@ export const Register = (props) => {
     </>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (data) => dispatch(register(data)),
+  };
+};
+
+const mapStateToProps = function (state) {
+  return {
+    authState: state.authState,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

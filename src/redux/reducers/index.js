@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
   menusState: menuReducer,
-  isLoggedIn: authReducer,
+  authState: authReducer,
 });
 
 export default allReducers;
