@@ -14,11 +14,7 @@ const Home = (props) => {
   const [rightSidebarDisplayed, setDisplayRightsidebar] = useState(false);
 
   const fetchAllMenuFromDB = () => {
-    Axios.get(`${process.env.REACT_APP_BACKEND_API}/menu`)
-      .then((res) => {
-        props.fetchMenus(res.data.data);
-      })
-      .catch((err) => console.log(err));
+    props.fetchMenus();
   };
 
   useEffect(() => {
@@ -67,7 +63,7 @@ const Home = (props) => {
 
 const mapStateToProps = function (state) {
   return {
-    menus: state.menus,
+    menus: state.menusState.menus,
   };
 };
 

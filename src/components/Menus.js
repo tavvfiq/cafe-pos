@@ -47,7 +47,7 @@ const Menus = (props) => {
 
 const mapStateToProps = function (state) {
   return {
-    menus: state.menus,
+    menus: state.menusState.menus,
   };
 };
 

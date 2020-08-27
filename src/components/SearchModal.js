@@ -27,19 +27,12 @@ class SearchModal extends React.Component {
   };
 
   fetchData = () => {
-    const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/filter?name=${
-      this.nameInput
-    }&by=${this.sortBy.replace(" ", "_")}&order=${this.sortOrder
-      .replace("ending", "")
-      .toUpperCase()}`;
-    Axios.get(URLString)
-      .then((res) => {
-        console.log(res.data.data);
-        this.props.filterMenus(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const query = {
+      search: this.nameInput,
+      sortby: this.sortBy,
+      order: this.sortOrder,
+    };
+    this.props.filterMenus(query);
     this.handleClose();
   };
 
@@ -85,7 +78,7 @@ class SearchModal extends React.Component {
                 >
                   <option defaultValue>name</option>
                   <option>price</option>
-                  <option>category</option>
+                  <option value="category_id">category</option>
                   <option>added at</option>
                   <option>updated at</option>
                 </select>
@@ -124,7 +117,7 @@ class SearchModal extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    filterMenus: (filteredMenus) => dispatch(filterMenus(filteredMenus)),
+    filterMenus: (query) => dispatch(filterMenus(query)),
   };
 };
 

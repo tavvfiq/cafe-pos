@@ -3,7 +3,7 @@ import authReducer from "./authReducer";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
-  menus: menuReducer,
+  menusState: menuReducer,
   isLoggedIn: authReducer,
 });
 

@@ -27,6 +27,7 @@
     "react-transition-group": "^4.4.1",
     "reactstrap": "^8.5.1",
     "redux": "^4.0.5",
+    "redux-promise-middleware": "^6.1.2",
     "rfs": "^9.0.3",
     "serve": "^11.3.2"
   },

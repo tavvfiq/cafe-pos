@@ -1,4 +1,5 @@
 import * as actions from "./actionTypes";
+import * as apiCalls from "../../utils/apiCalls";
 
 export const addMenu = (menu) => {
   return {
@@ -27,21 +28,17 @@ export const deleteMenu = (id) => {
   };
 };
 
-export const fetchMenus = (menus) => {
+export const fetchMenus = () => {
   return {
     type: actions.MENU_FETCHED,
-    payload: {
-      menus,
-    },
+    payload: apiCalls.fetchAllMenus(),
   };
 };
 
-export const filterMenus = (filteredMenus) => {
+export const filterMenus = (query) => {
   return {
     type: actions.MENU_FILTERED,
-    payload: {
-      filteredMenus,
-    },
+    payload: apiCalls.searchAndSortMenus(query),
   };
 };
 
