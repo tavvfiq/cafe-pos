@@ -37,8 +37,9 @@
 }
 
 .form-label {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  margin:0px;
   font-weight: bold;
   width: 100%;
   color:white;
@@ -46,13 +47,14 @@
 
 .input-style {
   border-radius: 5px;
-  border-width: 0px 0px 1px 0px;
-  width: 70%;
+  border-width: 0px 0px 0px 0px;
+  /* width: 70%; */
+  width:100%;
 }
 
 .button-style {
   border-radius: 5px;
-  margin: 3px 0px;
+  margin: 5px 0px;
   font-weight: bold;
   /* max-width: 320px; */
   width: 100%;
@@ -60,7 +62,7 @@
 }
 
 .submit-button{
-  margin: 10px 0px 3px 0px;
+  margin: 20px 0px 3px 0px;
 }
 
 .box {
@@ -99,7 +101,7 @@
   .register-container {
     display: flex;
     flex-direction: column;
-    padding: 50vh 40vw 0px 40vw;
+    padding: 40vh 40vw 0px 40vw;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -118,17 +120,21 @@
 
   .input-style {
     border-radius: 5px;
-    border-width: 0px 0px 1px 0px;
-    width: 70%;
+    border-width: 0px 0px 0px 0px;
+    width: 100%;
   }
 
   .button-style {
     border-radius: 5px;
-    margin: 3px 0px;
+    margin: 5px 0px;
     font-weight: bold;
     max-width: 320px;
     width: 100%;
     align-self: center;
+  }
+
+  .submit-button{
+    margin: 20px 0px 3px 0px;
   }
 
   .box {
@@ -153,8 +159,9 @@
     z-index:100
   }
   .form-label {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
+    margin:0px;
     font-weight: bold;
     width: 100%;
     color:white;

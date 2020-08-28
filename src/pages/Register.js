@@ -74,42 +74,36 @@ const Register = (props) => {
           <div className="register-container">
             <h3>Register</h3>
             <form className="form-style" onSubmit={handleSubmit}>
-              <label className="form-label">
-                First Name:
-                <input
-                  className="input-style"
-                  type="text"
-                  {...bindFirstName}
-                  placeholder="john"
-                />
-              </label>
-              <label className="form-label">
-                Last Name:
-                <input
-                  className="input-style"
-                  type="text"
-                  {...bindLastName}
-                  placeholder="doe"
-                />
-              </label>
-              <label className="form-label">
-                Email:
-                <input
-                  className="input-style"
-                  type="email"
-                  {...bindEmail}
-                  placeholder="johndoe@example.com"
-                />
-              </label>
-              <label className="form-label">
-                Password:
-                <input
-                  className="input-style"
-                  type="password"
-                  {...bindPassword}
-                  placeholder="password"
-                />
-              </label>
+              <label className="form-label">First Name:</label>
+              <input
+                className="input-style"
+                type="text"
+                {...bindFirstName}
+                placeholder="john"
+              />
+              <label className="form-label">Last Name:</label>
+              <input
+                className="input-style"
+                type="text"
+                {...bindLastName}
+                placeholder="doe"
+              />
+
+              <label className="form-label">Email:</label>
+              <input
+                className="input-style"
+                type="email"
+                {...bindEmail}
+                placeholder="johndoe@example.com"
+              />
+
+              <label className="form-label">Password:</label>
+              <input
+                className="input-style"
+                type="password"
+                {...bindPassword}
+                placeholder="password"
+              />
               <Button
                 className="button-style submit-button"
                 variant="primary"

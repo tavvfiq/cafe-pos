@@ -9,7 +9,7 @@ class CheckoutModal extends React.Component {
     this.state = {
       show: false,
       menus: props.menus,
-      cashier: "Taufiq Widi",
+      cashier: props.cashier,
     };
     this.totalPrice = 0;
   }
@@ -50,7 +50,7 @@ class CheckoutModal extends React.Component {
 
     const config = {
       headers: {
-        "x-access-token": "Bearer "+token,
+        "x-access-token": "Bearer " + token,
       },
     };
     Axios.post(
@@ -75,9 +75,9 @@ class CheckoutModal extends React.Component {
         <h4>
           {order.price === ""
             ? ""
-            : `Rp. ${
+            : `Rp. ${(
                 order.price * (order.quantity === "" ? 1 : order.quantity)
-              }`}
+              ).toLocaleString("id-ID")}`}
         </h4>
       </div>
     );

@@ -2,13 +2,14 @@ import React from "react";
 import CardSidebar from "./CardRightSidebar";
 import "./styles/RightSidebar.css";
 import empty_cart from "../assets/img/empty_cart.webp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkMenu } from "../redux/actions/menu";
 import CheckoutModal from "./CheckoutModal";
 
 const RightSidebar = (props) => {
   let showModal;
   const dispatch = useDispatch();
+  const cashier = useSelector((state) => state.authState.session.name);
   const renderCardSidebar = (menu) => {
     return (
       <CardSidebar
@@ -36,8 +37,8 @@ const RightSidebar = (props) => {
   };
 
   const unCheckAllMenus = () => {
-    for(let i=0;i<props.menus.length;i++){
-      if(props.menus[i].checked === true){
+    for (let i = 0; i < props.menus.length; i++) {
+      if (props.menus[i].checked === true) {
         dispatch(checkMenu(props.menus[i].id));
       }
     }
@@ -61,9 +62,11 @@ const RightSidebar = (props) => {
               *belum termasuk ppn
             </h5>
             <h5>
-              {`Rp. ${orderedMenus.reduce((total, menu) => {
-                return total + menu.price * menu.quantity;
-              }, 0)}`}
+              {`Rp. ${orderedMenus
+                .reduce((total, menu) => {
+                  return total + menu.price * menu.quantity;
+                }, 0)
+                .toLocaleString("id-ID")}`}
             </h5>
           </div>
           <div className="btn-container">
@@ -101,6 +104,7 @@ const RightSidebar = (props) => {
         menus={orderedMenus}
         invoice={invoice}
         onClickCheckout={unCheckAllMenus}
+        cashier={cashier}
       ></CheckoutModal>
       <div
         className={

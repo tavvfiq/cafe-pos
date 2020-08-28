@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useInput } from "../hooks/inputHook";
 import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
-import {useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { loggedIn } from "../redux/actions/auth";
 import { Redirect, Switch } from "react-router-dom";
 
@@ -48,31 +48,29 @@ const Login = (props) => {
     <>
       {isLoggedIn ? (
         <Switch>
-          <Redirect from="/login" to="/" exact/>
+          <Redirect from="/login" to="/" exact />
         </Switch>
       ) : (
         <>
           <div className="register-container">
             <h3>Log In</h3>
             <form className="form-style" onSubmit={handleSubmit}>
-              <label className="form-label">
-                Email:
-                <input
-                  className="input-style"
-                  type="email"
-                  {...bindEmail}
-                  placeholder="johndoe@example.com"
-                />
-              </label>
-              <label className="form-label">
-                Password:
-                <input
-                  className="input-style"
-                  type="password"
-                  {...bindPassword}
-                  placeholder="password"
-                />
-              </label>
+              <label className="form-label">Email:</label>
+              <input
+                className="input-style"
+                type="email"
+                {...bindEmail}
+                placeholder="johndoe@example.com"
+              />
+
+              <label className="form-label">Password:</label>
+              <input
+                className="input-style"
+                type="password"
+                {...bindPassword}
+                placeholder="password"
+              />
+
               <Button
                 className="button-style submit-button"
                 variant="primary"

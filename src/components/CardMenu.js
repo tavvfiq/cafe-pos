@@ -24,7 +24,7 @@ const CardMenu = (props) => {
         </div>
         <div className="content-text">
           <h5>{props.name}</h5>
-          <p>{`Rp. ${props.price}`}</p>
+          <p>{`Rp. ${props.price.toLocaleString('id-ID')}`}</p>
         </div>
       </div>
     </div>

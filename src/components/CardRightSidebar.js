@@ -25,7 +25,7 @@ const CardSidebar = (props) => {
             handleNumOfOrderChanged={handleNumOfOrderChanged}
           />
           <div className="text">
-            <h5>{`Rp. ${props.price * props.quantity}`}</h5>
+            <h5>{`Rp. ${(props.price * props.quantity).toLocaleString("id-ID")}`}</h5>
           </div>
         </div>
       </div>
