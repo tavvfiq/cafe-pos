@@ -1,6 +1,5 @@
 import React from "react";
 import CardMenu from "./CardMenu";
-import { connect } from "react-redux";
 
 const Menus = (props) => {
   const renderCardMenu = (menu) => {
@@ -45,10 +44,4 @@ const Menus = (props) => {
   );
 };
 
-const mapStateToProps = function (state) {
-  return {
-    menus: state.menusState.menus,
-  };
-};
-
-export default connect(mapStateToProps)(Menus);
+export default Menus;

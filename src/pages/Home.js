@@ -4,7 +4,6 @@ import LeftSidebar from "../components/LeftSidebar";
 import RightSidebar from "../components/RightSidebar";
 import TopHeader from "../components/TopHeader";
 import Menus from "../components/Menus";
-import Axios from "axios";
 import { connect } from "react-redux";
 import { fetchMenus } from "../redux/actions/menu";
 // import {process} from "dotenv";

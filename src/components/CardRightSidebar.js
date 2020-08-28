@@ -1,12 +1,13 @@
 import React from "react";
 import Counter from "./Counter";
 import "./styles/CardRightSidebar.css";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeMenuQuantity } from "../redux/actions/menu";
 
 const CardSidebar = (props) => {
+  const dispatch = useDispatch();
   const handleNumOfOrderChanged = (state) => {
-   props.changeMenuQuantity(props.id, state.value);
+    dispatch(changeMenuQuantity(props.id, state.value));
   };
   return (
     <div className="card-container">
@@ -32,11 +33,4 @@ const CardSidebar = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeMenuQuantity: (id, quantity) =>
-      dispatch(changeMenuQuantity(id, quantity)),
-  };
-};
-
-export default connect(null,mapDispatchToProps)(CardSidebar);
+export default CardSidebar;

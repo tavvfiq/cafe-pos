@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Report from "./pages/Report";
@@ -9,24 +9,24 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 
+import {useSelector} from "react-redux";
+
 const App = () => {
+  const {isLoggedIn} = useSelector((state)=>state.authState);
   return (
     <Router>
       <Switch>
-        <PrivateRoute component={Home} path="/" exact />
-        <PublicRoute restricted={false} component={Login} path="/login" exact />
+        <PrivateRoute component={Home} isLoggedIn={isLoggedIn} exact path="/" />
+        <PublicRoute restricted={false} component={Login} isLoggedIn={isLoggedIn} exact path="/login" />
         <PublicRoute
           restricted={false}
           component={Register}
-          path="/register"
+          isLoggedIn={isLoggedIn}
           exact
+          path="/register"
         />
-        <PrivateRoute component={Report} path="/report" exact />
+        <PrivateRoute component={Report} isLoggedIn={isLoggedIn} exact path="/report" />
       </Switch>
-      {/* <Route path="/" exact component={Home} />
-      <Route path="/report" exact component={Report} />
-      <Route path="/register" exact component={Register} />
-      <Route path="/login" exact component={Login} /> */}
     </Router>
   );
 };

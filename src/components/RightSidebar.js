@@ -2,12 +2,13 @@ import React from "react";
 import CardSidebar from "./CardRightSidebar";
 import "./styles/RightSidebar.css";
 import empty_cart from "../assets/img/empty_cart.webp";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { checkMenu } from "../redux/actions/menu";
 import CheckoutModal from "./CheckoutModal";
 
 const RightSidebar = (props) => {
   let showModal;
+  const dispatch = useDispatch();
   const renderCardSidebar = (menu) => {
     return (
       <CardSidebar
@@ -37,7 +38,7 @@ const RightSidebar = (props) => {
   const unCheckAllMenus = () => {
     for(let i=0;i<props.menus.length;i++){
       if(props.menus[i].checked === true){
-        props.checkMenu(props.menus[i].id);
+        dispatch(checkMenu(props.menus[i].id));
       }
     }
   };
@@ -114,10 +115,4 @@ const RightSidebar = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    checkMenu: (id) => dispatch(checkMenu(id)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(RightSidebar);
+export default RightSidebar;

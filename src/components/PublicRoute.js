@@ -2,14 +2,14 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import {connect} from "react-redux";
 
-const PublicRoute = ({ component: Component, restricted, ...rest }) => {
+const PublicRoute = ({ component: Component, restricted, isLoggedIn, ...rest }) => {
   return (
     // restricted = false meaning public route
     // restricted = true meaning restricted route
     <Route
       {...rest}
       render={(props) =>
-        rest.isLoggedIn && restricted ? (
+        isLoggedIn && restricted ? (
           <Redirect to="/report" />
         ) : (
           <Component {...props} />
@@ -18,9 +18,4 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
     />
   );
 };
-const mapStateToProps = function (state) {
-  return {
-    isLoggedIn: state.isLoggedIn,
-  };
-};
-export default connect(mapStateToProps)(PublicRoute);
+export default PublicRoute;

@@ -1,12 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import "./styles/CardMenu.css";
 import check from "../assets/img/check.webp";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { checkMenu } from "../redux/actions/menu";
 
 const CardMenu = (props) => {
+  const dispatch = useDispatch();
   const toggleChecked = () => {
-    props.checkMenu(props.id);
+    dispatch(checkMenu(props.id));
   };
   return (
     <div
@@ -30,10 +31,4 @@ const CardMenu = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    checkMenu: id => dispatch(checkMenu(id))
-  };
-}
-
-export default connect(null, mapDispatchToProps)(CardMenu);
+export default CardMenu;

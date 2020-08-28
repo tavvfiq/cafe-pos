@@ -1,8 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import Axios from "axios";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect} from "react-redux";
 import { filterMenus } from "../redux/actions/menu";
 
 import "./styles/SearchModal.css";
