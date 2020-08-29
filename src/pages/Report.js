@@ -4,7 +4,7 @@ import TopHeader from "../components/TopHeader_Report";
 import ReportContent from "../components/ReportContent";
 import Axios from "axios";
 import "./Report.css";
-import { connect, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Toast } from "react-bootstrap";
 
 const Report = (props) => {
@@ -35,7 +35,6 @@ const Report = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(msg);
     if (msg || msg !=="") {
       setShow(true);
     }

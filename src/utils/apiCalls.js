@@ -25,7 +25,7 @@ export const deleteMenu = (id, config) => {
 
 export const updateMenu = (id, config, data) => {
   const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/${id}`;
-  return Axios.update(URLString, data, config);
+  return Axios.patch(URLString, data, config);
 };
 
 export const logIn = (data) => {
@@ -34,4 +34,9 @@ export const logIn = (data) => {
 
 export const register = (data) => {
   return Axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/register`, data);
+};
+
+export const getMenuById = (id) => {
+  const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/${id}`;
+  return Axios.get(URLString);
 };

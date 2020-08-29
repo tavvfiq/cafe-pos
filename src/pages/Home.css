@@ -29,8 +29,8 @@ header {
 }
 
 .main-container {
-  width: 100%;
+  width: 100vw;
   height: 90vh;
-  position: fixed;
+  position: relative;
   overflow-y: auto;
 }

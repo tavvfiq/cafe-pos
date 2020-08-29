@@ -1,0 +1,20 @@
+.delete-form-wrapper{
+    display:flex;
+    flex-direction: column;
+}
+
+.delete-form{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    vertical-align: middle;
+    height: 38px;
+}
+
+.delete-form label{
+    vertical-align: middle;
+}
+
+.delete-form-wrapper h3{
+    text-align: center;
+}

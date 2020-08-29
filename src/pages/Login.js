@@ -10,7 +10,7 @@ const Login = (props) => {
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState("");
   const [logIn, setLogIn] = useState(false);
-  const { msg, isLoggedIn, isPending, isRejected, isFulfilled } = useSelector(
+  const { msg, isLoggedIn} = useSelector(
     (state) => state.authState
   );
   const dispatch = useDispatch();

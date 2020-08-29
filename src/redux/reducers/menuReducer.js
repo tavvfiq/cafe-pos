@@ -67,10 +67,10 @@ export default function menuReducer(state = initialState, action) {
           }
           return draftMenus;
         }),
-        msg:"done"
+        msg: "done",
       };
     case actions.MENU_FETCHED_PENDING:
-      return { ...state, isPending: true, msg:"Loading" };
+      return { ...state, isPending: true, msg: "Loading" };
     case actions.MENU_FETCHED_REJECTED:
       return { ...state, isRejected: true, msg: "Error fetching menus" };
     case actions.MENU_CHECKED:
@@ -122,11 +122,11 @@ export default function menuReducer(state = initialState, action) {
             }
             return draftMenus;
           }),
-          msg:"done"
+          msg: "done",
         };
       }
     case actions.MENU_FILTERED_PENDING:
-      return { ...state, isPending: true, msg:"Loading" };
+      return { ...state, isPending: true, msg: "Loading" };
     case actions.MENU_FILTERED_REJECTED:
       return { ...state, isRejected: true, msg: "Error fetching menus" };
     case actions.MENU_CHANGE_QUANTITY:
@@ -162,6 +162,7 @@ export default function menuReducer(state = initialState, action) {
         msg: "Loading",
       };
     case actions.MENU_UPDATED_FULFILLED:
+      console.log(action.payload);
       return {
         ...state,
         isPending: false,

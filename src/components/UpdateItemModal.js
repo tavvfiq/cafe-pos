@@ -1,17 +1,18 @@
 import React from "react";
 import { Modal, Button} from "react-bootstrap";
 import { connect } from "react-redux";
-import { addMenu } from "../redux/actions/menu";
+import { updateMenu } from "../redux/actions/menu";
 
 import "./styles/AddItemModal.css";
 
-class AddItemModal extends React.Component {
+class UpdateItemModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       show: false,
     };
-    this.form = { name: "", image: {}, price: 0, category_id: 1 };
+    this.form = {};
+    this.id = 0;
   }
 
   handleClose = () => {
@@ -22,7 +23,9 @@ class AddItemModal extends React.Component {
   };
 
   addItem = () => {
-    this.form.category_id = Number(this.form.category_id);
+    if(this.form.category_id){
+      this.form.category_id = Number(this.form.category_id);
+    }
     let formData = new FormData();
     for (let key in this.form) {
       formData.append(key, this.form[key]);
@@ -35,7 +38,7 @@ class AddItemModal extends React.Component {
       },
     };
 
-    this.props.addMenu(config, formData);
+    this.props.updateMenu(this.id, config, formData);
     this.handleClose();
   };
 
@@ -43,6 +46,10 @@ class AddItemModal extends React.Component {
     const { name, value } = e.target;
     this.form = { ...this.form, [name]: value };
   };
+
+  handleOnChangeId = (e) =>{
+    this.id = e.target.value;
+  }
 
   handleImgPathInput = (e) => {
     const { name, files } = e.target;
@@ -61,11 +68,20 @@ class AddItemModal extends React.Component {
           centered
         >
           <Modal.Header>
-            <h3>Add Item</h3>
+            <h3>Update Item</h3>
           </Modal.Header>
           <Modal.Body>
             <div className="form-wrapper">
               <div className="form-group">
+              <label htmlFor="menuId">Id</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="menuId"
+                  placeholder="id..."
+                  name="id"
+                  onChange={this.handleOnChangeId}
+                />
                 <label htmlFor="menuName">Name</label>
                 <input
                   type="text"
@@ -130,10 +146,10 @@ class AddItemModal extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addMenu: (config, data) => dispatch(addMenu(config, data)),
+    updateMenu: (id,config, data) => dispatch(updateMenu(id,config, data)),
   };
 };
 
 export default connect(null, mapDispatchToProps, null, { forwardRef: true })(
-  AddItemModal
+  UpdateItemModal
 );
