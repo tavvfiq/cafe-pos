@@ -10,11 +10,7 @@ class AddItemModal extends React.Component {
     this.state = {
       show: false,
     };
-    this.currName = "";
-    this.currPrice = 0;
-    this.currImg = {};
-    this.currPrice = 0;
-    this.currCat = "Main Course";
+    this.form = { name: "", image: {}, price: 0, category_id: 1 };
   }
 
   handleClose = () => {
@@ -25,39 +21,22 @@ class AddItemModal extends React.Component {
   };
 
   addItem = () => {
+    this.form.category_id = Number(this.form.category_id);
     let formData = new FormData();
-
-    formData.append("name", this.currName);
-    formData.append("image", this.currImg);
-    formData.append("price", this.currPrice);
-    formData.append(
-      "category_id",
-      this.currCat === "Main Course"
-        ? 1
-        : this.currCat === "Dessert"
-        ? 2
-        : this.currCat === "Beverage"
-        ? 3
-        : 4
-    );
-
-    const token = sessionStorage.getItem("user_token");
-    if(token===null){
-      token = "";
+    for(let key in this.form){
+      formData.append(key, this.form[key]);
     }
 
     const config = {
       headers: {
         "content-type": "multipart/form-data",
-        "x-access-token":
-          "Bearer "+token,
+        "x-access-token": "Bearer " + this.props.token,
       },
     };
 
     const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/`;
     Axios.post(URLString, formData, config)
       .then((res) => {
-        console.log(res.data);
         this.updateMenuHandle();
       })
       .catch((err) => console.log(err));
@@ -68,21 +47,14 @@ class AddItemModal extends React.Component {
     this.props.updateMenu();
   };
 
-  handleNameInput = (e) => {
-    this.currName = e.target.value;
+  handleOnChange = (e) => {
+    const { name, value } = e.target;
+    this.form = { ...this.form, [name]: value };
   };
 
   handleImgPathInput = (e) => {
-    const file = e.target.files[0];
-    this.currImg = file;
-  };
-
-  handlePriceInput = (e) => {
-    this.currPrice = e.target.value;
-  };
-
-  handleCatIdInput = (e) => {
-    this.currCat = e.target.key;
+    const {name, files} = e.target;
+    this.form = {...this.form, [name]:files[0]};
   };
 
   render() {
@@ -108,7 +80,8 @@ class AddItemModal extends React.Component {
                   className="form-control"
                   id="menuName"
                   placeholder="menu name..."
-                  onChange={this.handleNameInput}
+                  name="name"
+                  onChange={this.handleOnChange}
                 />
               </div>
               <div className="form-group">
@@ -118,6 +91,7 @@ class AddItemModal extends React.Component {
                   className="form-control input-file"
                   id="imagePath"
                   placeholder="image"
+                  name="image"
                   onChange={this.handleImgPathInput}
                 />
               </div>
@@ -128,20 +102,22 @@ class AddItemModal extends React.Component {
                   className="form-control"
                   id="menuPrice"
                   placeholder="menu price..."
-                  onChange={this.handlePriceInput}
+                  name="price"
+                  onChange={this.handleOnChange}
                 />
               </div>
               <div className="form-group">
                 <label htmlFor="menuPrice">Category</label>
                 <select
                   className="form-control"
-                  id="menuPrice"
-                  onChange={this.handleCatIdInput}
+                  id="category_id"
+                  name="category_id"
+                  onChange={this.handleOnChange}
                 >
-                  <option defaultValue>Main Course</option>
-                  <option>Dessert</option>
-                  <option>Beverage</option>
-                  <option>Snack</option>
+                  <option value="1">Main Course</option>
+                  <option value="2">Dessert</option>
+                  <option value="3">Beverage</option>
+                  <option value="4">Snack</option>
                 </select>
               </div>
             </div>

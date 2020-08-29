@@ -9,7 +9,7 @@ import CheckoutModal from "./CheckoutModal";
 const RightSidebar = (props) => {
   let showModal;
   const dispatch = useDispatch();
-  const cashier = useSelector((state) => state.authState.session.name);
+  const {name: cashier, token} = useSelector((state) => state.authState.session);
   const renderCardSidebar = (menu) => {
     return (
       <CardSidebar
@@ -105,6 +105,7 @@ const RightSidebar = (props) => {
         invoice={invoice}
         onClickCheckout={unCheckAllMenus}
         cashier={cashier}
+        token={token}
       ></CheckoutModal>
       <div
         className={

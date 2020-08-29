@@ -5,9 +5,12 @@ import add_icon from "../assets/img/add.webp";
 import history_icon from "../assets/img/history.webp";
 import AddItemModal from "./AddItemModal";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LeftSidebar = (props) => {
   let showAddItemModal;
+
+  const { token } = useSelector((state) => state.authState.session);
 
   const onClickAddItem = () => {
     try {
@@ -26,9 +29,11 @@ const LeftSidebar = (props) => {
   };
   return (
     <>
-      {/* {props.updateMenu !== undefined ? ( */}
-        <AddItemModal updateMenu={props.updateMenu} ref={addItemModalRef} />
-      {/* ) : null} */}
+      <AddItemModal
+        updateMenu={props.updateMenu}
+        ref={addItemModalRef}
+        token={token}
+      />
       <div
         className={
           props.displayed

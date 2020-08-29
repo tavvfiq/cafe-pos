@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useInput } from "../hooks/inputHook";
 import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
 import { useSelector, useDispatch } from "react-redux";
 import { loggedIn } from "../redux/actions/auth";
 import { Redirect, Switch } from "react-router-dom";
+import {isEmpty} from "underscore";
 
 const Login = (props) => {
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState("");
   const [logIn, setLogIn] = useState(false);
-  const { msg, isLoggedIn } = useSelector((state) => state.authState);
+  const { msg, isLoggedIn, isPending, isRejected, isFulfilled } = useSelector(
+    (state) => state.authState
+  );
   const dispatch = useDispatch();
 
-  const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
-  const {
-    value: password,
-    bind: bindPassword,
-    reset: resetPassword,
-  } = useInput("");
+  const [formValue, setForm] = useState({});
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...formValue, [name]: value });
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (email === "" || password === "") {
+    if (isEmpty(formValue) || formValue.email === "" || formValue.password === "") {
       setStatus("please fill the empty field(s)!");
       setShow(true);
       setLogIn(false);
@@ -30,19 +32,24 @@ const Login = (props) => {
       setLogIn(true);
     }
   };
+
   useEffect(() => {
     if (logIn) {
       dispatch(
-        loggedIn({
-          email: email,
-          password: password,
-        })
+        loggedIn(formValue)
       );
       setLogIn(false);
       setStatus(msg);
       setShow(true);
     }
   }, [logIn]);
+
+  useEffect(() => {
+    if (msg) {
+      setStatus(msg);
+      setShow(true);
+    }
+  }, [msg]);
 
   return (
     <>
@@ -59,7 +66,8 @@ const Login = (props) => {
               <input
                 className="input-style"
                 type="email"
-                {...bindEmail}
+                name="email"
+                onChange={handleOnChange}
                 placeholder="johndoe@example.com"
               />
 
@@ -67,7 +75,8 @@ const Login = (props) => {
               <input
                 className="input-style"
                 type="password"
-                {...bindPassword}
+                name="password"
+                onChange={handleOnChange}
                 placeholder="password"
               />
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 import { filterMenus } from "../redux/actions/menu";
 
 import "./styles/SearchModal.css";
@@ -13,9 +13,7 @@ class SearchModal extends React.Component {
       show: false,
     };
 
-    this.nameInput = "";
-    this.sortBy = "name";
-    this.sortOrder = "ascending";
+    this.form = { search: "name", sortby: "name", order: "ascending" };
   }
 
   handleClose = () => {
@@ -26,25 +24,13 @@ class SearchModal extends React.Component {
   };
 
   fetchData = () => {
-    const query = {
-      search: this.nameInput,
-      sortby: this.sortBy,
-      order: this.sortOrder,
-    };
-    this.props.filterMenus(query);
+    this.props.filterMenus(this.form);
     this.handleClose();
   };
 
-  handleNameInput = (e) => {
-    this.nameInput = e.target.value;
-  };
-
-  handleSortByInput = (e) => {
-    this.sortBy = e.target.value;
-  };
-
-  handleSortOrderInput = (e) => {
-    this.sortOrder = e.target.value;
+  handleOnChange = (e) => {
+    const { name, value } = e.target;
+    this.form = { ...this.form, [name]: value };
   };
 
   render() {
@@ -64,7 +50,8 @@ class SearchModal extends React.Component {
                 type="text"
                 className="form-control"
                 placeholder="search menu...."
-                onChange={this.handleNameInput}
+                name="search"
+                onChange={this.handleOnChange}
               />
             </div>
             <div className="sort-container">
@@ -73,7 +60,8 @@ class SearchModal extends React.Component {
                 <select
                   className="form-control"
                   id="by"
-                  onChange={this.handleSortByInput}
+                  name="sortby"
+                  onChange={this.handleOnChange}
                 >
                   <option defaultValue>name</option>
                   <option>price</option>
@@ -87,7 +75,7 @@ class SearchModal extends React.Component {
                 <select
                   className="form-control"
                   id="order"
-                  onChange={this.handleSortOrderInput}
+                  onChange={this.handleOnChange}
                 >
                   <option defaultValue>ascending</option>
                   <option>descending</option>

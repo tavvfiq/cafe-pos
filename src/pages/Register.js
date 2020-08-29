@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useInput } from "../hooks/inputHook";
 import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
 import { useSelector, useDispatch } from "react-redux";
 import { register } from "../redux/actions/auth";
 import { Redirect, Switch } from "react-router-dom";
+import {isEmpty} from "underscore";
 
 const Register = (props) => {
   //internal state
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState("");
-  const {
-    value: firstName,
-    bind: bindFirstName,
-    reset: resetFirstName,
-  } = useInput("");
-  const {
-    value: lastName,
-    bind: bindLastName,
-    reset: resetLastName,
-  } = useInput("");
-  const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
-  const {
-    value: password,
-    bind: bindPassword,
-    reset: resetPassword,
-  } = useInput("");
+  const [formValue, setForm] = useState({});
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...formValue, [name]: value });
+  };
   const [isRegistered, setRegistered] = useState(false);
   //global state
   const { msg, isLoggedIn } = useSelector((state) => state.authState);
@@ -34,34 +24,35 @@ const Register = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (
-      firstName === "" ||
-      lastName === "" ||
-      email === "" ||
-      password === ""
+      isEmpty(formValue) ||
+      formValue.first_name === "" ||
+      formValue.last_name === "" ||
+      formValue.email === "" ||
+      formValue.password === ""
     ) {
       setStatus("please fill the empty field(s)!");
       setShow(true);
       setRegistered(false);
     } else {
-      // props.register(data);
       setRegistered(true);
     }
   };
+
   useEffect(() => {
     if (isRegistered) {
-      dispatch(
-        register({
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          password,
-        })
-      );
+      dispatch(register(formValue));
       setRegistered(false);
       setStatus(msg);
       setShow(true);
     }
   }, [isRegistered]);
+
+  useEffect(() => {
+    if (msg) {
+      setStatus(msg);
+      setShow(true);
+    }
+  }, [msg]);
 
   return (
     <>
@@ -78,14 +69,16 @@ const Register = (props) => {
               <input
                 className="input-style"
                 type="text"
-                {...bindFirstName}
+                name="first_name"
+                onChange={handleOnChange}
                 placeholder="john"
               />
               <label className="form-label">Last Name:</label>
               <input
                 className="input-style"
                 type="text"
-                {...bindLastName}
+                name="last_name"
+                onChange={handleOnChange}
                 placeholder="doe"
               />
 
@@ -93,7 +86,8 @@ const Register = (props) => {
               <input
                 className="input-style"
                 type="email"
-                {...bindEmail}
+                name="email"
+                onChange={handleOnChange}
                 placeholder="johndoe@example.com"
               />
 
@@ -101,7 +95,8 @@ const Register = (props) => {
               <input
                 className="input-style"
                 type="password"
-                {...bindPassword}
+                name="password"
+                onChange={handleOnChange}
                 placeholder="password"
               />
               <Button

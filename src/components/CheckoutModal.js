@@ -43,14 +43,9 @@ class CheckoutModal extends React.Component {
       amount: this.totalPrice,
     };
 
-    const token = sessionStorage.getItem("user_token");
-    if (token === null) {
-      token = "";
-    }
-
     const config = {
       headers: {
-        "x-access-token": "Bearer " + token,
+        "x-access-token": "Bearer " + this.props.token,
       },
     };
     Axios.post(

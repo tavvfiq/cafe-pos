@@ -1,9 +1,22 @@
-import {createStore, applyMiddleware, compose} from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import allReducers from "./reducers";
 import rpm from "redux-promise-middleware";
+import { persistStore, persistReducer } from "redux-persist";
+import sessionStorage from "redux-persist/lib/storage/session";
+
+const persistConfig = {
+  key: "root",
+  storage: sessionStorage,
+  whitelist: ["authState"],
+};
+
+const persistedReducer = persistReducer(persistConfig, allReducers);
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancers = applyMiddleware(rpm);
 
-const store = createStore(allReducers, composeEnhancers(enhancers));
+const store = createStore(persistedReducer, composeEnhancers(enhancers));
 
-export default store;
+const persistor = persistStore(store);
+
+export {store, persistor};

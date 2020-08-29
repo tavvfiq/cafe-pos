@@ -92,8 +92,9 @@
 
 .toast {
   position: absolute;
-  bottom:20vh;
-  left:24%;
+  width: 50%;
+  text-align: center;
+  margin: 80vh 25% 0 25%;
   z-index:100;
 }
 
@@ -168,8 +169,8 @@
   }
   .toast {
     position: absolute;
-    left:43vw;
-    bottom:5vw;
+    width:20%;
+    margin: 80vh 40% 0 40%;
     text-align: center;
     z-index:100;
   }

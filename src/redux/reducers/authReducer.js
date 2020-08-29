@@ -19,7 +19,6 @@ export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case actions.LOGGED_IN_FULFILLED:
       if (payload.data.isSuccess) {
-        sessionStorage.setItem("user_token", payload.data.data.token);
         return {
           ...state,
           session: {
@@ -54,7 +53,6 @@ export default function authReducer(state = initialState, action) {
       };
     case actions.USER_REGISTERED_FULFILLED:
       if (payload.data.isSuccess) {
-        sessionStorage.setItem("user_token", payload.data.data.token);
         return {
           ...state,
           session: {
