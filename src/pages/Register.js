@@ -48,7 +48,7 @@ const Register = (props) => {
   }, [isRegistered]);
 
   useEffect(() => {
-    if (msg) {
+    if (msg || msg!=="") {
       setStatus(msg);
       setShow(true);
     }

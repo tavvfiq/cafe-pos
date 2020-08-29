@@ -94,7 +94,7 @@
   position: absolute;
   width: 50%;
   text-align: center;
-  margin: 80vh 25% 0 25%;
+  margin: 75vh 25% 0 25%;
   z-index:100;
 }
 
@@ -170,7 +170,7 @@
   .toast {
     position: absolute;
     width:20%;
-    margin: 80vh 40% 0 40%;
+    margin: 75vh 40% 0 40%;
     text-align: center;
     z-index:100;
   }

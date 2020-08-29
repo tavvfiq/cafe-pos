@@ -87,7 +87,12 @@ export default function authReducer(state = initialState, action) {
       };
     case actions.LOGGED_OUT:
       sessionStorage.clear();
-      return { ...state, isLoggedIn: false };
+      return {
+        ...state,
+        session: { name: "", level_id: 1, token: "" },
+        isLoggedIn: false,
+        msg:"Logged out"
+      };
     default:
       return state;
   }

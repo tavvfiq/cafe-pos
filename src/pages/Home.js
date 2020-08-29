@@ -4,33 +4,56 @@ import LeftSidebar from "../components/LeftSidebar";
 import RightSidebar from "../components/RightSidebar";
 import TopHeader from "../components/TopHeader";
 import Menus from "../components/Menus";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchMenus } from "../redux/actions/menu";
+import { Toast } from "react-bootstrap";
 // import {process} from "dotenv";
 
 const Home = (props) => {
   const [leftSidebarDisplayed, setDisplayLeftsidebar] = useState(false);
   const [rightSidebarDisplayed, setDisplayRightsidebar] = useState(false);
+  const [userProfileDisplayed, setDisplayUserProfile] = useState(false);
+  const [show, setShow] = useState(false);
+  const {menus, msg} = useSelector((state)=>state.menusState);
+  const dispatch = useDispatch();
 
   const fetchAllMenuFromDB = () => {
-    props.fetchMenus();
+    dispatch(fetchMenus());
   };
 
   useEffect(() => {
     fetchAllMenuFromDB();
   }, []);
 
+  useEffect(() => {
+    if (msg || msg!=="") {
+      setShow(true);
+    }
+  }, [msg]);
+
+
   const handleClickLeftSidebar = () => {
     setDisplayLeftsidebar(!leftSidebarDisplayed);
+    setDisplayRightsidebar(false);
+    setDisplayUserProfile(false);
   };
 
   const handleClickRightSidebar = () => {
     setDisplayRightsidebar(!rightSidebarDisplayed);
+    setDisplayLeftsidebar(false);
+    setDisplayUserProfile(false);
+  };
+
+  const handleClickUserProfile = () => {
+    setDisplayUserProfile(!userProfileDisplayed);
+    setDisplayLeftsidebar(false);
+    setDisplayRightsidebar(false);
   };
 
   const updateMenu = () => {
     fetchAllMenuFromDB();
   };
+
   return (
     <>
       <header>
@@ -38,38 +61,34 @@ const Home = (props) => {
           onClickMenu={handleClickLeftSidebar}
           onClickCart={handleClickRightSidebar}
           onClickTitle={updateMenu}
-          menus={props.menus}
+          menus={menus}
         />
       </header>
 
       <div className="main-container">
-        {props.menus === undefined ? (
-          ""
-        ) : (
-          <Menus
-            menus={props.menus}
-          />
-        )}
-        <RightSidebar
-          displayed={rightSidebarDisplayed}
-          menus={props.menus}
+        {menus === undefined ? "" : <Menus menus={menus} />}
+        <RightSidebar displayed={rightSidebarDisplayed} menus={menus} />
+        <LeftSidebar
+          displayed={leftSidebarDisplayed}
+          userProfileDisplayed={userProfileDisplayed}
+          onClickUserProfile={handleClickUserProfile}
+          updateMenu={updateMenu}
         />
-        <LeftSidebar displayed={leftSidebarDisplayed} updateMenu={updateMenu} />
       </div>
+      <Toast
+        onClose={() => {
+          setShow(false);
+        }}
+        show={show}
+        animation={true}
+        delay={3000}
+        className="toast"
+        autohide
+      >
+        <Toast.Body>{msg}</Toast.Body>
+      </Toast>
     </>
   );
 };
 
-const mapStateToProps = function (state) {
-  return {
-    menus: state.menusState.menus,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchMenus: (menus) => dispatch(fetchMenus(menus)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

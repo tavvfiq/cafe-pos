@@ -1,30 +1,24 @@
 import * as actions from "./actionTypes";
 import * as apiCalls from "../../utils/apiCalls";
 
-export const addMenu = (menu) => {
+export const addMenu = (config, data) => {
   return {
     type: actions.MENU_ADDED,
-    payload: {
-      menu,
-    },
+    payload: apiCalls.addMenu(config, data),
   };
 };
 
-export const updateMenu = (menu) => {
+export const updateMenu = (id, config, data) => {
   return {
     type: actions.MENU_UPDATED,
-    payload: {
-      menu,
-    },
+    payload: apiCalls.updateMenu(id, config, data),
   };
 };
 
-export const deleteMenu = (id) => {
+export const deleteMenu = (id, config) => {
   return {
     type: actions.MENU_DELETED,
-    payload: {
-      id,
-    },
+    payload: apiCalls.deleteMenu(id, config),
   };
 };
 

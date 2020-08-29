@@ -1,8 +1,17 @@
 import { ActionType } from 'redux-promise-middleware';
 
 export const MENU_ADDED = "menuAdded";
+export const MENU_ADDED_PENDING = `${MENU_ADDED}_${ActionType.Pending}`;
+export const MENU_ADDED_FULFILLED = `${MENU_ADDED}_${ActionType.Fulfilled}`;
+export const MENU_ADDED_REJECTED = `${MENU_ADDED}_${ActionType.Rejected}`;
 export const MENU_UPDATED = "menuUpdated";
+export const MENU_UPDATED_PENDING = `${MENU_UPDATED}_${ActionType.Pending}`;
+export const MENU_UPDATED_FULFILLED = `${MENU_UPDATED}_${ActionType.Fulfilled}`;
+export const MENU_UPDATED_REJECTED = `${MENU_UPDATED}_${ActionType.Rejected}`;
 export const MENU_DELETED = "menuDeleted";
+export const MENU_DELETED_PENDING = `${MENU_DELETED}_${ActionType.Pending}`;
+export const MENU_DELETED_FULFILLED = `${MENU_DELETED}_${ActionType.Fulfilled}`;
+export const MENU_DELETED_REJECTED = `${MENU_DELETED}_${ActionType.Rejected}`;
 export const MENU_FETCHED = "menuFetched";
 export const MENU_FILTERED = "menuFiltered";
 export const MENU_CHECKED = "menuChecked";

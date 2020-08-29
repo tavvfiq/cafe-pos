@@ -1,6 +1,8 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Toast } from "react-bootstrap";
 import Axios from "axios";
+import { connect } from "react-redux";
+import { addMenu } from "../redux/actions/menu";
 
 import "./styles/AddItemModal.css";
 
@@ -23,7 +25,7 @@ class AddItemModal extends React.Component {
   addItem = () => {
     this.form.category_id = Number(this.form.category_id);
     let formData = new FormData();
-    for(let key in this.form){
+    for (let key in this.form) {
       formData.append(key, this.form[key]);
     }
 
@@ -34,17 +36,19 @@ class AddItemModal extends React.Component {
       },
     };
 
-    const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/`;
-    Axios.post(URLString, formData, config)
-      .then((res) => {
-        this.updateMenuHandle();
-      })
-      .catch((err) => console.log(err));
-    this.handleClose();
-  };
+    this.props.addMenu(config, formData);
 
-  updateMenuHandle = () => {
-    this.props.updateMenu();
+    // const URLString = `${process.env.REACT_APP_BACKEND_API}/menu/`;
+    // Axios.post(URLString, formData, config)
+    //   .then((res) => {
+    //     try {
+    //       this.props.updateMenu();
+    //     } catch {
+    //       return;
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
+    this.handleClose();
   };
 
   handleOnChange = (e) => {
@@ -53,8 +57,8 @@ class AddItemModal extends React.Component {
   };
 
   handleImgPathInput = (e) => {
-    const {name, files} = e.target;
-    this.form = {...this.form, [name]:files[0]};
+    const { name, files } = e.target;
+    this.form = { ...this.form, [name]: files[0] };
   };
 
   render() {
@@ -136,4 +140,12 @@ class AddItemModal extends React.Component {
   }
 }
 
-export default AddItemModal;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addMenu: (config, data) => dispatch(addMenu(config, data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps, null, { forwardRef: true })(
+  AddItemModal
+);

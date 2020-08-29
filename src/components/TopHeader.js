@@ -78,11 +78,6 @@ const TopHeader = (props) => {
               <img src={cart_icon} alt="" />
               <span className="badge badge-pill badge-info">{numOfOrder}</span>
             </div>
-            {/* <div className="user-content">
-              <div className="circle">
-                <h4>TN</h4>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

@@ -1,13 +1,14 @@
 import * as actions from "../actions/actionTypes";
 import { produce } from "immer";
 import { update } from "ramda";
+import { isEmpty } from "underscore";
 
 const initialState = {
   menus: [],
   isPending: false,
   isFulfilled: false,
   isRejected: false,
-  errorMsg: "",
+  msg: "",
 };
 
 export default function menuReducer(state = initialState, action) {
@@ -66,11 +67,12 @@ export default function menuReducer(state = initialState, action) {
           }
           return draftMenus;
         }),
+        msg:"done"
       };
     case actions.MENU_FETCHED_PENDING:
-      return { ...state, isPending: true };
+      return { ...state, isPending: true, msg:"Loading" };
     case actions.MENU_FETCHED_REJECTED:
-      return { ...state, isRejected: true, errorMsg:"Error fetching menus"};
+      return { ...state, isRejected: true, msg: "Error fetching menus" };
     case actions.MENU_CHECKED:
       return {
         ...state,
@@ -83,39 +85,50 @@ export default function menuReducer(state = initialState, action) {
         }),
       };
     case actions.MENU_FILTERED_FULFILLED:
-      return {
-        ...state,
-        isRejected: false,
-        isFulfilled: true,
-        isPending: false,
-        menus: produce(state.menus, (draftMenus) => {
-          const menusFromPayload = action.payload.data.data;
-          draftMenus = [...menusFromPayload];
-          for (let i = 0; i < state.menus.length; i++) {
-            const idx = draftMenus.findIndex((draftMenu) => {
-              return state.menus[i].id === draftMenu.id;
-            });
-            if (idx >= 0) {
-              draftMenus[idx] = {
-                ...draftMenus[idx],
-                quantity: state.menus[i].quantity,
-                checked: state.menus[i].checked,
-                filtered: false,
-              };
-            } else {
-              draftMenus = [
-                ...draftMenus,
-                { ...state.menus[i], filtered: true },
-              ];
+      if (isEmpty(action.payload.data.data)) {
+        return {
+          ...state,
+          isRejected: false,
+          isFulfilled: true,
+          isPending: false,
+          msg: "menu not found",
+        };
+      } else {
+        return {
+          ...state,
+          isRejected: false,
+          isFulfilled: true,
+          isPending: false,
+          menus: produce(state.menus, (draftMenus) => {
+            const menusFromPayload = action.payload.data.data;
+            draftMenus = [...menusFromPayload];
+            for (let i = 0; i < state.menus.length; i++) {
+              const idx = draftMenus.findIndex((draftMenu) => {
+                return state.menus[i].id === draftMenu.id;
+              });
+              if (idx >= 0) {
+                draftMenus[idx] = {
+                  ...draftMenus[idx],
+                  quantity: state.menus[i].quantity,
+                  checked: state.menus[i].checked,
+                  filtered: false,
+                };
+              } else {
+                draftMenus = [
+                  ...draftMenus,
+                  { ...state.menus[i], filtered: true },
+                ];
+              }
             }
-          }
-          return draftMenus;
-        }),
-      };
+            return draftMenus;
+          }),
+          msg:"done"
+        };
+      }
     case actions.MENU_FILTERED_PENDING:
-      return { ...state, isPending: true };
+      return { ...state, isPending: true, msg:"Loading" };
     case actions.MENU_FILTERED_REJECTED:
-      return { ...state, isRejected: true, errorMsg:"Error fetching menus"};
+      return { ...state, isRejected: true, msg: "Error fetching menus" };
     case actions.MENU_CHANGE_QUANTITY:
       return {
         ...state,
@@ -125,6 +138,62 @@ export default function menuReducer(state = initialState, action) {
           });
           draftMenus[idx].quantity = action.payload.quantity;
         }),
+      };
+    case actions.MENU_ADDED_PENDING:
+      return { ...state, isPending: true, msg: "Loading" };
+    case actions.MENU_ADDED_FULFILLED:
+      return {
+        ...state,
+        isPending: false,
+        isFulfilled: true,
+        msg: "Menu Successfully added",
+      };
+    case actions.MENU_ADDED_REJECTED:
+      return {
+        ...state,
+        isPending: false,
+        isRejected: true,
+        msg: "Failed to add menu",
+      };
+    case actions.MENU_UPDATED_PENDING:
+      return {
+        ...state,
+        isPending: true,
+        msg: "Loading",
+      };
+    case actions.MENU_UPDATED_FULFILLED:
+      return {
+        ...state,
+        isPending: false,
+        isFulfilled: true,
+        msg: action.payload.data.data.msg,
+      };
+    case actions.MENU_UPDATED_REJECTED:
+      return {
+        ...state,
+        isPending: false,
+        isRejected: true,
+        msg: "Failed to update menu",
+      };
+    case actions.MENU_DELETED_PENDING:
+      return {
+        ...state,
+        isPending: true,
+        msg: "Loading",
+      };
+    case actions.MENU_DELETED_FULFILLED:
+      return {
+        ...state,
+        isPending: false,
+        isFulfilled: true,
+        msg: action.payload.data.data.msg,
+      };
+    case actions.MENU_DELETED_REJECTED:
+      return {
+        ...state,
+        isPending: false,
+        isRejected: true,
+        msg: "Unable to delete menu",
       };
     default:
       return state;
