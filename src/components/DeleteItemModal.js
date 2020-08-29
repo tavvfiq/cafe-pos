@@ -10,7 +10,7 @@ class DeleteItemModal extends React.Component {
     super(props);
     this.state = {
       show: false,
-      msg: "",
+      msg: "food name...",
     };
     this.id = 0;
   }
@@ -24,6 +24,7 @@ class DeleteItemModal extends React.Component {
 
   handleOnChange = (e) => {
     this.id = e.target.value;
+    this.handleSearch();
   };
 
   handleSearch = () => {
@@ -65,22 +66,17 @@ class DeleteItemModal extends React.Component {
         <Modal.Body>
           <div className="delete-form-wrapper">
             <div className="form-group delete-form">
-              <label htmlFor="menuId">
-                Id: &nbsp;</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="menuId"
-                  placeholder="id..."
-                  name="id"
-                  onChange={this.handleOnChange}
-                />
-                <Button variant="warning" onClick={this.handleSearch}>
-                  Search
-                </Button>
-              
+              <label htmlFor="menuId">Id: &nbsp;</label>
+              <input
+                type="text"
+                className="form-control input-delete-form"
+                id="menuId"
+                placeholder="id..."
+                name="id"
+                onChange={this.handleOnChange}
+              />
             </div>
-            <h3>{this.state.msg}</h3>
+            <h5>{this.state.msg}</h5>
           </div>
         </Modal.Body>
         <Modal.Footer>

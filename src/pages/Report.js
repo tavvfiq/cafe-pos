@@ -12,6 +12,7 @@ const Report = (props) => {
   const [userProfileDisplayed, setDisplayUserProfile] = useState(false);
   const [ordersReport, setOrdersReport] = useState([]);
   const [show, setShow] = useState(false);
+  const [status, setStatus] = useState("");
   const { token } = useSelector((state) => state.authState.session);
   const { msg } = useSelector((state) => state.menusState);
 
@@ -35,7 +36,8 @@ const Report = (props) => {
   }, []);
 
   useEffect(() => {
-    if (msg || msg !=="") {
+    if (msg || msg !== "") {
+      setStatus(msg);
       setShow(true);
     }
   }, [msg]);
@@ -52,6 +54,18 @@ const Report = (props) => {
 
   return (
     <>
+      <Toast
+        onClose={() => {
+          setShow(false);
+        }}
+        show={show}
+        animation={true}
+        delay={3000}
+        className="toast"
+        autohide
+      >
+        <Toast.Body>{status}</Toast.Body>
+      </Toast>
       {ordersReport === undefined ? (
         ""
       ) : (
@@ -70,18 +84,6 @@ const Report = (props) => {
           </div>
         </>
       )}
-      <Toast
-        onClose={() => {
-          setShow(false);
-        }}
-        show={show}
-        animation={true}
-        delay={3000}
-        className="toast"
-        autohide
-      >
-        <Toast.Body>{msg}</Toast.Body>
-      </Toast>
     </>
   );
 };

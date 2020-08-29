@@ -75,6 +75,7 @@
 .user-image {
   height: 40%;
   width: 40%;
+  border-radius:50%;
   margin: 0 30% 0 30%;
 }
 .user-image img {

@@ -44,12 +44,14 @@ const UserProfile = (props) => {
         <h4 className="user-label-name">{name}</h4>
         <h4 className="user-label-role">{role}</h4>
         <div className="user-button-container">
-        <Button className="user-button" variant="danger" onClick={handleLogout}>
-          Logout
-        </Button>
-        {/* <Button className="user-button" variant="primary">close</Button> */}
+          <Button
+            className="user-button"
+            variant="danger"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
         </div>
-        
       </div>
     </>
   );

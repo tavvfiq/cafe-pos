@@ -91,7 +91,7 @@
 }
 
 .toast {
-  position: absolute;
+  position: fixed;
   width: 50%;
   text-align: center;
   margin: 75vh 25% 0 25%;
@@ -168,7 +168,7 @@
     color:white;
   }
   .toast {
-    position: absolute;
+    position: fixed;
     width:20%;
     margin: 75vh 40% 0 40%;
     text-align: center;

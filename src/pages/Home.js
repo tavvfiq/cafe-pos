@@ -14,7 +14,8 @@ const Home = (props) => {
   const [rightSidebarDisplayed, setDisplayRightsidebar] = useState(false);
   const [userProfileDisplayed, setDisplayUserProfile] = useState(false);
   const [show, setShow] = useState(false);
-  const {menus, msg} = useSelector((state)=>state.menusState);
+  const [status, setStatus] = useState("");
+  const { menus, msg } = useSelector((state) => state.menusState);
   const dispatch = useDispatch();
 
   const fetchAllMenuFromDB = () => {
@@ -26,11 +27,11 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    if (msg || msg!=="") {
+    if (msg || msg !== "") {
+      setStatus(msg);
       setShow(true);
     }
   }, [msg]);
-
 
   const handleClickLeftSidebar = () => {
     setDisplayLeftsidebar(!leftSidebarDisplayed);
@@ -56,25 +57,6 @@ const Home = (props) => {
 
   return (
     <>
-      <header>
-        <TopHeader
-          onClickMenu={handleClickLeftSidebar}
-          onClickCart={handleClickRightSidebar}
-          onClickTitle={updateMenu}
-          menus={menus}
-        />
-      </header>
-
-      <div className="main-container">
-        {menus === undefined ? "" : <Menus menus={menus} />}
-        <RightSidebar displayed={rightSidebarDisplayed} menus={menus} />
-        <LeftSidebar
-          displayed={leftSidebarDisplayed}
-          userProfileDisplayed={userProfileDisplayed}
-          onClickUserProfile={handleClickUserProfile}
-          updateMenu={updateMenu}
-        />
-      </div>
       <Toast
         onClose={() => {
           setShow(false);
@@ -85,8 +67,26 @@ const Home = (props) => {
         className="toast"
         autohide
       >
-        <Toast.Body>{msg}</Toast.Body>
+        <Toast.Body>{status}</Toast.Body>
       </Toast>
+      <header>
+        <TopHeader
+          onClickMenu={handleClickLeftSidebar}
+          onClickCart={handleClickRightSidebar}
+          onClickTitle={updateMenu}
+          menus={menus}
+        />
+      </header>
+      <div className="main-container">
+        {menus === undefined ? "" : <Menus menus={menus} />}
+        <RightSidebar displayed={rightSidebarDisplayed} menus={menus} />
+        <LeftSidebar
+          displayed={leftSidebarDisplayed}
+          userProfileDisplayed={userProfileDisplayed}
+          onClickUserProfile={handleClickUserProfile}
+          updateMenu={updateMenu}
+        />
+      </div>
     </>
   );
 };
