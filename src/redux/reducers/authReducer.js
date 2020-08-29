@@ -49,7 +49,7 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isPending: false,
         isRejected: true,
-        msg: payload.data.data.msg,
+        msg: "failed to log in",
       };
     case actions.USER_REGISTERED_FULFILLED:
       if (payload.data.isSuccess) {
