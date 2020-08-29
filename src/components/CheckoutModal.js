@@ -54,7 +54,6 @@ class CheckoutModal extends React.Component {
       config
     )
       .then((res) => {
-        console.log(res);
         this.props.onClickCheckout();
         this.handleClose();
       })
