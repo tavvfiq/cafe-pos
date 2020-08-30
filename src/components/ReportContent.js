@@ -186,15 +186,24 @@ class ReportContent extends React.Component {
                             <tr>
                               <th>{el.invoice}</th>
                               <th>{el.cashier}</th>
-                              <th>{moment(el.order_date).format('YYYY-MM-DD HH:mm:ss')}</th>
+                              <th>
+                                {moment(el.order_date).format(
+                                  "YYYY-MM-DD HH:mm:ss"
+                                )}
+                              </th>
                               <th>
                                 {el.menu_order
                                   .map((menu) => {
-                                    return [menu.menu_quantity, menu.menu_name].join(" ");
+                                    return [
+                                      menu.menu_quantity,
+                                      menu.menu_name,
+                                    ].join(" ");
                                   })
                                   .join(", ")}
                               </th>
-                              <th>{`Rp. ${el.total_amount}`}</th>
+                              <th>{`Rp. ${el.total_amount.toLocaleString(
+                                "id-ID"
+                              )}`}</th>
                             </tr>
                           );
                         });
