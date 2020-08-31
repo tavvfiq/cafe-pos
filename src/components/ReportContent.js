@@ -48,11 +48,17 @@ class ReportContent extends React.Component {
         <div className="row">
           <div className="col-12 col-xs-12 col-sm-12 col-md-12">
             <div className="chart-container">
+              <div className="title-container">
+                <h3>Revenue</h3>
+                <select className="month-select" name="month">
+                  <option value="month">Month</option>
+                </select>
+              </div>
               <RevenueChart
                 data={this.state.ordersReport.map((orderReport) => {
                   return {
                     date: orderReport.order_date.split("T")[0].split("-")[2],
-                    amount: orderReport.total_amount/1000,
+                    amount: orderReport.total_amount / 1000,
                   };
                 })}
               />

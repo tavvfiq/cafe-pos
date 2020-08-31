@@ -67,6 +67,10 @@
   margin-bottom: 2%;
 }
 
+.title-container h3 {
+  font-size: 30px;
+}
+
 .chart-container h3,
 .recent-order-container h3 {
   width: 93%;
@@ -136,4 +140,8 @@
   .card3 h2 {
     font-size: 24px;
   }
+
+  .title-container h3 {
+    font-size: 20px;
+}
 }
