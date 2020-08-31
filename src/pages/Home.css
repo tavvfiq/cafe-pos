@@ -12,8 +12,8 @@ body,div,h1,h2,h3,h4,h5,h6,html,li,ol,p,ul {
 }
 
 body{
-  /* background: rgba(190, 195, 202, 0.3); */
-  background-image: url("../assets/img/background.webp");
+  background: rgba(190, 195, 202, 0.3);
+  /* background-image: url("../assets/img/background.webp"); */
   min-width: 320px;
   width:100%;
 }
