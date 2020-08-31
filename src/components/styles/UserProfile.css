@@ -83,6 +83,18 @@
   width: 100%;
   object-fit: contain;
 }
+.back-icon {
+  height: 5%;
+  width: 20%;
+  border-radius:5px;
+  margin: 0 40% 0 40%;
+  /* background-color: aqua; */
+}
+.back-icon img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
 .user-label-name {
   font-size: 30px;
   width: 60%;
@@ -101,7 +113,7 @@
 .user-button-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 30px 20% 20px 20%;
-  height: 90px;
+  /* justify-content: space-between; */
+  margin: 30px 20% 30px 20%;
+  /* height: 90px; */
 }

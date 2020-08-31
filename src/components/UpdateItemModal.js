@@ -66,6 +66,7 @@ class UpdateItemModal extends React.Component {
           keyboard={false}
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          dialogClassName="modal-style"
         >
           <Modal.Header>
             <h3>Update Item</h3>

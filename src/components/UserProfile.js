@@ -4,6 +4,8 @@ import { Button } from "react-bootstrap";
 import { loggedOut } from "../redux/actions/auth";
 import "./styles/UserProfile.css";
 import user_icon from "../assets/img/user.png";
+import back_icon from "../assets/img/back.png";
+import { prop } from "ramda";
 
 const UserProfile = (props) => {
   const { name, level_id } = useSelector((state) => state.authState.session);
@@ -51,6 +53,9 @@ const UserProfile = (props) => {
           >
             Logout
           </Button>
+        </div>
+        <div className="back-icon" onClick={props.backOnclick}>
+          <img src={back_icon} alt=""/>
         </div>
       </div>
     </>

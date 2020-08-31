@@ -59,6 +59,7 @@ class AddItemModal extends React.Component {
           keyboard={false}
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          dialogClassName="modal-style"
         >
           <Modal.Header>
             <h3>Add Item</h3>

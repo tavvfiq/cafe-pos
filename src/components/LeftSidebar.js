@@ -117,7 +117,7 @@ const LeftSidebar = (props) => {
           <img src={user_icon} alt="" />
         </div>
       </div>
-      <UserProfile displayed={props.userProfileDisplayed} />
+      <UserProfile displayed={props.userProfileDisplayed} backOnclick={props.onClickUserProfile}/>
     </>
   );
 };
