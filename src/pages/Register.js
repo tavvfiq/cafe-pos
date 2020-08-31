@@ -3,8 +3,8 @@ import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
 import { useSelector, useDispatch } from "react-redux";
 import { register } from "../redux/actions/auth";
-import { Redirect, Switch } from "react-router-dom";
-import {isEmpty} from "underscore";
+import { Redirect} from "react-router-dom";
+import { isEmpty } from "underscore";
 
 const Register = (props) => {
   //internal state
@@ -48,7 +48,7 @@ const Register = (props) => {
   }, [isRegistered]);
 
   useEffect(() => {
-    if (msg || msg!=="") {
+    if (msg || msg !== "") {
       setStatus(msg);
       setShow(true);
     }
@@ -57,9 +57,7 @@ const Register = (props) => {
   return (
     <>
       {isLoggedIn ? (
-        <Switch>
-          <Redirect from="/register" to="/" exact />
-        </Switch>
+        <Redirect from="/register" to="/" exact />
       ) : (
         <>
           <div className="register-container">

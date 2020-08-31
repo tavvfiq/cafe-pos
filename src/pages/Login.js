@@ -3,16 +3,14 @@ import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
 import { useSelector, useDispatch } from "react-redux";
 import { loggedIn } from "../redux/actions/auth";
-import { Redirect, Switch } from "react-router-dom";
-import {isEmpty} from "underscore";
+import { Redirect} from "react-router-dom";
+import { isEmpty } from "underscore";
 
 const Login = (props) => {
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState("");
   const [logIn, setLogIn] = useState(false);
-  const { msg, isLoggedIn} = useSelector(
-    (state) => state.authState
-  );
+  const { msg, isLoggedIn } = useSelector((state) => state.authState);
   const dispatch = useDispatch();
 
   const [formValue, setForm] = useState({});
@@ -24,7 +22,11 @@ const Login = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (isEmpty(formValue) || formValue.email === "" || formValue.password === "") {
+    if (
+      isEmpty(formValue) ||
+      formValue.email === "" ||
+      formValue.password === ""
+    ) {
       setStatus("please fill the empty field(s)!");
       setShow(true);
       setLogIn(false);
@@ -35,9 +37,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (logIn) {
-      dispatch(
-        loggedIn(formValue)
-      );
+      dispatch(loggedIn(formValue));
       setLogIn(false);
       setStatus(msg);
       setShow(true);
@@ -54,9 +54,7 @@ const Login = (props) => {
   return (
     <>
       {isLoggedIn ? (
-        <Switch>
-          <Redirect from="/login" to="/" exact />
-        </Switch>
+        <Redirect from="/login" to="/" exact />
       ) : (
         <>
           <div className="register-container">

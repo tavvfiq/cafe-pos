@@ -162,7 +162,6 @@ export default function menuReducer(state = initialState, action) {
         msg: "Loading",
       };
     case actions.MENU_UPDATED_FULFILLED:
-      console.log(action.payload);
       return {
         ...state,
         isPending: false,
