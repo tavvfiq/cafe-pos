@@ -72,17 +72,17 @@ class UpdateItemModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div className="form-wrapper">
-              <div className="form-group">
-              <label htmlFor="menuId">Id</label>
+              <div className="form-group form-input">
+              <label htmlFor="menuId">Id:</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control id-input"
                   id="menuId"
                   placeholder="id..."
                   name="id"
                   onChange={this.handleOnChangeId}
                 />
-                <label htmlFor="menuName">Name</label>
+                <label htmlFor="menuName">Name:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -92,8 +92,8 @@ class UpdateItemModal extends React.Component {
                   onChange={this.handleOnChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="imagePath">Image</label>
+              <div className="form-group form-input">
+                <label htmlFor="imagePath">Image:</label>
                 <input
                   type="file"
                   className="form-control input-file"
@@ -103,8 +103,8 @@ class UpdateItemModal extends React.Component {
                   onChange={this.handleImgPathInput}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="menuPrice">Price</label>
+              <div className="form-group form-input">
+                <label htmlFor="menuPrice">Price:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -114,8 +114,8 @@ class UpdateItemModal extends React.Component {
                   onChange={this.handleOnChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="menuPrice">Category</label>
+              <div className="form-group form-input">
+                <label htmlFor="menuPrice">Category:</label>
                 <select
                   className="form-control"
                   id="category_id"

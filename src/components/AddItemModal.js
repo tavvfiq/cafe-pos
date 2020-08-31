@@ -65,8 +65,8 @@ class AddItemModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div className="form-wrapper">
-              <div className="form-group">
-                <label htmlFor="menuName">Name</label>
+              <div className="form-group form-input">
+                <label htmlFor="menuName">Name:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -76,8 +76,8 @@ class AddItemModal extends React.Component {
                   onChange={this.handleOnChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="imagePath">Image</label>
+              <div className="form-group form-input">
+                <label htmlFor="imagePath">Image:</label>
                 <input
                   type="file"
                   className="form-control input-file"
@@ -87,8 +87,8 @@ class AddItemModal extends React.Component {
                   onChange={this.handleImgPathInput}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="menuPrice">Price</label>
+              <div className="form-group form-input">
+                <label htmlFor="menuPrice">Price:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -98,8 +98,8 @@ class AddItemModal extends React.Component {
                   onChange={this.handleOnChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="menuPrice">Category</label>
+              <div className="form-group form-input">
+                <label htmlFor="menuPrice">Category:</label>
                 <select
                   className="form-control"
                   id="category_id"
