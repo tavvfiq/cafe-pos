@@ -21,7 +21,7 @@ class UpdateItemModal extends React.Component {
     this.setState({ show: true });
   };
 
-  addItem = () => {
+  updateItem = () => {
     if (this.form.category_id) {
       this.form.category_id = Number(this.form.category_id);
     }
@@ -126,7 +126,7 @@ class UpdateItemModal extends React.Component {
             <Button variant="danger" onClick={this.handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={this.addItem}>
+            <Button variant="primary" onClick={this.updateItem}>
               update
             </Button>
           </Modal.Footer>
