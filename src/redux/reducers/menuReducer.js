@@ -11,6 +11,57 @@ const initialState = {
   msg: "",
 };
 
+const updateMenuFromFetch = (menus, incomingMenu) => {
+  return produce(menus, (draftMenus) => {
+    const menusFromPayload = incomingMenu;
+    let newMenus = [];
+    if (draftMenus === undefined) {
+      draftMenus = [
+        ...menusFromPayload.map((menu) => {
+          return {
+            ...menu,
+            checked: false,
+            quantity: 0,
+            filtered: false,
+          };
+        }),
+      ];
+    } else {
+      newMenus = [...menusFromPayload];
+      for (let i = 0; i < menusFromPayload.length; i++) {
+        const idx = draftMenus.findIndex((menu) => {
+          return menusFromPayload[i].id === menu.id;
+        });
+        if (idx >= 0) {
+          newMenus = update(
+            i,
+            {
+              ...newMenus[i],
+              quantity: menus[idx].quantity,
+              checked: menus[idx].checked,
+              filtered: false,
+            },
+            newMenus
+          );
+        } else {
+          newMenus = update(
+            i,
+            {
+              ...newMenus[i],
+              quantity: 0,
+              checked: false,
+              filtered: false,
+            },
+            newMenus
+          );
+        }
+      }
+      draftMenus = newMenus;
+    }
+    return draftMenus;
+  });
+};
+
 export default function menuReducer(state = initialState, action) {
   switch (action.type) {
     case actions.MENU_FETCHED_FULFILLED:
@@ -19,54 +70,7 @@ export default function menuReducer(state = initialState, action) {
         isRejected: false,
         isFulfilled: true,
         isPending: false,
-        menus: produce(state.menus, (draftMenus) => {
-          const menusFromPayload = action.payload.data.data;
-          let newMenus = [];
-          if (draftMenus === undefined) {
-            draftMenus = [
-              ...menusFromPayload.map((menu) => {
-                return {
-                  ...menu,
-                  checked: false,
-                  quantity: 0,
-                  filtered: false,
-                };
-              }),
-            ];
-          } else {
-            newMenus = [...menusFromPayload];
-            for (let i = 0; i < menusFromPayload.length; i++) {
-              const idx = draftMenus.findIndex((menu) => {
-                return menusFromPayload[i].id === menu.id;
-              });
-              if (idx >= 0) {
-                newMenus = update(
-                  i,
-                  {
-                    ...newMenus[i],
-                    quantity: state.menus[idx].quantity,
-                    checked: state.menus[idx].checked,
-                    filtered: false,
-                  },
-                  newMenus
-                );
-              } else {
-                newMenus = update(
-                  i,
-                  {
-                    ...newMenus[i],
-                    quantity: 0,
-                    checked: false,
-                    filtered: false,
-                  },
-                  newMenus
-                );
-              }
-            }
-            draftMenus = newMenus;
-          }
-          return draftMenus;
-        }),
+        menus: updateMenuFromFetch(state.menus, action.payload.data.menu),
         msg: "done",
       };
     case actions.MENU_FETCHED_PENDING:
@@ -85,7 +89,8 @@ export default function menuReducer(state = initialState, action) {
         }),
       };
     case actions.MENU_FILTERED_FULFILLED:
-      if (isEmpty(action.payload.data.data)) {
+      console.log(action.payload);
+      if (isEmpty(action.payload.data.menu)) {
         return {
           ...state,
           isRejected: false,
@@ -100,7 +105,7 @@ export default function menuReducer(state = initialState, action) {
           isFulfilled: true,
           isPending: false,
           menus: produce(state.menus, (draftMenus) => {
-            const menusFromPayload = action.payload.data.data;
+            const menusFromPayload = action.payload.data.menu;
             draftMenus = [...menusFromPayload];
             for (let i = 0; i < state.menus.length; i++) {
               const idx = draftMenus.findIndex((draftMenu) => {
@@ -146,6 +151,7 @@ export default function menuReducer(state = initialState, action) {
         ...state,
         isPending: false,
         isFulfilled: true,
+        menus: updateMenuFromFetch(state.menus, action.payload.data.menu),
         msg: "Menu Successfully added",
       };
     case actions.MENU_ADDED_REJECTED:
@@ -166,7 +172,8 @@ export default function menuReducer(state = initialState, action) {
         ...state,
         isPending: false,
         isFulfilled: true,
-        msg: action.payload.data.data.msg,
+        menus: updateMenuFromFetch(state.menus, action.payload.data.menu),
+        msg: `menu successfully updated`,
       };
     case actions.MENU_UPDATED_REJECTED:
       return {
@@ -186,7 +193,8 @@ export default function menuReducer(state = initialState, action) {
         ...state,
         isPending: false,
         isFulfilled: true,
-        msg: action.payload.data.data.msg,
+        menus: updateMenuFromFetch(state.menus, action.payload.data.menu),
+        msg: "menu successfully deleted",
       };
     case actions.MENU_DELETED_REJECTED:
       return {

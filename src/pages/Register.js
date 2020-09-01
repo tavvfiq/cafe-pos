@@ -3,7 +3,7 @@ import { Button, Toast } from "react-bootstrap";
 import "./Register.css";
 import { useSelector, useDispatch } from "react-redux";
 import { register } from "../redux/actions/auth";
-import { Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { isEmpty } from "underscore";
 
 const Register = (props) => {

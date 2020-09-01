@@ -1,7 +1,7 @@
 import React from "react";
-import { Modal, Button} from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { updateMenu } from "../redux/actions/menu";
+import { updateMenu, checkMenu} from "../redux/actions/menu";
 
 import "./styles/AddItemModal.css";
 
@@ -12,7 +12,6 @@ class UpdateItemModal extends React.Component {
       show: false,
     };
     this.form = {};
-    this.id = 0;
   }
 
   handleClose = () => {
@@ -23,7 +22,7 @@ class UpdateItemModal extends React.Component {
   };
 
   addItem = () => {
-    if(this.form.category_id){
+    if (this.form.category_id) {
       this.form.category_id = Number(this.form.category_id);
     }
     let formData = new FormData();
@@ -38,18 +37,15 @@ class UpdateItemModal extends React.Component {
       },
     };
 
-    this.props.updateMenu(this.id, config, formData);
+    this.props.updateMenu(this.props.id, config, formData);
     this.handleClose();
+    this.props.checkMenu(this.props.id);
   };
 
   handleOnChange = (e) => {
     const { name, value } = e.target;
     this.form = { ...this.form, [name]: value };
   };
-
-  handleOnChangeId = (e) =>{
-    this.id = e.target.value;
-  }
 
   handleImgPathInput = (e) => {
     const { name, files } = e.target;
@@ -69,21 +65,12 @@ class UpdateItemModal extends React.Component {
           dialogClassName="modal-style"
         >
           <Modal.Header>
-            <h3>Update Item</h3>
+            <h3>Update Item #{this.props.id}</h3>
           </Modal.Header>
           <Modal.Body>
             <div className="form-wrapper">
               <div className="form-group form-input">
-              <label htmlFor="menuId">Id:</label>
-                <input
-                  type="text"
-                  className="form-control id-input"
-                  id="menuId"
-                  placeholder="id..."
-                  name="id"
-                  onChange={this.handleOnChangeId}
-                />
-                <label htmlFor="menuName">Name:</label>
+                <label htmlFor="menuName" style={{ flexGrow: 2, width: "25%" }}>Name:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -91,10 +78,11 @@ class UpdateItemModal extends React.Component {
                   placeholder="menu name..."
                   name="name"
                   onChange={this.handleOnChange}
+                  style={{ flexGrow: 1, width: "75%" }}
                 />
               </div>
               <div className="form-group form-input">
-                <label htmlFor="imagePath">Image:</label>
+                <label htmlFor="imagePath" style={{ flexGrow: 2, width: "25%" }}>Image:</label>
                 <input
                   type="file"
                   className="form-control input-file"
@@ -102,10 +90,11 @@ class UpdateItemModal extends React.Component {
                   placeholder="image"
                   name="image"
                   onChange={this.handleImgPathInput}
+                  style={{ flexGrow: 1, width: "75%" }}
                 />
               </div>
               <div className="form-group form-input">
-                <label htmlFor="menuPrice">Price:</label>
+                <label htmlFor="menuPrice" style={{ flexGrow: 2, width: "25%" }}>Price:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -113,15 +102,17 @@ class UpdateItemModal extends React.Component {
                   placeholder="menu price..."
                   name="price"
                   onChange={this.handleOnChange}
+                  style={{ flexGrow: 1, width: "75%" }}
                 />
               </div>
               <div className="form-group form-input">
-                <label htmlFor="menuPrice">Category:</label>
+                <label htmlFor="menuPrice" style={{ flexGrow: 2, width: "25%" }}>Category:</label>
                 <select
                   className="form-control"
                   id="category_id"
                   name="category_id"
                   onChange={this.handleOnChange}
+                  style={{ flexGrow: 1, width: "75%" }}
                 >
                   <option value="1">Main Course</option>
                   <option value="2">Dessert</option>
@@ -136,7 +127,7 @@ class UpdateItemModal extends React.Component {
               Cancel
             </Button>
             <Button variant="primary" onClick={this.addItem}>
-              Add
+              update
             </Button>
           </Modal.Footer>
         </Modal>
@@ -147,7 +138,8 @@ class UpdateItemModal extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateMenu: (id,config, data) => dispatch(updateMenu(id,config, data)),
+    updateMenu: (id, config, data) => dispatch(updateMenu(id, config, data)),
+    checkMenu: (id) => dispatch(checkMenu(id)),
   };
 };
 

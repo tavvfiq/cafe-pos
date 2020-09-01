@@ -23,18 +23,10 @@ class TopHeader extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log(nextProps);
     if (nextProps.numOfOrders !== prevState.numOfOrders) {
       return { numOfOrders: nextProps.numOfOrders };
     } else return null;
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.numOfOrders !== this.props.numOfOrders) {
-  //     //Perform some operation here
-  //     this.setState({ numOfOrders: this.props.numOfOrders });
-  //   }
-  // }
 
   render() {
     return (

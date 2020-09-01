@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import menu_icon from "../assets/img/menu.webp";
 import search_icon from "../assets/img/search.webp";
 import cart_icon from "../assets/img/cart.webp";
+import maintenance_icon from "../assets/img/repair.png";
 import "./styles/TopHeader.css";
 import SearchModal from "./SearchModal";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const TopHeader = (props) => {
   let showSearchModal;
 
   const [numOfOrder, setNumOfOrder] = useState(0);
+  const { session } = useSelector((state) => state.authState);
 
   const onClickSearch = () => {
     try {
@@ -26,7 +29,7 @@ const TopHeader = (props) => {
   const handleNumOfOrder = () => {
     setNumOfOrder(
       props.menus.reduce((total, menu) => {
-        if(menu.checked === true){
+        if (menu.checked === true) {
           total++;
         }
         return total;
@@ -74,10 +77,18 @@ const TopHeader = (props) => {
             <div className="search" onClick={onClickSearch}>
               <img src={search_icon} alt="" />
             </div>
-            <div className="cart" onClick={onClickHandleCart}>
-              <img src={cart_icon} alt="" />
-              <span className="badge badge-pill badge-info">{numOfOrder}</span>
-            </div>
+            {session.level_id > 1 ? 
+              <div className="maintenance" onClick={onClickHandleCart}>
+                <img src={maintenance_icon} alt="" />
+              </div>
+             : (
+              <div className="cart" onClick={onClickHandleCart}>
+                <img src={cart_icon} alt="" />
+                <span className="badge badge-pill badge-info">
+                  {numOfOrder}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

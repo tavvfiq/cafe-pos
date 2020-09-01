@@ -52,12 +52,12 @@ export default function authReducer(state = initialState, action) {
         msg: "failed to log in",
       };
     case actions.USER_REGISTERED_FULFILLED:
-      if (payload.data.isSuccess) {
+      if (payload.data.isSuccess && payload.data.data.token !== undefined) {
         return {
           ...state,
           session: {
             ...state.session,
-            name: `${payload.data.data.first_name} ${payload.data.data.last_name}`,
+            name: `${payload.data.data.first_name} ${payload.registData.data.data.last_name}`,
             level_id: payload.data.data.level_id,
             token: payload.data.data.token,
           },
@@ -91,7 +91,7 @@ export default function authReducer(state = initialState, action) {
         ...state,
         session: { name: "", level_id: 1, token: "" },
         isLoggedIn: false,
-        msg:"Logged out"
+        msg: "Logged out",
       };
     default:
       return state;

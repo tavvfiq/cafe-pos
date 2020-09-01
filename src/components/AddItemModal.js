@@ -65,9 +65,9 @@ class AddItemModal extends React.Component {
             <h3>Add Item</h3>
           </Modal.Header>
           <Modal.Body>
-            <div className="form-wrapper">
+          <div className="form-wrapper">
               <div className="form-group form-input">
-                <label htmlFor="menuName">Name:</label>
+                <label htmlFor="menuName" style={{ flexGrow: 2, width: "25%" }}>Name:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -75,10 +75,11 @@ class AddItemModal extends React.Component {
                   placeholder="menu name..."
                   name="name"
                   onChange={this.handleOnChange}
+                  style={{ flexGrow: 1, width: "75%" }}
                 />
               </div>
               <div className="form-group form-input">
-                <label htmlFor="imagePath">Image:</label>
+                <label htmlFor="imagePath" style={{ flexGrow: 2, width: "25%" }}>Image:</label>
                 <input
                   type="file"
                   className="form-control input-file"
@@ -86,10 +87,11 @@ class AddItemModal extends React.Component {
                   placeholder="image"
                   name="image"
                   onChange={this.handleImgPathInput}
+                  style={{ flexGrow: 1, width: "75%" }}
                 />
               </div>
               <div className="form-group form-input">
-                <label htmlFor="menuPrice">Price:</label>
+                <label htmlFor="menuPrice" style={{ flexGrow: 2, width: "25%" }}>Price:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -97,15 +99,17 @@ class AddItemModal extends React.Component {
                   placeholder="menu price..."
                   name="price"
                   onChange={this.handleOnChange}
+                  style={{ flexGrow: 1, width: "75%" }}
                 />
               </div>
               <div className="form-group form-input">
-                <label htmlFor="menuPrice">Category:</label>
+                <label htmlFor="menuPrice" style={{ flexGrow: 2, width: "25%" }}>Category:</label>
                 <select
                   className="form-control"
                   id="category_id"
                   name="category_id"
                   onChange={this.handleOnChange}
+                  style={{ flexGrow: 1, width: "75%" }}
                 >
                   <option value="1">Main Course</option>
                   <option value="2">Dessert</option>

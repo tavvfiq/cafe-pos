@@ -1,18 +1,22 @@
 import React from "react";
 import CardSidebar from "./CardRightSidebar";
+import CardSidebarAdmin from "./CardRightSidebarAdmin";
 import "./styles/RightSidebar.css";
-import empty_cart from "../assets/img/empty_cart.webp";
 import { useDispatch, useSelector } from "react-redux";
 import { checkMenu } from "../redux/actions/menu";
 import CheckoutModal from "./CheckoutModal";
+import EmptyCart from "./EmptyCart";
+import EmptyCartAdmin from "./EmptyCartAdmin";
 
 const RightSidebar = (props) => {
   let showModal;
   const dispatch = useDispatch();
-  const {name: cashier, token} = useSelector((state) => state.authState.session);
-  const renderCardSidebar = (menu) => {
+  const { name: cashier, token, level_id } = useSelector(
+    (state) => state.authState.session
+  );
+  const renderCardSidebar = (Component, menu) => {
     return (
-      <CardSidebar
+      <Component
         key={menu.id}
         id={menu.id}
         name={menu.name}
@@ -49,53 +53,69 @@ const RightSidebar = (props) => {
     return menu.checked === true;
   });
   let content = <></>;
-  if (orderedMenus.length !== 0) {
-    content = (
-      <>
-        {orderedMenus.map((menu) => {
-          return renderCardSidebar(menu);
-        })}
-        <div className="checkout-content">
-          <div className="checkout-text">
-            <h5>
-              Total: <br />
-              *belum termasuk ppn
-            </h5>
-            <h5>
-              {`Rp. ${orderedMenus
-                .reduce((total, menu) => {
-                  return total + menu.price * menu.quantity;
-                }, 0)
-                .toLocaleString("id-ID")}`}
-            </h5>
+  if (level_id > 1) {
+    if (orderedMenus.length !== 0) {
+      content = (
+        <>
+          {orderedMenus.map((menu) => {
+            return renderCardSidebar(CardSidebarAdmin, menu);
+          })}
+          <div className="checkout-content">
+            <div className="btn-container">
+              <button
+                className="btn btn-danger cancel-btn"
+                onClick={unCheckAllMenus}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-          <div className="btn-container">
-            <button
-              className="btn btn-primary checkout-btn"
-              onClick={onClickCheckout}
-            >
-              Checkout
-            </button>
-            <button
-              className="btn btn-danger cancel-btn"
-              onClick={unCheckAllMenus}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </>
-    );
+        </>
+      );
+    } else {
+      content = <EmptyCartAdmin />;
+    }
   } else {
-    content = (
-      <>
-        <div className="right-sidebar-content">
-          <img src={empty_cart} alt="" />
-          <h4>Your cart is empty</h4>
-          <p>Please add some items from the menu</p>
-        </div>
-      </>
-    );
+    if (orderedMenus.length !== 0) {
+      content = (
+        <>
+          {orderedMenus.map((menu) => {
+            return renderCardSidebar(CardSidebar, menu);
+          })}
+          <div className="checkout-content">
+            <div className="checkout-text">
+              <h5>
+                Total: <br />
+                *belum termasuk ppn
+              </h5>
+              <h5>
+                {`Rp. ${orderedMenus
+                  .reduce((total, menu) => {
+                    return total + menu.price * menu.quantity;
+                  }, 0)
+                  .toLocaleString("id-ID")}`}
+              </h5>
+            </div>
+            <div className="btn-container">
+              <button
+                className="btn btn-primary checkout-btn"
+                onClick={onClickCheckout}
+              >
+                Checkout
+              </button>
+              <button
+                className="btn btn-danger cancel-btn"
+                onClick={unCheckAllMenus}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      content = <EmptyCart />;
+    }
   }
   return (
     <>
@@ -106,7 +126,7 @@ const RightSidebar = (props) => {
         onClickCheckout={unCheckAllMenus}
         cashier={cashier}
         token={token}
-      ></CheckoutModal>
+      />
       <div
         className={
           props.displayed

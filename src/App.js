@@ -9,23 +9,43 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const App = () => {
-  const {isLoggedIn} = useSelector((state)=>state.authState);
+  const { isLoggedIn, session } = useSelector((state) => state.authState);
   return (
     <Router>
       <Switch>
-        <PrivateRoute component={Home} isLoggedIn={isLoggedIn} exact path="/" />
-        <PublicRoute restricted={false} component={Login} isLoggedIn={isLoggedIn} exact path="/login" />
+        <PrivateRoute
+          component={Home}
+          isLoggedIn={isLoggedIn}
+          level_id={session.level_id}
+          redirectPath="/login"
+          exact
+          path="/"
+        />
         <PublicRoute
-          restricted={false}
+          redirectPath="/"
+          component={Login}
+          isLoggedIn={isLoggedIn}
+          exact
+          path="/login"
+        />
+        <PublicRoute
+          redirectPath="/"
           component={Register}
           isLoggedIn={isLoggedIn}
           exact
           path="/register"
         />
-        <PrivateRoute component={Report} isLoggedIn={isLoggedIn} exact path="/report" />
+        <PrivateRoute
+          component={Report}
+          isLoggedIn={isLoggedIn}
+          level_id={session.level_id}
+          redirectPath="/"
+          exact
+          path="/report"
+        />
       </Switch>
     </Router>
   );

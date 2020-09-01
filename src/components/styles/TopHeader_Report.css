@@ -23,22 +23,21 @@ ul {
   display: flex;
   min-width: 320px;
   height:10vh;
+  align-items: center;
+  justify-content: center;
   /* width:100%; */
 }
 .menus {
-  width: 15%;
+  width: 13.685%;
   max-width: 81.59px;
+  display: flex;
 }
 
 .menus img{
   height: 35%;
   width: 35.35%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   margin: auto;
+  align-self: center;
   object-fit: contain;
   transition: all .5s
 }
@@ -59,7 +58,7 @@ ul {
 }
 
 .header-title {
-  width:70%;
+  width:86.315%;
   position: relative;
   display: table;
   text-align: center;
@@ -78,26 +77,26 @@ ul {
 
 @media all and (min-width: 1440px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (81.59px));
   }
 }
 
 @media all and (min-width:1200px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (81.59px));
   }
 }
 
 @media all and (min-width:1024px){
   .header-title{
-    width: calc(100% - (3 * 81.59px));
+    width: calc(100% - (81.59px));
   }
 
 }
 
 @media all and (min-width:768px){
   .header-title{
-    width: calc(100% - (2 * 81.59px));
+    width: calc(100% - (81.59px));
   }
 }
 

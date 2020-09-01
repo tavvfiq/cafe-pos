@@ -1,8 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { deleteMenu } from "../redux/actions/menu";
-import * as apiCalls from "../utils/apiCalls";
+import { deleteMenu, checkMenu, fetchMenus } from "../redux/actions/menu";
 import "./styles/DeleteItemModal.css";
 
 class DeleteItemModal extends React.Component {
@@ -12,7 +11,6 @@ class DeleteItemModal extends React.Component {
       show: false,
       msg: "food name...",
     };
-    this.id = 0;
   }
 
   handleClose = () => {
@@ -22,32 +20,15 @@ class DeleteItemModal extends React.Component {
     this.setState({ show: true });
   };
 
-  handleOnChange = (e) => {
-    this.id = e.target.value;
-    this.handleSearch();
-  };
-
-  handleSearch = () => {
-    apiCalls
-      .getMenuById(this.id)
-      .then((data) => {
-        this.setState({
-          msg: data.data.data.msg,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   deleteItem = () => {
     const config = {
       headers: {
         "x-access-token": "Bearer " + this.props.token,
       },
     };
-    this.props.deleteMenu(this.id, config);
+    this.props.deleteMenu(this.props.id, config);
     this.handleClose();
+    this.props.fetchMenus();
   };
 
   render() {
@@ -61,23 +42,10 @@ class DeleteItemModal extends React.Component {
         centered
       >
         <Modal.Header>
-          <h3>Delete Item</h3>
+          <h3>Delete Item #{this.props.id}</h3>
         </Modal.Header>
         <Modal.Body>
-          <div className="delete-form-wrapper">
-            <div className="form-group delete-form">
-              <label htmlFor="menuId">Id: &nbsp;</label>
-              <input
-                type="text"
-                className="form-control input-delete-form"
-                id="menuId"
-                placeholder="id..."
-                name="id"
-                onChange={this.handleOnChange}
-              />
-            </div>
-            <h5>{this.state.msg}</h5>
-          </div>
+          <h5>Are you sure want to delete this item?</h5>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={this.handleClose}>
@@ -95,6 +63,8 @@ class DeleteItemModal extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteMenu: (id, config) => dispatch(deleteMenu(id, config)),
+    checkMenu: (id) => dispatch(checkMenu(id)),
+    fetchMenus: () => dispatch(fetchMenus()),
   };
 };
 
