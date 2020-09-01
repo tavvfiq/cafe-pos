@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { deleteMenu, checkMenu, fetchMenus } from "../redux/actions/menu";
+import { deleteMenu, checkMenu} from "../redux/actions/menu";
 import "./styles/DeleteItemModal.css";
 
 class DeleteItemModal extends React.Component {
@@ -28,7 +28,6 @@ class DeleteItemModal extends React.Component {
     };
     this.props.deleteMenu(this.props.id, config);
     this.handleClose();
-    this.props.fetchMenus();
   };
 
   render() {
@@ -63,8 +62,7 @@ class DeleteItemModal extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteMenu: (id, config) => dispatch(deleteMenu(id, config)),
-    checkMenu: (id) => dispatch(checkMenu(id)),
-    fetchMenus: () => dispatch(fetchMenus()),
+    checkMenu: (id) => dispatch(checkMenu(id))
   };
 };
 
